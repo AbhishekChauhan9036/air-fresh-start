@@ -319,50 +319,90 @@
             <!-- -----------------------------add 2 ------------------------------------- -->
 
   <!-- Research Section -->
-<!-- Research Section -->
-<section id="research" class="py-20 px-4 bg-white text-center">
-  <div class="max-w-5xl mx-auto">
-    <h2 class="text-4xl font-bold text-gray-900 mb-4">Research Highlights</h2>
-    <p class="text-lg text-gray-700 mb-12">
-      Dive into my work on AI, Quantum Computing, and Time Series Forecasting.
-    </p>
+<style>
+  .research-section {
+    background-color: #f9f9f9;
+    padding: 80px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 justify-items-center">
-      <!-- Card 1 -->
-      <a href="https://doi.org/10.1000/qtimeseries" target="_blank" class="group bg-blue-50 p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition duration-300 w-full max-w-sm text-center">
-        <img src="https://img.icons8.com/ios-filled/50/1e3a8a/quantum-computing.png" class="mx-auto mb-4 w-12 h-12" alt="Quantum Icon" />
-        <h3 class="text-xl font-semibold text-blue-900 mb-2">Quantum Time Series Forecasting</h3>
-        <p class="text-gray-800 group-hover:text-blue-700">
-          Innovative models blending quantum mechanics with AI for predictive analytics.
-        </p>
-      </a>
+  .research-section h2 {
+    font-size: 40px;
+    color: #222;
+    margin-bottom: 10px;
+  }
 
-      <!-- Card 2 -->
-      <a href="https://doi.org/10.1000/airqualitydl" target="_blank" class="group bg-green-50 p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition duration-300 w-full max-w-sm text-center">
-        <img src="https://img.icons8.com/ios-filled/50/065f46/cloud.png" class="mx-auto mb-4 w-12 h-12" alt="Air Icon" />
-        <h3 class="text-xl font-semibold text-green-900 mb-2">Deep Learning for Air Quality</h3>
-        <p class="text-gray-800 group-hover:text-green-700">
-          Predicting air pollutants like PM2.5 using advanced DL architectures.
-        </p>
-      </a>
+  .research-section p {
+    font-size: 18px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+  }
 
-      <!-- Card 3 -->
-      <a href="https://doi.org/10.1000/qemai" target="_blank" class="group bg-purple-50 p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition duration-300 w-full max-w-sm text-center">
-        <img src="https://img.icons8.com/ios-filled/50/6b21a8/artificial-intelligence.png" class="mx-auto mb-4 w-12 h-12" alt="AI Icon" />
-        <h3 class="text-xl font-semibold text-purple-900 mb-2">Quantum Error Mitigation</h3>
-        <p class="text-gray-800 group-hover:text-purple-700">
-          AI-driven techniques to reduce errors in noisy intermediate-scale quantum devices.
-        </p>
-      </a>
+  .research-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
 
-      <!-- Card 4 -->
-      <a href="https://doi.org/10.1000/hybridqc" target="_blank" class="group bg-yellow-50 p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition duration-300 w-full max-w-sm text-center">
-        <img src="https://img.icons8.com/ios-filled/50/b45309/network.png" class="mx-auto mb-4 w-12 h-12" alt="Hybrid Icon" />
-        <h3 class="text-xl font-semibold text-yellow-900 mb-2">Hybrid Classical-Quantum Networks</h3>
-        <p class="text-gray-800 group-hover:text-yellow-700">
-          Combining classical and quantum layers for hybrid neural network designs.
-        </p>
-      </a>
+  .research-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    max-width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .research-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .research-card a {
+    display: block;
+    font-size: 20px;
+    color: #0077cc;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  .research-card a:hover {
+    color: #005999;
+  }
+
+  .research-card p {
+    font-size: 15px;
+    color: #444;
+  }
+</style>
+
+<section class="research-section">
+  <h2>Research</h2>
+  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+
+  <div class="research-grid">
+    <div class="research-card">
+      <a href="https://doi.org/10.1000/qtimeseries" target="_blank">Quantum Time Series Forecasting</a>
+      <p>Blending quantum algorithms with machine learning for future prediction models.</p>
+    </div>
+
+    <div class="research-card">
+      <a href="https://doi.org/10.1000/airqualitydl" target="_blank">Deep Learning for Air Quality</a>
+      <p>Advanced DL techniques to forecast air pollutants like PM2.5 and PM10.</p>
+    </div>
+
+    <div class="research-card">
+      <a href="https://doi.org/10.1000/qemai" target="_blank">Quantum Error Mitigation using AI</a>
+      <p>Reducing quantum computation noise using intelligent error correction models.</p>
+    </div>
+
+    <div class="research-card">
+      <a href="https://doi.org/10.1000/hybridqc" target="_blank">Hybrid Classical-Quantum Networks</a>
+      <p>Designing layered models combining classical and quantum computing systems.</p>
     </div>
   </div>
 </section>
