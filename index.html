@@ -320,92 +320,68 @@
 
   <!-- Research Section -->
 <style>
-  .research-section {
-    background-color: #f9f9f9;
-    padding: 80px 20px;
+  .research-clean {
+    background: #ffffff;
+    padding: 70px 20px;
     text-align: center;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Arial', sans-serif;
   }
 
-  .research-section h2 {
-    font-size: 40px;
-    color: #222;
-    margin-bottom: 10px;
+  .research-clean h2 {
+    font-size: 36px;
+    color: #111;
+    margin-bottom: 15px;
   }
 
-  .research-section p {
+  .research-clean p {
+    font-size: 17px;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+
+  .research-list {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .research-list li {
+    margin: 20px 0;
+  }
+
+  .research-list a {
     font-size: 18px;
-    color: #666;
-    max-width: 800px;
-    margin: 0 auto 50px auto;
-  }
-
-  .research-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-  }
-
-  .research-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    padding: 30px;
-    max-width: 300px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .research-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .research-card a {
-    display: block;
-    font-size: 20px;
-    color: #0077cc;
-    font-weight: 600;
+    color: #1a73e8;
     text-decoration: none;
-    margin-bottom: 10px;
+    display: inline-block;
+    transition: color 0.3s;
   }
 
-  .research-card a:hover {
-    color: #005999;
+  .research-list a:hover {
+    color: #0c47a1;
   }
 
-  .research-card p {
-    font-size: 15px;
-    color: #444;
+  .research-list a::before {
+    content: "🔬 ";
+    font-size: 20px;
+    vertical-align: middle;
   }
 </style>
 
-<section class="research-section">
+<section class="research-clean">
   <h2>Research</h2>
-  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+  <p>Discover selected research projects that blend deep learning, quantum computing, and environmental insights.</p>
 
-  <div class="research-grid">
-    <div class="research-card">
-      <a href="https://doi.org/10.1000/qtimeseries" target="_blank">Quantum Time Series Forecasting</a>
-      <p>Blending quantum algorithms with machine learning for future prediction models.</p>
-    </div>
-
-    <div class="research-card">
-      <a href="https://doi.org/10.1000/airqualitydl" target="_blank">Deep Learning for Air Quality</a>
-      <p>Advanced DL techniques to forecast air pollutants like PM2.5 and PM10.</p>
-    </div>
-
-    <div class="research-card">
-      <a href="https://doi.org/10.1000/qemai" target="_blank">Quantum Error Mitigation using AI</a>
-      <p>Reducing quantum computation noise using intelligent error correction models.</p>
-    </div>
-
-    <div class="research-card">
-      <a href="https://doi.org/10.1000/hybridqc" target="_blank">Hybrid Classical-Quantum Networks</a>
-      <p>Designing layered models combining classical and quantum computing systems.</p>
-    </div>
-  </div>
+  <ul class="research-list">
+    <li><a href="https://doi.org/10.1000/qtimeseries" target="_blank">Quantum Time Series Forecasting Models</a></li>
+    <li><a href="https://doi.org/10.1000/airqualitydl" target="_blank">Deep Learning for Air Quality Prediction</a></li>
+    <li><a href="https://doi.org/10.1000/qemai" target="_blank">Quantum Error Mitigation using AI</a></li>
+    <li><a href="https://doi.org/10.1000/hybridqc" target="_blank">Hybrid Classical-Quantum Neural Networks</a></li>
+  </ul>
 </section>
+
 
             
 
