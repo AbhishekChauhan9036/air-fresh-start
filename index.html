@@ -417,23 +417,9 @@
 
 
 
-        <!-- -----------------------------CONTACT US --------------------------------------->   
 
 
-  <!-- Contact Us Section -->
-  <section id="contact" class="contact-section">
-    <h2>Contact Us</h2>
-    <p>If you have any questions or collaboration ideas, feel free to get in touch.</p>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
 
-
-          <!-- ----------------------------- END CONTACT US --------------------------------------->   
 
         
 
@@ -519,17 +505,115 @@
   }
 </style>
 
-
-
-
-
-        
-
               <!-- -----------------------------END Donate section  --------------------------------------->   
 
 
+        
+        <!-- -----------------------------CONTACT US --------------------------------------->   
+
+<!-- Contact Us Section -->
+<section id="contact" class="contact-section">
+  <h2>Contact Us</h2>
+  <p>If you have any questions, ideas, or opportunities for collaboration, feel free to reach out!</p>
+
+  <form class="contact-form" onsubmit="handleSubmit(event)">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
+    <p class="form-status" id="formStatus"></p>
+  </form>
+</section>
+
+<style>
+  .contact-section {
+    background: linear-gradient(to right, #f9f9f9, #eef6fb);
+    padding: 80px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .contact-section h2 {
+    font-size: 40px;
+    color: #003366;
+    margin-bottom: 10px;
+  }
+
+  .contact-section p {
+    font-size: 18px;
+    color: #444;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+  }
+
+  .contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: #0077cc;
+    outline: none;
+  }
+
+  .contact-form button {
+    padding: 14px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #0077cc;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .contact-form button:hover {
+    background-color: #005fa3;
+  }
+
+  .form-status {
+    margin-top: 15px;
+    font-size: 16px;
+    color: green;
+  }
+
+  @media (max-width: 600px) {
+    .contact-section h2 {
+      font-size: 32px;
+    }
+
+    .contact-section p {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<script>
+  function handleSubmit(event) {
+    event.preventDefault();
+    document.getElementById("formStatus").textContent = "Thank you for your message! We'll get back to you soon.";
+    event.target.reset();
+  }
+</script>
 
 
+
+          <!-- ----------------------------- END CONTACT US --------------------------------------->   
 
         
                 
