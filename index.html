@@ -530,6 +530,7 @@
     
 
 <!-- Contact Us Section -->
+<!-- Contact Us Section -->
 <section id="contact" class="contact-section">
   <h2>Contact Us</h2>
   <p>If you have any questions, ideas, or opportunities for collaboration, feel free to reach out!</p>
@@ -543,6 +544,7 @@
   </form>
 </section>
 
+<!-- Styles -->
 <style>
   .contact-section {
     max-width: 600px;
@@ -552,6 +554,7 @@
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
+    font-family: 'Segoe UI', sans-serif;
   }
 
   .contact-section h2 {
@@ -592,20 +595,34 @@
 
   .form-status {
     margin-top: 15px;
-    color: green;
+    font-weight: 500;
   }
 </style>
 
+<!-- Script -->
 <script>
   document.getElementById("contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
+    const formStatus = document.getElementById("formStatus");
+    const form = this;
 
-    emailjs.sendForm("service_pudj5i9", "template_nysmyc9", this)
+    emailjs.sendForm("service_pudj5i9", "template_nysmyc9", form)
       .then(() => {
-        document.getElementById("formStatus").textContent = "Message sent successfully!";
-        this.reset();
+        formStatus.textContent = "Message sent successfully!";
+        formStatus.style.color = "green";
+        form.reset();
+
+        setTimeout(() => {
+          formStatus.textContent = "";
+        }, 5000);
       }, (error) => {
-        document.getElementById("formStatus").textContent = "Failed to send message. Try again.";
+        formStatus.textContent = "Failed to send message. Try again.";
+        formStatus.style.color = "red";
+
+        setTimeout(() => {
+          formStatus.textContent = "";
+        }, 5000);
+
         console.error("EmailJS error:", error);
       });
   });
