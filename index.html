@@ -589,7 +589,7 @@
 <!-- Include EmailJS SDK -->
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
-  emailjs.init("your_public_key_here"); // Replace with your actual public key
+  emailjs.init("Up5lVDjOvKlzfFO1I"); // Replace with your actual public key
 </script>
 
 <script>
@@ -598,12 +598,32 @@
     const form = this;
     const formStatus = document.getElementById("formStatus");
 
-    // Send the form (regardless of result, show success)
+    // Clear previous status
+    formStatus.textContent = "";
+    formStatus.style.color = "";
+
+    // Send the form
     emailjs.sendForm("service_aoakkyp", "template_nysmyc9", form)
-      .finally(() => {
-        formStatus.textContent = "Message sent successfully!";
-        formStatus.style.color = "green";
-        form.reset();
+      .then((response) => {
+        // Check response status
+        if (response.status === 200 || response.text === "OK") {
+          formStatus.textContent = "Message sent successfully!";
+          formStatus.style.color = "green";
+          form.reset();
+        } else {
+          formStatus.textContent = "Message sent successfully!";
+          formStatus.style.color = "red";
+        }
+
+        setTimeout(() => {
+          formStatus.textContent = "";
+        }, 5000);
+      })
+      .catch((error) => {
+        // Handle failure
+        formStatus.textContent = "Failed to send message. Try again.";
+        formStatus.style.color = "red";
+        console.error("EmailJS error:", error);
 
         setTimeout(() => {
           formStatus.textContent = "";
