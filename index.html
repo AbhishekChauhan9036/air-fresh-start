@@ -589,28 +589,41 @@
 <script>
   document.getElementById("contactForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    const formStatus = document.getElementById("formStatus");
     const form = this;
+    const formStatus = document.getElementById("formStatus");
 
+    // Clear any previous status
+    formStatus.textContent = "";
+    formStatus.style.color = "";
+
+    // Send form using EmailJS
     emailjs.sendForm("service_aoakkyp", "template_nysmyc9", form)
-      .then(() => {
-        formStatus.textContent = "Message sent successfully!";
-        formStatus.style.color = "green";
-        form.reset();
+      .then((response) => {
+        // Only if response is successful
+        if (response.status === 200) {
+          formStatus.textContent = "Message sent successfully!";
+          formStatus.style.color = "green";
+          form.reset();
+        } else {
+          // Fallback if EmailJS gives a non-success status
+          formStatus.textContent = "Something went wrong. Please try again.";
+          formStatus.style.color = "red";
+        }
 
+        // Clear the message after 5 seconds
         setTimeout(() => {
           formStatus.textContent = "";
         }, 5000);
       })
       .catch((error) => {
+        // On error (e.g., Gmail API rejection)
         formStatus.textContent = "Failed to send message. Try again.";
         formStatus.style.color = "red";
+        console.error("EmailJS error:", error);
 
         setTimeout(() => {
           formStatus.textContent = "";
         }, 5000);
-
-        console.error("EmailJS error:", error);
       });
   });
 </script>
