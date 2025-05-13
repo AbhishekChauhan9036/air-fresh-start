@@ -601,7 +601,8 @@
         setTimeout(() => {
           formStatus.textContent = "";
         }, 5000);
-      }, (error) => {
+      })
+      .catch((error) => {
         formStatus.textContent = "Failed to send message. Try again.";
         formStatus.style.color = "red";
 
@@ -613,6 +614,7 @@
       });
   });
 </script>
+
 
 
           <!-- ----------------------------- END CONTACT US --------------------------------------->   
