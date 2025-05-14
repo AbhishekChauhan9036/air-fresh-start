@@ -346,17 +346,29 @@
 
   .research-grid {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Enable horizontal scroll */
     gap: 30px;
+    padding: 10px;
+    scroll-behavior: smooth;
+  }
+
+  .research-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .research-grid::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
   }
 
   .research-card {
+    flex: 0 0 auto; /* Prevent shrinking */
     background: white;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
     padding: 30px;
-    max-width: 300px;
+    width: 300px;
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
@@ -394,7 +406,111 @@
       <p>Quantum-Inspired Neural Networks for Time-Series Air Pollution Prediction and Control in the Most Polluted Region of the World.</p>
     </div>
 
-      <div class="research-card">
+    <div class="research-card">
+      <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
+      <p>Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018-2023) Across Multiple Monitoring Stations.</p>
+    </div>
+
+    <div class="research-card">
+      <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank">Deep Learning for Air Quality</a>
+      <p>A Hybrid Timeseries Model for the Spatio‐Temporal Analysis of Air Pollution Prediction based on PM$_{2.5}$</p>
+    </div>
+
+    <div class="research-card">
+      <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
+      <p>Deep Learning for Air Quality Prediction after Covid‐19 Pandemic based on Pollutant and Meteorological Data.</p>
+    </div>
+
+    <div class="research-card">
+      <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI: Empowering A Smarter World</a>
+      <p>Machine Learning Empowered IoT Devices, Analysis of Indoor and Outdoor Temperature and Health Risks.</p>
+    </div>
+  </div>
+</section>
+<style>
+  .research-section {
+    background-color: #f9f9f9;
+    padding: 80px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .research-section h2 {
+    font-size: 40px;
+    color: #222;
+    margin-bottom: 10px;
+  }
+
+  .research-section p {
+    font-size: 18px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+  }
+
+  .research-grid {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Enable horizontal scroll */
+    gap: 30px;
+    padding: 10px;
+    scroll-behavior: smooth;
+  }
+
+  .research-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .research-grid::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+
+  .research-card {
+    flex: 0 0 auto; /* Prevent shrinking */
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .research-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .research-card a {
+    display: block;
+    font-size: 20px;
+    color: #0077cc;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  .research-card a:hover {
+    color: #005999;
+  }
+
+  .research-card p {
+    font-size: 15px;
+    color: #444;
+  }
+</style>
+
+<section id="research" class="research-section">
+  <h2>Research</h2>
+  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+
+  <div class="research-grid">
+    <div class="research-card">
+      <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
+      <p>Quantum-Inspired Neural Networks for Time-Series Air Pollution Prediction and Control in the Most Polluted Region of the World.</p>
+    </div>
+
+    <div class="research-card">
       <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
       <p>Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018-2023) Across Multiple Monitoring Stations.</p>
     </div>
