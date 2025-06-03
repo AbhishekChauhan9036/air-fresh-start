@@ -536,64 +536,27 @@
     color: #444;
   }
 
-/* Navigation buttons */
-    .carousel-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding-left: 15px;
-      user-select: none;
-    }
+  .scroll-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
 
-    button.carousel-btn {
-      background-color: #2e551a;
-      border: none;
-      color: #d5e9bb;
-      font-size: 28px;
-      padding: 12px 14px;
-      border-radius: 50%;
-      box-shadow: 0 4px 16px rgb(46 85 26 / 0.5);
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      width: 50px;
-      height: 50px;
-      line-height: 1;
-    }
+  .scroll-left {
+    left: 0;
+  }
 
-    button.carousel-btn:hover,
-    button.carousel-btn:focus {
-      background-color: #147021;
-      box-shadow: 0 6px 20px rgb(20 112 33 / 0.7);
-      outline: none;
-    }
-
-    /* Responsive layout */
-    @media (max-width: 680px) {
-      section.research-section {
-        padding: 30px 20px 40px;
-      }
-
-      .carousel-nav {
-        display: none;
-      }
-
-      .carousel-track {
-        padding-left: 10px;
-        padding-right: 10px;
-        gap: 18px;
-      }
-
-      .carousel-item {
-        width: 240px;
-        padding: 22px 26px;
-      }
-
-      section.research-section p.description {
-        font-size: 1rem;
-        max-width: 100%;
-        margin-bottom: 40px;
-      }
-
+  .scroll-right {
+    right: 0;
+  }
 </style>
 
 <section id="research" class="research-section">
@@ -629,42 +592,16 @@
 </section>
 
 <script>
-    (function () {
-      const track = document.getElementById('carouselTrack');
-      const btnPrev = document.getElementById('btnPrev');
-      const btnNext = document.getElementById('btnNext');
-      const items = track.querySelectorAll('.carousel-item');
-      const gap = 25; // gap in px as in CSS
+  function scrollLeft() {
+    const container = document.getElementById('scrollable');
+    container.scrollBy({ left: -350, behavior: 'smooth' });
+  }
 
-      function getScrollAmount() {
-        if (items.length === 0) return 0;
-        const style = window.getComputedStyle(items[0]);
-        const width = items[0].offsetWidth + gap;
-        return width;
-      }
-
-      btnPrev.addEventListener('click', () => {
-        const scrollAmount = getScrollAmount();
-        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-      });
-
-      btnNext.addEventListener('click', () => {
-        const scrollAmount = getScrollAmount();
-        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-      });
-
-      // Optional: Keyboard navigation for accessibility (left/right arrows)
-      track.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          btnPrev.click();
-        } else if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          btnNext.click();
-        }
-      });
-    })();
-  </script>
+  function scrollRight() {
+    const container = document.getElementById('scrollable');
+    container.scrollBy({ left: 350, behavior: 'smooth' });
+  }
+</script>
 
 
             
