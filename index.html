@@ -462,220 +462,147 @@
 
   <!-- ========================================Research Section --======================================================-->
 
-<!-- ========================================Research Section====================================================== -->
-
 <style>
-  /* Carousel container */
-  .carousel {
+  .research-section {
+    background-color: #f9f9f9;
+    padding: 80px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
     position: relative;
-    display: flex;
-    align-items: center;
   }
 
-  /* Carousel track */
-  .carousel-track {
+  .research-section h2 {
+    font-size: 40px;
+    color: #222;
+    margin-bottom: 10px;
+  }
+
+  .research-section p {
+    font-size: 18px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+  }
+
+  .scroll-container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .research-grid {
     display: flex;
+    flex-wrap: nowrap;
     overflow-x: auto;
     scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    gap: 25px;
-    padding-bottom: 10px;
-    flex-grow: 1;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    gap: 30px;
+    padding: 10px 40px; /* Add padding so arrows don’t overlap */
   }
 
-  .carousel-track::-webkit-scrollbar {
+  .research-grid::-webkit-scrollbar {
     display: none;
   }
 
-  /* Cards */
-  .carousel-item {
-    scroll-snap-align: start;
+  .research-card {
     flex: 0 0 auto;
-    background: #e5f1db;
-    border-radius: 18px;
-    box-shadow: 0 6px 16px rgb(62 102 31 / 0.2);
-    width: 280px;
-    padding: 28px 32px;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    cursor: grab;
-    user-select: none;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .carousel-item:active {
-    cursor: grabbing;
+  .research-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
   }
 
-  .carousel-item:hover {
-    transform: translateY(-12px) scale(1.04);
-    box-shadow: 0 12px 32px rgb(39 174 96 / 0.3);
-    z-index: 5;
-  }
-
-  .carousel-item:focus {
-    outline: 3px solid #147021;
-    outline-offset: 4px;
-  }
-
-  .carousel-item a {
+  .research-card a {
     display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #2e551a;
-    margin-bottom: 12px;
+    font-size: 20px;
+    color: #0077cc;
+    font-weight: 600;
     text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    user-select: text;
+    margin-bottom: 10px;
   }
 
-  .carousel-item a:hover,
-  .carousel-item a:focus {
-    color: #147021;
-    text-decoration: underline;
-    outline-offset: 3px;
+  .research-card a:hover {
+    color: #005999;
   }
 
-  .carousel-item p {
-    font-size: 0.95rem;
-    line-height: 1.45;
-    color: #415833;
-    font-weight: 500;
-    user-select: text;
+  .research-card p {
+    font-size: 15px;
+    color: #444;
   }
 
-  /* Navigation buttons */
-  .carousel-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding-left: 15px;
-    user-select: none;
-  }
-
-  button.carousel-btn {
-    background-color: #2e551a;
+  .scroll-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background-color: #fff;
     border: none;
-    color: #d5e9bb;
-    font-size: 28px;
-    padding: 12px 14px;
-    border-radius: 50%;
-    box-shadow: 0 4px 16px rgb(46 85 26 / 0.5);
+    font-size: 24px;
     cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    width: 50px;
-    height: 50px;
-    line-height: 1;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   }
 
-  button.carousel-btn:hover,
-  button.carousel-btn:focus {
-    background-color: #147021;
-    box-shadow: 0 6px 20px rgb(20 112 33 / 0.7);
-    outline: none;
+  .scroll-left {
+    left: 0;
   }
 
-  /* Responsive layout */
-  @media (max-width: 680px) {
-    section.research-section {
-      padding: 30px 20px 40px;
-    }
-
-    .carousel-nav {
-      display: none;
-    }
-
-    .carousel-track {
-      padding-left: 10px;
-      padding-right: 10px;
-      gap: 18px;
-    }
-
-    .carousel-item {
-      width: 240px;
-      padding: 22px 26px;
-    }
-
-    section.research-section p.description {
-      font-size: 1rem;
-      max-width: 100%;
-      margin-bottom: 40px;
-    }
+  .scroll-right {
+    right: 0;
   }
 </style>
 
-<section class="research-section" aria-label="Research Publications">
+<section id="research" class="research-section">
   <h2>Research</h2>
-  <p class="description">Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
 
-  <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Research papers carousel">
-    <div class="carousel-track" id="carouselTrack" tabindex="0">
-      <article class="carousel-item" role="group" aria-label="1 of 6" tabindex="0">
-        <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank" rel="noopener noreferrer" aria-describedby="desc1">Quantum Time Series Forecasting</a>
-        <p id="desc1">Quantum-Inspired Neural Networks for Time-Series Air Pollution Prediction and Control in the Most Polluted Region of the World.</p>
-      </article>
-      <article class="carousel-item" role="group" aria-label="2 of 6" tabindex="0">
-        <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank" rel="noopener noreferrer" aria-describedby="desc2">Spatio-Temporal Forecasting</a>
-        <p id="desc2">Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018-2023) Across Multiple Monitoring Stations.</p>
-      </article>
-      <article class="carousel-item" role="group" aria-label="3 of 6" tabindex="0">
-        <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank" rel="noopener noreferrer" aria-describedby="desc3">Deep Learning for Air Quality</a>
-        <p id="desc3">A Hybrid Timeseries Model for the Spatio‐Temporal Analysis of Air Pollution Prediction based on PM₂.₅</p>
-      </article>
-      <article class="carousel-item" role="group" aria-label="4 of 6" tabindex="0">
-        <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank" rel="noopener noreferrer" aria-describedby="desc4">Air Quality Prediction after Covid‐19</a>
-        <p id="desc4">Deep Learning for Air Quality Prediction after Covid‐19 Pandemic based on Pollutant and Meteorological Data.</p>
-      </article>
-      <article class="carousel-item" role="group" aria-label="5 of 6" tabindex="0">
-        <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank" rel="noopener noreferrer" aria-describedby="desc5">IoT Sensors, ML, AI and XAI</a>
-        <p id="desc5">Machine Learning Empowered IoT Devices, Analysis of Indoor and Outdoor Temperature and Health Risks.</p>
-      </article>
-      <article class="carousel-item" role="group" aria-label="6 of 6" tabindex="0">
-        <a href="https://ieeexplore.ieee.org/document/10717060" target="_blank" rel="noopener noreferrer" aria-describedby="desc6">Novel Ensemble Loss Function</a>
-        <p id="desc6">A Novel Ensemble Loss Function of Few-Shot Learning for Tomato Leaf Disease Detection.</p>
-      </article>
+  <div class="scroll-container">
+    <button class="scroll-buttons scroll-left" onclick="scrollLeft()">&#8592;</button>
+    <div class="research-grid" id="scrollable">
+      <div class="research-card">
+        <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
+        <p>Quantum-Inspired Neural Networks for Time-Series Air Pollution Prediction and Control in the Most Polluted Region of the World.</p>
+      </div>
+      <div class="research-card">
+        <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
+        <p>Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018-2023) Across Multiple Monitoring Stations.</p>
+      </div>
+      <div class="research-card">
+        <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank">Deep Learning for Air Quality</a>
+        <p>A Hybrid Timeseries Model for the Spatio‐Temporal Analysis of Air Pollution Prediction based on PM$_{2.5}$</p>
+      </div>
+      <div class="research-card">
+        <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
+        <p>Deep Learning for Air Quality Prediction after Covid‐19 Pandemic based on Pollutant and Meteorological Data.</p>
+      </div>
+      <div class="research-card">
+        <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI</a>
+        <p>Machine Learning Empowered IoT Devices, Analysis of Indoor and Outdoor Temperature and Health Risks.</p>
+      </div>
     </div>
-
-    <div class="carousel-nav" aria-label="Carousel Navigation">
-      <button class="carousel-btn" id="btnPrev" aria-label="Previous research paper" aria-hidden="false">&lt;</button>
-      <button class="carousel-btn" id="btnNext" aria-label="Next research paper" aria-hidden="false">&gt;</button>
-    </div>
+    <button class="scroll-buttons scroll-right" onclick="scrollRight()">&#8594;</button>
   </div>
 </section>
 
 <script>
-  (function () {
-    const track = document.getElementById('carouselTrack');
-    const btnPrev = document.getElementById('btnPrev');
-    const btnNext = document.getElementById('btnNext');
-    const items = track.querySelectorAll('.carousel-item');
-    const gap = 25;
+  function scrollLeft() {
+    const container = document.getElementById('scrollable');
+    container.scrollBy({ left: -350, behavior: 'smooth' });
+  }
 
-    function getScrollAmount() {
-      if (!items.length) return 0;
-      return items[0].offsetWidth + gap;
-    }
-
-    function scrollCarousel(direction) {
-      const amount = getScrollAmount();
-      track.scrollBy({ left: direction * amount, behavior: 'smooth' });
-    }
-
-    btnPrev.addEventListener('click', () => scrollCarousel(-1));
-    btnNext.addEventListener('click', () => scrollCarousel(1));
-
-    track.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        scrollCarousel(-1);
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        scrollCarousel(1);
-      }
-    });
-  })();
+  function scrollRight() {
+    const container = document.getElementById('scrollable');
+    container.scrollBy({ left: 350, behavior: 'smooth' });
+  }
 </script>
+
 
 
             
