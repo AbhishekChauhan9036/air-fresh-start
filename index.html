@@ -484,26 +484,26 @@
     margin: 0 auto 50px auto;
   }
 
-  .carousel-wrapper {
+  .scroll-container {
     position: relative;
-    overflow: hidden;
-    padding: 0 60px; /* leave space for buttons */
+    max-width: 100%;
+    margin: 0 auto;
   }
 
-  .carousel-track {
+  .research-grid {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 25px;
     scroll-behavior: smooth;
-    padding: 10px 0;
+    gap: 30px;
+    padding: 10px 40px; /* Add padding so arrows don’t overlap */
   }
 
-  .carousel-track::-webkit-scrollbar {
+  .research-grid::-webkit-scrollbar {
     display: none;
   }
 
-  .carousel-item {
+  .research-card {
     flex: 0 0 auto;
     background: white;
     border-radius: 15px;
@@ -513,12 +513,12 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .carousel-item:hover {
+  .research-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
   }
 
-  .carousel-item a {
+  .research-card a {
     display: block;
     font-size: 20px;
     color: #0077cc;
@@ -527,20 +527,20 @@
     margin-bottom: 10px;
   }
 
-  .carousel-item a:hover {
+  .research-card a:hover {
     color: #005999;
   }
 
-  .carousel-item p {
+  .research-card p {
     font-size: 15px;
     color: #444;
   }
 
-  .carousel-btn {
+  .scroll-buttons {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 1000;
     background-color: #fff;
     border: none;
     font-size: 24px;
@@ -550,82 +550,85 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   }
 
-  #btnPrev {
-    left: 10px;
+  .scroll-left {
+    left: 0;
   }
 
-  #btnNext {
-    right: 10px;
+  .scroll-right {
+    right: 0;
   }
 </style>
 
-<section class="research-section">
+<section id="research" class="research-section">
   <h2>Research</h2>
   <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
 
-  <div class="carousel-wrapper">
-    <button id="btnPrev" class="carousel-btn">&#8592;</button>
-    <div class="carousel-track" id="carouselTrack" tabindex="0">
-      <div class="carousel-item">
+  <div class="scroll-container">
+    <button class="scroll-buttons scroll-left" onclick="scrollLeft()">&#8592;</button>
+    <div class="research-grid" id="scrollable">
+      <div class="research-card">
         <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
         <p>Quantum-Inspired Neural Networks for Time-Series Air Pollution Prediction and Control in the Most Polluted Region of the World.</p>
       </div>
-      <div class="carousel-item">
+      <div class="research-card">
         <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
-        <p>Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018–2023) Across Multiple Monitoring Stations.</p>
+        <p>Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018-2023) Across Multiple Monitoring Stations.</p>
       </div>
-      <div class="carousel-item">
+      <div class="research-card">
         <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank">Deep Learning for Air Quality</a>
-        <p>A Hybrid Timeseries Model for the Spatio‐Temporal Analysis of Air Pollution Prediction based on PM$_{2.5}$.</p>
+        <p>A Hybrid Timeseries Model for the Spatio‐Temporal Analysis of Air Pollution Prediction based on PM$_{2.5}$</p>
       </div>
-      <div class="carousel-item">
+      <div class="research-card">
         <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
         <p>Deep Learning for Air Quality Prediction after Covid‐19 Pandemic based on Pollutant and Meteorological Data.</p>
       </div>
-      <div class="carousel-item">
+      <div class="research-card">
         <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI</a>
         <p>Machine Learning Empowered IoT Devices, Analysis of Indoor and Outdoor Temperature and Health Risks.</p>
       </div>
     </div>
-    <button id="btnNext" class="carousel-btn">&#8594;</button>
+    <button class="scroll-buttons scroll-right" onclick="scrollRight()">&#8594;</button>
   </div>
 </section>
 
 <script>
-  (function () {
-    const track = document.getElementById('carouselTrack');
-    const btnPrev = document.getElementById('btnPrev');
-    const btnNext = document.getElementById('btnNext');
-    const items = track.querySelectorAll('.carousel-item');
-    const gap = 25;
+    (function () {
+      const track = document.getElementById('carouselTrack');
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const items = track.querySelectorAll('.carousel-item');
+      const gap = 25; // gap in px as in CSS
 
-    function getScrollAmount() {
-      if (items.length === 0) return 0;
-      const width = items[0].offsetWidth + gap;
-      return width;
-    }
-
-    btnPrev.addEventListener('click', () => {
-      const scrollAmount = getScrollAmount();
-      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    });
-
-    btnNext.addEventListener('click', () => {
-      const scrollAmount = getScrollAmount();
-      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    });
-
-    track.addEventListener('keydown', e => {
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        btnPrev.click();
-      } else if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        btnNext.click();
+      function getScrollAmount() {
+        if (items.length === 0) return 0;
+        const style = window.getComputedStyle(items[0]);
+        const width = items[0].offsetWidth + gap;
+        return width;
       }
-    });
-  })();
-</script>
+
+      btnPrev.addEventListener('click', () => {
+        const scrollAmount = getScrollAmount();
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      btnNext.addEventListener('click', () => {
+        const scrollAmount = getScrollAmount();
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+
+      // Optional: Keyboard navigation for accessibility (left/right arrows)
+      track.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          btnPrev.click();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          btnNext.click();
+        }
+      });
+    })();
+  </script>
+
 
             
 
