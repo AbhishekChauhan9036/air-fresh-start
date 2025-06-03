@@ -75,60 +75,200 @@
 
         
 
-            <!--==================== ABOUT ====================-->
-            <section class="about section" id="about">
-    <h2 class="section__title about__title">We Advocate for  <br> Clean Air Policies</h2>
-    <p class="about__description">
-        Most air pollution is impossible to see, but the impact we feel is great. Pollution drives climate change. 
-        Climate change intensifies poor air quality. Dirty air harms our health. To create a digital space where environmental awareness meets action, 
-        empowering users with knowledge and tools to protect and improve air quality in their lives and communities.
-    </p>
+            <!--======================================================== ABOUT =================================================================-->
 
-    <!-- Motives Section -->
-    <div class="about__motives">
-        <div class="motive">
-            <h3>1. Raise Awareness About Air Quality</h3>
-            <p>The website is designed to educate the public about air pollution and its health/environmental impacts by providing facts, figures, and insights into air quality levels.</p>
+        
+    <style>
+        /* Reset and base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, #d0f0fd, #e6fff9);
+            color: #34495e;
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        section.about {
+            max-width: 1100px;
+            width: 100%;
+            background: #ffffffcc;
+            border-radius: 16px;
+            padding: 40px 40px 60px 40px;
+            box-shadow: 0 12px 30px rgba(39, 174, 96, 0.2);
+            backdrop-filter: saturate(180%) blur(12px);
+        }
+
+        /* Section Title */
+        .section__title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 3.2rem;
+            color: #1e4620;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: 0.07em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Description */
+        .about__description {
+            font-size: 1.18rem;
+            max-width: 850px;
+            margin: 0 auto 50px auto;
+            color: #3a5a40;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0.015em;
+            user-select: none;
+        }
+
+        /* Motives container using CSS grid */
+        .about__motives {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Individual motive card */
+        .motive {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 25px;
+            box-shadow: 0 12px 25px rgba(2, 97, 31, 0.07);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: default;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* Hover effect */
+        .motive:hover {
+            transform: translateY(-8px) scale(1.04);
+            box-shadow: 0 20px 40px rgba(39, 174, 96, 0.3);
+        }
+
+        /* Motive heading */
+        .motive h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+            user-select: text;
+        }
+
+        /* Motive paragraph */
+        .motive p {
+            flex-grow: 1;
+            color: #4a6351;
+            font-weight: 500;
+            font-size: 1.06rem;
+            line-height: 1.5;
+            user-select: text;
+        }
+
+        /* Responsive text scaling */
+        @media (max-width: 550px) {
+            .section__title {
+                font-size: 2.2rem;
+            }
+
+            .about__description {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+
+            .motive h3 {
+                font-size: 1.2rem;
+            }
+
+            .motive p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+
+
+    <section class="about section" id="about">
+        <h2 class="section__title about__title">
+            We Advocate for <br /> Clean Air Policies
+        </h2>
+        <p class="about__description">
+            Most air pollution is impossible to see, but the impact we feel is
+            great. Pollution drives climate change. Climate change intensifies
+            poor air quality. Dirty air harms our health. To create a digital
+            space where environmental awareness meets action, empowering users
+            with knowledge and tools to protect and improve air quality in
+            their lives and communities.
+        </p>
+
+        <div class="about__motives">
+            <div class="motive" tabindex="0" aria-label="Raise Awareness About Air Quality">
+                <h3>1. Raise Awareness About Air Quality</h3>
+                <p>
+                    The website is designed to educate the public about air pollution
+                    and its health/environmental impacts by providing facts, figures,
+                    and insights into air quality levels.
+                </p>
+            </div>
+
+            <div class="motive" tabindex="0" aria-label="Provide Tools for Personal and Community Action">
+                <h3>2. Provide Tools for Personal and Community Action</h3>
+                <p>
+                    It aims to empower individuals and communities with actionable
+                    guidance such as clean air practices, lifestyle changes, and policy
+                    support to reduce pollution.
+                </p>
+            </div>
+
+            <div class="motive" tabindex="0" aria-label="Support for Data-Driven Decision-Making">
+                <h3>3. Support for Data-Driven Decision-Making</h3>
+                <p>
+                    The platform can support real-time and forecasted air quality data,
+                    helping people and organizations make smart, health-conscious
+                    decisions.
+                </p>
+            </div>
+
+            <div class="motive" tabindex="0" aria-label="Community Engagement and Policy Advocacy">
+                <h3>4. Community Engagement and Policy Advocacy</h3>
+                <p>
+                    By integrating future features like events, petitions, and
+                    collaboration spaces, the site aims to unite users toward cleaner
+                    air policy and community-based action.
+                </p>
+            </div>
+
+            <div class="motive" tabindex="0" aria-label="Educational Resource for Schools or NGOs">
+                <h3>5. Educational Resource for Schools or NGOs</h3>
+                <p>
+                    The site can act as a tool for educators, students, and NGOs to
+                    learn, teach, and advocate for air quality through structured
+                    content and community-driven resources.
+                </p>
+            </div>
         </div>
+    </section>
 
-        <div class="motive">
-            <h3>2. Provide Tools for Personal and Community Action</h3>
-            <p>It aims to empower individuals and communities with actionable guidance such as clean air practices, lifestyle changes, and policy support to reduce pollution.</p>
-        </div>
 
-        <div class="motive">
-            <h3>3. Support for Data-Driven Decision-Making</h3>
-            <p>The platform can support real-time and forecasted air quality data, helping people and organizations make smart, health-conscious decisions.</p>
-        </div>
+    
 
-        <div class="motive">
-            <h3>4. Community Engagement and Policy Advocacy</h3>
-            <p>By integrating future features like events, petitions, and collaboration spaces, the site aims to unite users toward cleaner air policy and community-based action.</p>
-        </div>
 
-        <div class="motive">
-            <h3>5. Educational Resource for Schools or NGOs</h3>
-            <p>The site can act as a tool for educators, students, and NGOs to learn, teach, and advocate for air quality through structured content and community-driven resources.</p>
-        </div>
-    </div>
-</section>
-
-                        <a href="#" class="button">Reserve a place</a>
-                    </div>
-
-                    <div class="about__img">
-                        <div class="about__img-overlay">
-                            <img src="assets/img/about1.jpg" alt="" class="about__img-one">
-                        </div>
-
-                        <div class="about__img-overlay">
-                            <img src="assets/img/about2.jpg" alt="" class="about__img-two">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!--==================== DISCOVER ====================-->
+        
+ <!--============================================================= FEATURES DISCOVER ===================================================================-->
             <section class="discover section" id="discover">
                 <h2 class="section__title">Discover the most <br> air polluted places</h2>
                 
@@ -347,7 +487,7 @@
                 
             <!-- -----------------------------add 2 ------------------------------------- -->
 
-  <!-- Research Section -->
+  <!-- ========================================Research Section --======================================================-->
 <style>
   .research-section {
     background-color: #f9f9f9;
@@ -513,7 +653,7 @@
 
 
 
-<!-- Donate Section -->
+<!--============================================= Donate Section =========================================================-->
 <section id="donate" class="donate-section">
   <h2>Support Our Work</h2>
   <p>Your donation helps advance research in AI, Quantum Computing, and Climate Science.</p>
@@ -621,7 +761,7 @@
 
 
         
-        <!-- -----------------------------CONTACT US --------------------------------------->   
+        <!-- ---============================================--CONTACT US -=============================================---->   
     
 
 <!-- Contact Us Section -->
@@ -732,7 +872,7 @@
         
                 
 
-            <!--==================== SUBSCRIBE ====================-->
+            <!--========================================================== SUBSCRIBE =======================================================-->
             <section class="subscribe section">
                 <div class="subscribe__bg">
                     <div class="subscribe__container container">
