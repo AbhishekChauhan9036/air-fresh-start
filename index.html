@@ -463,45 +463,24 @@
   <!-- ========================================Research Section --======================================================-->
 
 <style>
-  .research-section {
-    background-color: #f9f9f9;
-    padding: 80px 20px;
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  .research-section h2 {
-    font-size: 40px;
-    color: #222;
-    margin-bottom: 10px;
-  }
-
-  .research-section p {
-    font-size: 18px;
-    color: #666;
-    max-width: 800px;
-    margin: 0 auto 50px auto;
-  }
-
-  .scroll-container {
+  .carousel-container {
     position: relative;
-    max-width: 100%;
     overflow: hidden;
   }
 
-  .research-grid {
+  .carousel-track {
     display: flex;
+    gap: 25px;
     overflow-x: auto;
     scroll-behavior: smooth;
-    gap: 30px;
     padding: 10px 60px;
   }
 
-  .research-grid::-webkit-scrollbar {
+  .carousel-track::-webkit-scrollbar {
     display: none;
   }
 
-  .research-card {
+  .carousel-item {
     flex: 0 0 auto;
     background: white;
     border-radius: 15px;
@@ -511,28 +490,9 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .research-card:hover {
+  .carousel-item:hover {
     transform: translateY(-8px);
     box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .research-card a {
-    display: block;
-    font-size: 20px;
-    color: #0077cc;
-    font-weight: 600;
-    text-decoration: none;
-    margin-bottom: 10px;
-  }
-
-  .research-card a:hover {
-    color: #005999;
-  }
-
-  .research-card p {
-    font-size: 15px;
-    color: #444;
-    margin-bottom: 10px;
   }
 
   .scroll-button {
@@ -546,83 +506,89 @@
     padding: 12px;
     border-radius: 50%;
     font-size: 18px;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 5;
   }
 
   .scroll-button:hover {
     background-color: #005999;
-    transform: translateY(-50%) scale(1.1);
   }
 
-  .scroll-left-btn {
+  #btnPrev {
     left: 10px;
   }
 
-  .scroll-right-btn {
+  #btnNext {
     right: 10px;
   }
 </style>
 
 <section class="research-section">
   <h2>Research</h2>
-  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+  <p>Explore my recent contributions.</p>
 
-  <div class="scroll-container">
-    <button class="scroll-button scroll-left-btn" onclick="scrollLeft()">&#10094;</button>
-    <button class="scroll-button scroll-right-btn" onclick="scrollRight()">&#10095;</button>
+  <div class="carousel-container">
+    <button class="scroll-button" id="btnPrev">&#10094;</button>
+    <button class="scroll-button" id="btnNext">&#10095;</button>
 
-    <div class="research-grid" id="scrollable">
-      <!-- Example Cards -->
-      <div class="research-card">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="carousel-item">
         <a href="#">nRI RNN-BiGRU Forecasting Model</a>
-        <p>Enhancing PM2.5 Forecasting with Hybrid RNN-BiGRU</p>
+        <p>Enhancing PM2.5 with Hybrid RNN-BiGRU</p>
         <a href="assets/img/Paper-6.pdf" target="_blank">[Download PDF]</a>
       </div>
 
-      <div class="research-card">
+      <div class="carousel-item">
         <a href="#">Quantum Time Series Forecasting</a>
-        <p>Quantum-Inspired Neural Networks for Air Pollution</p>
+        <p>Quantum-Inspired Neural Networks</p>
         <a href="assets/img/Paper-5.pdf" target="_blank">[Download PDF]</a>
       </div>
 
-      <div class="research-card">
+      <div class="carousel-item">
         <a href="#">Spatio-Temporal Forecasting</a>
-        <p>Hybrid BiGRU-1DCNN for PM2.5 in Delhi</p>
+        <p>Hybrid BiGRU-1DCNN for PM2.5</p>
         <a href="assets/img/Paper-4.pdf" target="_blank">[Download PDF]</a>
       </div>
 
-      <div class="research-card">
-        <a href="#">Deep Learning for Air Quality</a>
-        <p>Spatio‐Temporal PM2.5 Prediction</p>
-        <a href="assets/img/Paper-3.pdf" target="_blank">[Download PDF]</a>
-      </div>
-
-      <div class="research-card">
-        <a href="#">Air Quality Prediction after Covid‐19</a>
-        <p>Using Pollutant and Meteorological Data</p>
-        <a href="assets/img/Paper-2.pdf" target="_blank">[Download PDF]</a>
-      </div>
-
-      <div class="research-card">
-        <a href="#">IoT Sensors, ML, AI and XAI</a>
-        <p>ML Empowered IoT Devices and Health Risks</p>
-        <a href="assets/img/Paper-1.pdf" target="_blank">[Download PDF]</a>
-      </div>
+      <!-- Add more items as needed -->
     </div>
   </div>
 </section>
 
 <script>
-  const scrollContainer = document.getElementById('scrollable');
+  (function () {
+    const track = document.getElementById('carouselTrack');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const items = track.querySelectorAll('.carousel-item');
+    const gap = 25; // Matches the CSS gap
 
-  function scrollLeft() {
-    scrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
-  }
+    function getScrollAmount() {
+      if (items.length === 0) return 0;
+      const width = items[0].offsetWidth + gap;
+      return width;
+    }
 
-  function scrollRight() {
-    scrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
-  }
+    btnPrev.addEventListener('click', () => {
+      const scrollAmount = getScrollAmount();
+      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    btnNext.addEventListener('click', () => {
+      const scrollAmount = getScrollAmount();
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    // Optional: Keyboard accessibility
+    track.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        btnPrev.click();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        btnNext.click();
+      }
+    });
+  })();
 </script>
 
 
