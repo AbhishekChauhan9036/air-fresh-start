@@ -486,7 +486,7 @@
   .scroll-container {
     position: relative;
     max-width: 100%;
-    margin: 0 auto;
+    overflow: hidden;
   }
 
   .research-grid {
@@ -495,7 +495,6 @@
     scroll-behavior: smooth;
     gap: 30px;
     padding: 10px 60px;
-    scrollbar-width: none;
   }
 
   .research-grid::-webkit-scrollbar {
@@ -540,19 +539,20 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: #0077cc;
     color: #fff;
     border: none;
     cursor: pointer;
-    padding: 10px;
+    padding: 12px;
     border-radius: 50%;
     font-size: 18px;
-    transition: background-color 0.3s;
-    z-index: 5;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
   .scroll-button:hover {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: #005999;
+    transform: translateY(-50%) scale(1.1);
   }
 
   .scroll-left-btn {
@@ -569,44 +569,44 @@
   <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
 
   <div class="scroll-container">
-    <button class="scroll-button scroll-left-btn" onclick="scrollLeft()">&#8592;</button>
-    <button class="scroll-button scroll-right-btn" onclick="scrollRight()">&#8594;</button>
+    <button class="scroll-button scroll-left-btn" onclick="scrollLeft()">&#10094;</button>
+    <button class="scroll-button scroll-right-btn" onclick="scrollRight()">&#10095;</button>
 
     <div class="research-grid" id="scrollable">
-      <!-- Your Research Cards -->
+      <!-- Example Cards -->
       <div class="research-card">
-        <a href="https://doi.org/10.1007/s42979-025-04167-y" target="_blank">nRI RNN-BiGRU Forecasting Model</a>
-        <p>Enhancing PM2.5 Air Pollution Forecasting with Hybrid RNN-BiGRU Model</p>
+        <a href="#">nRI RNN-BiGRU Forecasting Model</a>
+        <p>Enhancing PM2.5 Forecasting with Hybrid RNN-BiGRU</p>
         <a href="assets/img/Paper-6.pdf" target="_blank">[Download PDF]</a>
       </div>
 
       <div class="research-card">
-        <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
-        <p>Quantum-Inspired Neural Networks for Air Pollution Prediction</p>
+        <a href="#">Quantum Time Series Forecasting</a>
+        <p>Quantum-Inspired Neural Networks for Air Pollution</p>
         <a href="assets/img/Paper-5.pdf" target="_blank">[Download PDF]</a>
       </div>
 
       <div class="research-card">
-        <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
-        <p>Forecasting using BiGRU-1DCNN Model for PM2.5 in Delhi</p>
+        <a href="#">Spatio-Temporal Forecasting</a>
+        <p>Hybrid BiGRU-1DCNN for PM2.5 in Delhi</p>
         <a href="assets/img/Paper-4.pdf" target="_blank">[Download PDF]</a>
       </div>
 
       <div class="research-card">
-        <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank">Deep Learning for Air Quality</a>
-        <p>Spatio‐Temporal Air Pollution Prediction based on PM2.5</p>
+        <a href="#">Deep Learning for Air Quality</a>
+        <p>Spatio‐Temporal PM2.5 Prediction</p>
         <a href="assets/img/Paper-3.pdf" target="_blank">[Download PDF]</a>
       </div>
 
       <div class="research-card">
-        <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
-        <p>Prediction after Covid‐19 using Meteorological Data</p>
+        <a href="#">Air Quality Prediction after Covid‐19</a>
+        <p>Using Pollutant and Meteorological Data</p>
         <a href="assets/img/Paper-2.pdf" target="_blank">[Download PDF]</a>
       </div>
 
       <div class="research-card">
-        <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI</a>
-        <p>IoT Devices, Temperature Analysis, and Health Risks</p>
+        <a href="#">IoT Sensors, ML, AI and XAI</a>
+        <p>ML Empowered IoT Devices and Health Risks</p>
         <a href="assets/img/Paper-1.pdf" target="_blank">[Download PDF]</a>
       </div>
     </div>
