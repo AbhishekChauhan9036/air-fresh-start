@@ -541,7 +541,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 1000;
+    z-index: 10;
     background-color: #fff;
     border: none;
     font-size: 24px;
@@ -552,11 +552,11 @@
   }
 
   .scroll-left {
-    left: 0;
+    left: 10px;
   }
 
   .scroll-right {
-    right: 0;
+    right: 10px;
   }
 </style>
 
@@ -565,7 +565,7 @@
   <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
 
   <div class="scroll-container">
-    <button class="scroll-buttons scroll-left" onclick="scrollLeft()">&#8592;</button>
+    <button class="scroll-buttons scroll-left" onclick="scrollLeft()" style="display: none;">&#8592;</button>
     <div class="research-grid" id="scrollable">
 
       <div class="research-card">
@@ -573,7 +573,6 @@
           Novel Random Imputation Based on nRI RNN-BiGRU Forecasting Model
         </a>
         <p>Enhancing PM$_{2.5}$ Air Pollution Forecasting with Novel Random Imputation Based on Hybrid RNN-Bidirectional GRU (nRI RNN-BiGRU) Model</p>
-        <br>
         <a href="assets/img/Paper-6.pdf" target="_blank">[Download PDF]</a>
       </div>
 
@@ -582,7 +581,6 @@
           Quantum Time Series Forecasting
         </a>
         <p>Quantum-Inspired Neural Networks for Time-Series Air Pollution Prediction and Control in the Most Polluted Region of the World.</p>
-        <br>
         <a href="assets/img/Paper-5.pdf" target="_blank">[Download PDF]</a>
       </div>
 
@@ -591,7 +589,6 @@
           Spatio-Temporal Forecasting
         </a>
         <p>Spatio-Temporal Forecasting using a Hybrid BiGRU-1DCNN Model for PM2.5 Concentrations in Delhi, India (2018-2023) Across Multiple Monitoring Stations.</p>
-        <br>
         <a href="assets/img/Paper-4.pdf" target="_blank">[Download PDF]</a>
       </div>
 
@@ -600,7 +597,6 @@
           Deep Learning for Air Quality
         </a>
         <p>A Hybrid Timeseries Model for the Spatio‐Temporal Analysis of Air Pollution Prediction based on PM$_{2.5}$</p>
-        <br>
         <a href="assets/img/Paper-3.pdf" target="_blank">[Download PDF]</a>
       </div>
 
@@ -609,7 +605,6 @@
           Air Quality Prediction after Covid‐19
         </a>
         <p>Deep Learning for Air Quality Prediction after Covid‐19 Pandemic based on Pollutant and Meteorological Data.</p>
-        <br>
         <a href="assets/img/Paper-2.pdf" target="_blank">[Download PDF]</a>
       </div>
 
@@ -618,7 +613,6 @@
           IoT Sensors, ML, AI and XAI
         </a>
         <p>Machine Learning Empowered IoT Devices, Analysis of Indoor and Outdoor Temperature and Health Risks.</p>
-        <br>
         <a href="assets/img/Paper-1.pdf" target="_blank">[Download PDF]</a>
       </div>
 
@@ -628,20 +622,17 @@
 </section>
 
 <script>
+  const container = document.getElementById('scrollable');
+  const leftButton = document.querySelector('.scroll-left');
+  const rightButton = document.querySelector('.scroll-right');
+
   function scrollLeft() {
-    const container = document.getElementById('scrollable');
     container.scrollBy({ left: -350, behavior: 'smooth' });
   }
 
   function scrollRight() {
-    const container = document.getElementById('scrollable');
     container.scrollBy({ left: 350, behavior: 'smooth' });
   }
-
-  // Optional: Show/hide scroll buttons dynamically
-  const container = document.getElementById('scrollable');
-  const leftButton = document.querySelector('.scroll-left');
-  const rightButton = document.querySelector('.scroll-right');
 
   function updateScrollButtons() {
     leftButton.style.display = container.scrollLeft > 0 ? 'block' : 'none';
@@ -652,8 +643,6 @@
   window.addEventListener('load', updateScrollButtons);
   window.addEventListener('resize', updateScrollButtons);
 </script>
-
-
 
             
 
