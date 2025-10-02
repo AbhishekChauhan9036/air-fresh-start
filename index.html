@@ -670,112 +670,121 @@
 
 <!-- ========================================Certificate Section --======================================================-->
 
-<style>
-  .certificate-section {
-    background-color: #f9f9f9;
-    padding: 80px 20px;
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-    position: relative;
-  }
 
-  .certificate-section h2 {
-    font-size: 40px;
-    color: #222;
-    margin-bottom: 10px;
-  }
+  <title>Certificate Carousel</title>
+  <style>
+    .certificate-section {
+      background-color: #f9f9f9;
+      padding: 80px 20px;
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      position: relative;
+    }
 
-  .certificate-section p {
-    font-size: 18px;
-    color: #666;
-    max-width: 800px;
-    margin: 0 auto 50px auto;
-  }
+    .certificate-section h2 {
+      font-size: 40px;
+      color: #222;
+      margin-bottom: 10px;
+    }
 
-  .carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-    padding: 0 60px; /* leave space for buttons */
-  }
+    .certificate-section p {
+      font-size: 18px;
+      color: #666;
+      max-width: 800px;
+      margin: 0 auto 50px auto;
+    }
 
-  .carousel-trackB {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 25px;
-    scroll-behavior: smooth;
-    padding: 10px 0;
-  }
+    .carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding: 0 60px; /* leave space for buttons */
+    }
 
-  .carousel-trackB::-webkit-scrollbar {
-    display: none;
-  }
+    .carousel-trackB {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 25px;
+      scroll-behavior: smooth;
+      padding: 10px 0;
+    }
 
-  .carousel-itemB {
-    flex: 0 0 auto;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    padding: 30px;
-    width: 300px;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+    .carousel-trackB::-webkit-scrollbar {
+      display: none;
+    }
 
-  .carousel-itemB:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
-  }
+    .carousel-itemB {
+      flex: 0 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+      width: 300px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
 
-  .carousel-itemB a {
-    display: block;
-    font-size: 20px;
-    color: #0077cc;
-    font-weight: 600;
-    text-decoration: none;
-    margin-bottom: 10px;
-  }
+    .carousel-itemB:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
+    }
 
-  .carousel-itemB a:hover {
-    color: #005999;
-  }
+    .carousel-itemB a {
+      display: block;
+      font-size: 20px;
+      color: #0077cc;
+      font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
 
-  .carousel-itemB p {
-    font-size: 15px;
-    color: #444;
-  }
+    .carousel-itemB a:hover {
+      color: #005999;
+    }
 
-  .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background-color: #fff;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  }
+    .carousel-itemB p {
+      font-size: 15px;
+      color: #444;
+    }
 
-  #btnPrevB {
-    left: 10px;
-  }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background-color: #fff;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: 0.2s;
+    }
 
-  #btnNextB {
-    right: 10px;
-  }
-</style>
+    .carousel-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    #btnPrevB {
+      left: 10px;
+    }
+
+    #btnNextB {
+      right: 10px;
+    }
+  </style>
+
 
 <section id="certificate" class="certificate-section">
   <h2>Certificate</h2>
-  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+  <p>List of the certificates recently received.</p>
 
   <div class="carousel-wrapper">
     <button id="btnPrevB" class="carousel-btn">&#8592;</button>
     <div class="carousel-trackB" id="carouselTrackB" tabindex="0">
 
-    <div class="carousel-itemB">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/s00704-025-05715-5" target="_blank">Effective air pollution prediction</a>
         <p>Effective air pollution prediction using wavenet deep learning with Xgboost</p>
         <a href="assets/img/Paper-7.pdf" target="_blank">[Download PDF]</a>
@@ -787,7 +796,7 @@
         <a href="assets/img/Paper-6.pdf" target="_blank">[Download PDF]</a>
       </div>
         
-        <div class="carousel-itemB">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
         <p>Quantum-Inspired Neural Networks for Air Pollution Prediction</p>
         <a href="assets/img/Paper-5.pdf" target="_blank">[Download PDF]</a>
@@ -806,31 +815,29 @@
       </div>
         
       <div class="carousel-itemB">
-      <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
+        <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
         <p>Prediction after Covid‐19 using Meteorological Data</p>
         <a href="assets/img/Paper-2.pdf" target="_blank">[Download PDF]</a>
       </div>
 
-        
       <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI</a>
         <p>IoT Devices, Temperature Analysis, and Health Risks</p>
         <a href="assets/img/Paper-1.pdf" target="_blank">[Download PDF]</a>
       </div> 
 
-        <div class="carousel-itemB">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/S13225-017-0386-0" target="_blank">Role of Mycotoxins</a>
         <p>Role of Mycotoxins in the Food Chain</p>
         <a href="assets/img/Book-1.pdf" target="_blank">[Download PDF]</a>
       </div> 
         
-        <div class="carousel-itemB">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1109/ICACCS60874.2024.10717060" target="_blank">A Novel Ensemble Loss Function</a>
         <p>A Novel Ensemble Loss Function of Few-Shot Learning for Tomato Leaf Disease Detection</p>
         <a href="assets/img/Paper-0.pdf" target="_blank">[Download PDF]</a>
       </div>
 
-    
     </div>
     <button id="btnNextB" class="carousel-btn">&#8594;</button>
   </div>
@@ -841,36 +848,45 @@
     const trackB = document.getElementById('carouselTrackB');
     const btnPrevB = document.getElementById('btnPrevB');
     const btnNextB = document.getElementById('btnNextB');
-    const itemsB = track.querySelectorAll('.carousel-itemB');
+    const itemsB = trackB.querySelectorAll('.carousel-itemB');
     const gap = 25;
 
     function getScrollAmount() {
-      if (items.length === 0) return 0;
-      const width = items[0].offsetWidth + gap;
-      return width;
+      if (!itemsB.length) return trackB.clientWidth;
+      return itemsB[0].offsetWidth + gap;
     }
 
-    btnPrev.addEventListener('click', () => {
-      const scrollAmount = getScrollAmount();
-      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    btnPrevB.addEventListener('click', () => {
+      trackB.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
     });
 
-    btnNext.addEventListener('click', () => {
-      const scrollAmount = getScrollAmount();
-      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    btnNextB.addEventListener('click', () => {
+      trackB.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
     });
 
-    track.addEventListener('keydown', e => {
+    // Keyboard navigation
+    trackB.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        btnPrev.click();
+        btnPrevB.click();
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        btnNext.click();
+        btnNextB.click();
       }
     });
+
+    // Disable/enable buttons at edges
+    function updateButtons() {
+      btnPrevB.disabled = trackB.scrollLeft <= 0;
+      btnNextB.disabled = Math.ceil(trackB.scrollLeft + trackB.clientWidth) >= trackB.scrollWidth;
+    }
+
+    trackB.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
   })();
 </script>
+
 
 
  <!-- -----------------------------end certificate ---------------------------------------> 
@@ -1236,6 +1252,7 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
 
