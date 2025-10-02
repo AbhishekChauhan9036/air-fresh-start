@@ -29,6 +29,7 @@
                     <li class="nav__item"><a href="#discover" class="nav__link">Features</a></li>
                     <li class="nav__item"><a href="#place" class="nav__link">Resources</a></li>
                     <li class="nav__item"><a href="#research" class="nav__link">Research</a></li>
+                    <li class="nav__item"><a href="#certificate" class="nav__link">Certificate</a></li>
                     <li class="nav__item"><a href="#donate" class="nav__link">Donate</a></li>
                     <li class="nav__item"><a href="#contact" class="nav__link">Contact Us</a></li>
                 </ul>
@@ -667,6 +668,212 @@
 
  <!-- -----------------------------end 2 --------------------------------------->  
 
+<!-- ========================================Certificate Section --======================================================-->
+
+<style>
+  .certificate-section {
+    background-color: #f9f9f9;
+    padding: 80px 20px;
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+    position: relative;
+  }
+
+  .research-section h2 {
+    font-size: 40px;
+    color: #222;
+    margin-bottom: 10px;
+  }
+
+  .certificate-section p {
+    font-size: 18px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+  }
+
+  .carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: 0 60px; /* leave space for buttons */
+  }
+
+  .carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 25px;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-item {
+    flex: 0 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .carousel-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .carousel-item a {
+    display: block;
+    font-size: 20px;
+    color: #0077cc;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 10px;
+  }
+
+  .carousel-item a:hover {
+    color: #005999;
+  }
+
+  .carousel-item p {
+    font-size: 15px;
+    color: #444;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
+
+  #btnPrev {
+    left: 10px;
+  }
+
+  #btnNext {
+    right: 10px;
+  }
+</style>
+
+<section id="certificate" class="certificate-section">
+  <h2>Certificate</h2>
+  <p>Explore my recent contributions to Quantum Computing, AI, and Environmental Forecasting.</p>
+
+  <div class="carousel-wrapper">
+    <button id="btnPrev" class="carousel-btn">&#8592;</button>
+    <div class="carousel-track" id="carouselTrack" tabindex="0">
+
+    <div class="carousel-item">
+        <a href="https://doi.org/10.1007/s00704-025-05715-5" target="_blank">Effective air pollution prediction</a>
+        <p>Effective air pollution prediction using wavenet deep learning with Xgboost</p>
+        <a href="assets/img/Paper-7.pdf" target="_blank">[Download PDF]</a>
+      </div>
+        
+      <div class="carousel-item">
+        <a href="https://doi.org/10.1007/s42979-025-04167-y" target="_blank">nRI RNN-BiGRU Forecasting Model</a>
+        <p>Enhancing PM2.5 Air Pollution Forecasting with Hybrid RNN-BiGRU Model</p>
+        <a href="assets/img/Paper-6.pdf" target="_blank">[Download PDF]</a>
+      </div>
+        
+        <div class="carousel-item">
+        <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
+        <p>Quantum-Inspired Neural Networks for Air Pollution Prediction</p>
+        <a href="assets/img/Paper-5.pdf" target="_blank">[Download PDF]</a>
+      </div>
+        
+      <div class="carousel-item">
+        <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
+        <p>Forecasting using BiGRU-1DCNN Model for PM2.5 in Delhi</p>
+        <a href="assets/img/Paper-4.pdf" target="_blank">[Download PDF]</a>
+      </div>
+        
+      <div class="carousel-item">
+        <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank">Deep Learning for Air Quality</a>
+        <p>Spatio‐Temporal Air Pollution Prediction based on PM2.5</p>
+        <a href="assets/img/Paper-3.pdf" target="_blank">[Download PDF]</a>
+      </div>
+        
+      <div class="carousel-item">
+      <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
+        <p>Prediction after Covid‐19 using Meteorological Data</p>
+        <a href="assets/img/Paper-2.pdf" target="_blank">[Download PDF]</a>
+      </div>
+
+        
+      <div class="carousel-item">
+        <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI</a>
+        <p>IoT Devices, Temperature Analysis, and Health Risks</p>
+        <a href="assets/img/Paper-1.pdf" target="_blank">[Download PDF]</a>
+      </div> 
+
+        <div class="carousel-item">
+        <a href="https://doi.org/10.1007/S13225-017-0386-0" target="_blank">Role of Mycotoxins</a>
+        <p>Role of Mycotoxins in the Food Chain</p>
+        <a href="assets/img/Book-1.pdf" target="_blank">[Download PDF]</a>
+      </div> 
+        
+        <div class="carousel-item">
+        <a href="https://doi.org/10.1109/ICACCS60874.2024.10717060" target="_blank">A Novel Ensemble Loss Function</a>
+        <p>A Novel Ensemble Loss Function of Few-Shot Learning for Tomato Leaf Disease Detection</p>
+        <a href="assets/img/Paper-0.pdf" target="_blank">[Download PDF]</a>
+      </div>
+
+    
+    </div>
+    <button id="btnNext" class="carousel-btn">&#8594;</button>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const track = document.getElementById('carouselTrack');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const items = track.querySelectorAll('.carousel-item');
+    const gap = 25;
+
+    function getScrollAmount() {
+      if (items.length === 0) return 0;
+      const width = items[0].offsetWidth + gap;
+      return width;
+    }
+
+    btnPrev.addEventListener('click', () => {
+      const scrollAmount = getScrollAmount();
+      track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+
+    btnNext.addEventListener('click', () => {
+      const scrollAmount = getScrollAmount();
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+
+    track.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        btnPrev.click();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        btnNext.click();
+      }
+    });
+  })();
+</script>
+
+
+ <!-- -----------------------------end 2 --------------------------------------->  
 
 
 
@@ -1037,5 +1244,6 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
