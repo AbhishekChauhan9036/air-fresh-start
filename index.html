@@ -698,7 +698,7 @@
     padding: 0 60px; /* leave space for buttons */
   }
 
-  .carousel-track {
+  .carousel-trackB {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -707,11 +707,11 @@
     padding: 10px 0;
   }
 
-  .carousel-track::-webkit-scrollbar {
+  .carousel-trackB::-webkit-scrollbar {
     display: none;
   }
 
-  .carousel-item {
+  .carousel-itemB {
     flex: 0 0 auto;
     background: white;
     border-radius: 15px;
@@ -721,12 +721,12 @@
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .carousel-item:hover {
+  .carousel-itemB:hover {
     transform: translateY(-8px);
     box-shadow: 0 16px 24px rgba(0, 0, 0, 0.15);
   }
 
-  .carousel-item a {
+  .carousel-itemB a {
     display: block;
     font-size: 20px;
     color: #0077cc;
@@ -735,11 +735,11 @@
     margin-bottom: 10px;
   }
 
-  .carousel-item a:hover {
+  .carousel-itemB a:hover {
     color: #005999;
   }
 
-  .carousel-item p {
+  .carousel-itemB p {
     font-size: 15px;
     color: #444;
   }
@@ -773,58 +773,58 @@
 
   <div class="carousel-wrapper">
     <button id="btnPrevB" class="carousel-btn">&#8592;</button>
-    <div class="carousel-track" id="carouselTrack" tabindex="0">
+    <div class="carousel-trackB" id="carouselTrackB" tabindex="0">
 
-    <div class="carousel-item">
+    <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/s00704-025-05715-5" target="_blank">Effective air pollution prediction</a>
         <p>Effective air pollution prediction using wavenet deep learning with Xgboost</p>
         <a href="assets/img/Paper-7.pdf" target="_blank">[Download PDF]</a>
       </div>
         
-      <div class="carousel-item">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/s42979-025-04167-y" target="_blank">nRI RNN-BiGRU Forecasting Model</a>
         <p>Enhancing PM2.5 Air Pollution Forecasting with Hybrid RNN-BiGRU Model</p>
         <a href="assets/img/Paper-6.pdf" target="_blank">[Download PDF]</a>
       </div>
         
-        <div class="carousel-item">
+        <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/s42484-024-00232-6" target="_blank">Quantum Time Series Forecasting</a>
         <p>Quantum-Inspired Neural Networks for Air Pollution Prediction</p>
         <a href="assets/img/Paper-5.pdf" target="_blank">[Download PDF]</a>
       </div>
         
-      <div class="carousel-item">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/s11270-025-08103-x" target="_blank">Spatio-Temporal Forecasting</a>
         <p>Forecasting using BiGRU-1DCNN Model for PM2.5 in Delhi</p>
         <a href="assets/img/Paper-4.pdf" target="_blank">[Download PDF]</a>
       </div>
         
-      <div class="carousel-item">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/978-3-031-64067-4_5" target="_blank">Deep Learning for Air Quality</a>
         <p>Spatio‐Temporal Air Pollution Prediction based on PM2.5</p>
         <a href="assets/img/Paper-3.pdf" target="_blank">[Download PDF]</a>
       </div>
         
-      <div class="carousel-item">
+      <div class="carousel-itemB">
       <a href="https://dx.doi.org/10.2139/ssrn.4292346" target="_blank">Air Quality Prediction after Covid‐19</a>
         <p>Prediction after Covid‐19 using Meteorological Data</p>
         <a href="assets/img/Paper-2.pdf" target="_blank">[Download PDF]</a>
       </div>
 
         
-      <div class="carousel-item">
+      <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/978-3-031-68602-3_3" target="_blank">IoT Sensors, ML, AI and XAI</a>
         <p>IoT Devices, Temperature Analysis, and Health Risks</p>
         <a href="assets/img/Paper-1.pdf" target="_blank">[Download PDF]</a>
       </div> 
 
-        <div class="carousel-item">
+        <div class="carousel-itemB">
         <a href="https://doi.org/10.1007/S13225-017-0386-0" target="_blank">Role of Mycotoxins</a>
         <p>Role of Mycotoxins in the Food Chain</p>
         <a href="assets/img/Book-1.pdf" target="_blank">[Download PDF]</a>
       </div> 
         
-        <div class="carousel-item">
+        <div class="carousel-itemB">
         <a href="https://doi.org/10.1109/ICACCS60874.2024.10717060" target="_blank">A Novel Ensemble Loss Function</a>
         <p>A Novel Ensemble Loss Function of Few-Shot Learning for Tomato Leaf Disease Detection</p>
         <a href="assets/img/Paper-0.pdf" target="_blank">[Download PDF]</a>
@@ -838,10 +838,10 @@
 
 <script>
   (function () {
-    const track = document.getElementById('carouselTrack');
+    const trackB = document.getElementById('carouselTrackB');
     const btnPrevB = document.getElementById('btnPrevB');
     const btnNextB = document.getElementById('btnNextB');
-    const items = track.querySelectorAll('.carousel-item');
+    const itemsB = track.querySelectorAll('.carousel-itemB');
     const gap = 25;
 
     function getScrollAmount() {
@@ -1236,6 +1236,7 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
 
