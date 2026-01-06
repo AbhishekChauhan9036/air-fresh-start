@@ -1202,25 +1202,29 @@
 
                        <!--==================== Total Page Visits ====================-->
                     
-                      <div class="footer__data">
-                        <h3 class="footer__subtitle">Total Page Visits</h3>
-                        <ul>
-                            <li class="footer__item">
+                        <!--==================== Total Page Visits ====================-->
+                        <div class="footer__data">
+                            <h3 class="footer__subtitle">Total Page Visits</h3>
+                            <ul>
+                                <li class="footer__item">
+                                    <span id="visitor-count">Loading...</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
                         <script>
-                                fetch("https://api.countapi.xyz/hit/air-fresh-start.netlify.app/visits")
-                                  .then(response => response.json())
-                                  .then(data => {
-                                      document.getElementById("visitor-count").innerText = data.value;
-                                  })
-                                  .catch(error => {
-                                      document.getElementById("visitor-count").innerText = "N/A";
-                                      console.error(error);
-                                  });
+                        fetch("https://api.countapi.xyz/hit/air-fresh-start.netlify.app/visits")
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById("visitor-count").innerText = data.value;
+                            })
+                            .catch(error => {
+                                document.getElementById("visitor-count").innerText = "N/A";
+                                console.error(error);
+                            });
                         </script>
+                        <!--==================== END OF Total Page Visits ====================-->
 
-                            </li>
-                        </ul>
-                    </div>
 
                        <!--==================== END OF  Total Page Visits ====================-->
                     
@@ -1252,6 +1256,7 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
 
