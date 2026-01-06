@@ -1206,18 +1206,18 @@
                         <h3 class="footer__subtitle">Total Page Visits</h3>
                         <ul>
                             <li class="footer__item">
-                                    <script>
-                                        let count = localStorage.getItem("visitCount");
-                                    
-                                        if (count === null) {
-                                            count = 1;
-                                        } else {
-                                            count = parseInt(count) + 1;
-                                        }
-                                    
-                                        localStorage.setItem("visitCount", count);
-                                        document.getElementById("counter").innerText = count;
-                                    </script>
+                        <script>
+                                fetch("https://api.countapi.xyz/hit/air-fresh-start.netlify.app/visits")
+                                  .then(response => response.json())
+                                  .then(data => {
+                                      document.getElementById("visitor-count").innerText = data.value;
+                                  })
+                                  .catch(error => {
+                                      document.getElementById("visitor-count").innerText = "N/A";
+                                      console.error(error);
+                                  });
+                        </script>
+
                             </li>
                         </ul>
                     </div>
@@ -1252,6 +1252,7 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
 
