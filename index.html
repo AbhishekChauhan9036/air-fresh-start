@@ -73,9 +73,6 @@
             </div>
         </section>
 
-
-        
-
             <!--======================================================== ABOUT =================================================================-->
 
         
@@ -1208,6 +1205,76 @@
             </div>
         </footer>
 
+
+
+<!--===================== visitor count =============================-->
+
+<?php
+// File to store visitor count
+$file = "counter.txt";
+
+// Read current count
+$count = file_get_contents($file);
+
+// Increase count
+$count++;
+
+// Save updated count
+file_put_contents($file, $count);
+?>
+
+
+    <title>Visitor Counter</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .box {
+            background: white;
+            width: 300px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        .count {
+            font-size: 40px;
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+
+
+<div class="box">
+    <h2>Welcome</h2>
+    <p>Total Page Visits</p>
+    <div class="count">
+        <?php echo $count; ?>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
          <!--========== SCROLL UP ==========-->
         <a href="#" class="scrollup" id="scroll-up">
             <i class="ri-arrow-up-line scrollup__icon"></i>
@@ -1223,6 +1290,7 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
 
