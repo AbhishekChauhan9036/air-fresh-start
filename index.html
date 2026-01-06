@@ -1125,6 +1125,30 @@
             </section>
         </main>
 
+
+    
+<!--===================== visitor count =============================-->
+
+<div class="box">
+    <h2>Welcome</h2>
+    <p>Total Page Visits</p>
+    <div class="count" id="counter">0</div>
+</div>
+
+<script>
+    let count = localStorage.getItem("visitCount");
+
+    if (count === null) {
+        count = 1;
+    } else {
+        count = parseInt(count) + 1;
+    }
+
+    localStorage.setItem("visitCount", count);
+    document.getElementById("counter").innerText = count;
+</script>
+    
+
         <!--==================== FOOTER ====================-->
         <footer class="footer section">
             <div class="footer__container container grid">
@@ -1207,26 +1231,6 @@
 
 
 
-<!--===================== visitor count =============================-->
-
-<div class="box">
-    <h2>Welcome</h2>
-    <p>Total Page Visits</p>
-    <div class="count" id="counter">0</div>
-</div>
-
-<script>
-    let count = localStorage.getItem("visitCount");
-
-    if (count === null) {
-        count = 1;
-    } else {
-        count = parseInt(count) + 1;
-    }
-
-    localStorage.setItem("visitCount", count);
-    document.getElementById("counter").innerText = count;
-</script>
 
 
 
@@ -1260,6 +1264,7 @@
         <script src="assets/js/main.js"></script>
     </body>
 </html>
+
 
 
 
