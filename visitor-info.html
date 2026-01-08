@@ -1,70 +1,169 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visitor Information</title>
+<title>Visitor Information (Secure)</title>
+
 <style>
-body { font-family: Arial, sans-serif; padding: 20px; }
-h2 { margin-bottom: 10px; }
-ul { list-style-type: none; padding-left: 0; }
-li { margin-bottom: 5px; }
-button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 6px;
+}
 </style>
 </head>
+
 <body>
 
-<h1>Visitor Information</h1>
+<!-- ================= LOGIN SECTION ================= -->
+<div class="container" id="login-box">
+    <h2>Secure Access</h2>
 
-<div id="info"></div>
+    <input type="text" id="userid" placeholder="User ID">
+    <input type="password" id="password" placeholder="Password">
 
-<!-- Back button -->
-<button onclick="window.location.href='index.html'">Back to Home</button>
+    <button onclick="login()">Login</button>
+    <p class="error" id="error-msg"></p>
+</div>
+
+<!-- ================= VISITOR INFO SECTION ================= -->
+<div class="container hidden" id="info-box">
+    <h2>Visitor Information</h2>
+
+    <div id="info"></div>
+
+    <button onclick="logout()">Logout</button>
+    <button onclick="window.location.href='index.html'">Back to Home</button>
+</div>
 
 <script>
-// --- Get Session Counter ---
-let totalVisits = localStorage.getItem("afs_total_visits") || 0;
+// ================= LOGIN LOGIC =================
+const VALID_USER = "New";
+const VALID_PASS = "Admin";
 
-// --- Get Client Info ---
-const clientInfo = {
-    userAgent: navigator.userAgent,
-    platform: navigator.platform,
-    language: navigator.language,
-    cookiesEnabled: navigator.cookieEnabled,
-    screenSize: `${screen.width}x${screen.height}`,
-    viewport: `${window.innerWidth}x${window.innerHeight}`,
-};
+function login() {
+    const user = document.getElementById("userid").value;
+    const pass = document.getElementById("password").value;
 
-// --- Display Basic Info ---
-let infoDiv = document.getElementById("info");
-infoDiv.innerHTML = `<h2>Session & Device Info</h2>
-<ul>
-<li>Total Visits (all sessions): ${totalVisits}</li>
-<li>Browser/OS: ${clientInfo.userAgent}</li>
-<li>Platform: ${clientInfo.platform}</li>
-<li>Language: ${clientInfo.language}</li>
-<li>Cookies Enabled: ${clientInfo.cookiesEnabled}</li>
-<li>Screen Size: ${clientInfo.screenSize}</li>
-<li>Viewport: ${clientInfo.viewport}</li>
-</ul>`;
+    if (user === VALID_USER && pass === VALID_PASS) {
+        sessionStorage.setItem("afs_logged_in", "true");
+        showInfo();
+    } else {
+        document.getElementById("error-msg").innerText = "Invalid User ID or Password";
+    }
+}
 
-// --- Fetch IP & Location ---
-fetch("https://ipapi.co/json/")
-  .then(res => res.json())
-  .then(data => {
-      infoDiv.innerHTML += `<h2>IP & Location Info</h2>
-      <ul>
-      <li>IP Address: ${data.ip}</li>
-      <li>City: ${data.city}</li>
-      <li>Region: ${data.region}</li>
-      <li>Country: ${data.country_name}</li>
-      </ul>`;
-  })
-  .catch(err => {
-      infoDiv.innerHTML += `<p>IP/Location info unavailable</p>`;
-      console.error(err);
-  });
+function logout() {
+    sessionStorage.removeItem("afs_logged_in");
+    location.reload();
+}
+
+function showInfo() {
+    document.getElementById("login-box").classList.add("hidden");
+    document.getElementById("info-box").classList.remove("hidden");
+    loadVisitorInfo();
+}
+
+// Auto-login if already authenticated
+if (sessionStorage.getItem("afs_logged_in") === "true") {
+    showInfo();
+}
+
+// ================= VISITOR INFORMATION =================
+function loadVisitorInfo() {
+
+    let totalVisits = localStorage.getItem("afs_total_visits") || 0;
+
+    const clientInfo = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        cookiesEnabled: navigator.cookieEnabled,
+        screenSize: `${screen.width} x ${screen.height}`,
+        viewport: `${window.innerWidth} x ${window.innerHeight}`
+    };
+
+    let infoDiv = document.getElementById("info");
+
+    infoDiv.innerHTML = `
+    <h3>Session & Device Info</h3>
+    <ul>
+        <li><b>Total Visits:</b> ${totalVisits}</li>
+        <li><b>Browser / OS:</b> ${clientInfo.userAgent}</li>
+        <li><b>Platform:</b> ${clientInfo.platform}</li>
+        <li><b>Language:</b> ${clientInfo.language}</li>
+        <li><b>Cookies Enabled:</b> ${clientInfo.cookiesEnabled}</li>
+        <li><b>Screen Size:</b> ${clientInfo.screenSize}</li>
+        <li><b>Viewport:</b> ${clientInfo.viewport}</li>
+    </ul>
+    <h3>IP & Location Info</h3>
+    <p>Loading...</p>
+    `;
+
+    fetch("https://ipapi.co/json/")
+        .then(res => res.json())
+        .then(data => {
+            infoDiv.innerHTML += `
+            <ul>
+                <li><b>IP Address:</b> ${data.ip}</li>
+                <li><b>City:</b> ${data.city}</li>
+                <li><b>Region:</b> ${data.region}</li>
+                <li><b>Country:</b> ${data.country_name}</li>
+                <li><b>ISP:</b> ${data.org}</li>
+            </ul>
+            `;
+        })
+        .catch(() => {
+            infoDiv.innerHTML += "<p>IP / Location data unavailable</p>";
+        });
+}
 </script>
 
 </body>
 </html>
+
