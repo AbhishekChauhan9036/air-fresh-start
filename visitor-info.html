@@ -6,231 +6,181 @@
 <title>Secure Visitor Information</title>
 
 <style>
-/* ===== Background ===== */
-body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body{
+    margin:0;
+    font-family:Segoe UI, sans-serif;
+    min-height:100vh;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
-
-/* ===== Containers ===== */
-.container {
-    width: 420px;
-    background: rgba(255,255,255,0.95);
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+.container{
+    width:420px;
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
 }
-
-.hidden {
-    display: none;
+.hidden{display:none;}
+h2,h3{text-align:center;}
+input{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
 }
-
-h2, h3 {
-    text-align: center;
-    color: #333;
+button{
+    width:100%;
+    padding:10px;
+    margin-top:15px;
+    background:#667eea;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
 }
-
-/* ===== Inputs ===== */
-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 15px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+.secondary{background:#444;}
+.export{background:#2ecc71;}
+.toggle{
+    font-size:13px;
+    cursor:pointer;
+    color:#667eea;
 }
-
-.toggle {
-    cursor: pointer;
-    font-size: 13px;
-    color: #667eea;
-    margin-top: 5px;
-    display: inline-block;
+.error{
+    color:red;
+    text-align:center;
 }
-
-/* ===== Buttons ===== */
-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    font-size: 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background: #667eea;
-    color: #fff;
-}
-
-button.secondary {
-    background: #444;
-}
-
-button.export {
-    background: #2ecc71;
-}
-
-/* ===== Error ===== */
-.error {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
-}
-
-/* ===== Info ===== */
-ul {
-    padding-left: 0;
-    list-style: none;
-}
-
-li {
-    padding: 4px 0;
-    font-size: 14px;
-}
+ul{list-style:none;padding:0;}
+li{font-size:14px;padding:4px 0;}
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- LOGIN -->
 <div class="container" id="loginBox">
     <h2>🔐 Secure Login</h2>
-
-    <input type="text" id="user" placeholder="User ID">
-    <input type="password" id="pass" placeholder="Password">
+    <input id="user" placeholder="User ID">
+    <input id="pass" type="password" placeholder="Password">
     <span class="toggle" onclick="togglePassword()">Show / Hide Password</span>
-
     <button onclick="login()">Login</button>
     <div class="error" id="error"></div>
 </div>
 
-<!-- ================= INFO ================= -->
+<!-- INFO -->
 <div class="container hidden" id="infoBox">
     <h2>Visitor Information</h2>
     <div id="info"></div>
-
     <button class="export" onclick="exportCSV()">Export CSV</button>
     <button class="secondary" onclick="logout()">Logout</button>
-    <button class="secondary" onclick="location.href='index.html'">Back to Home</button>
+    <button class="secondary" onclick="location.href='index.html'">Back</button>
 </div>
 
 <script>
-/* ===== SECURITY ===== */
 const VALID_USER = "New";
-/* SHA-256 hash of 'Admin' */
-const VALID_PASS_HASH = "8c6976e5b5410415bde908bd4dee15dfb16a0a9c6c93d3a38f8eaa4b1a0a8a7f";
+const VALID_PASS = "Admin"; // hashed dynamically
 
-let autoLogoutTimer;
+let logoutTimer;
 
-/* ===== HASH FUNCTION ===== */
-async function sha256(text) {
+// SHA-256
+async function sha256(text){
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
 }
 
-/* ===== LOGIN ===== */
-async function login() {
-    const user = document.getElementById("user").value;
-    const pass = document.getElementById("pass").value;
-    const hash = await sha256(pass);
+// LOGIN
+async function login(){
+    const u = document.getElementById("user").value.trim();
+    const p = document.getElementById("pass").value;
 
-    if (user === VALID_USER && hash === VALID_PASS_HASH) {
-        sessionStorage.setItem("afs_auth", "true");
+    const inputHash = await sha256(p);
+    const validHash = await sha256(VALID_PASS);
+
+    if(u === VALID_USER && inputHash === validHash){
+        sessionStorage.setItem("afs_auth","true");
         showInfo();
     } else {
         document.getElementById("error").innerText = "Invalid credentials";
     }
 }
 
-/* ===== SHOW / HIDE PASSWORD ===== */
-function togglePassword() {
-    const p = document.getElementById("pass");
-    p.type = p.type === "password" ? "text" : "password";
+// SHOW/HIDE PASSWORD
+function togglePassword(){
+    const p=document.getElementById("pass");
+    p.type = p.type==="password"?"text":"password";
 }
 
-/* ===== LOGOUT ===== */
-function logout() {
+// LOGOUT
+function logout(){
     sessionStorage.removeItem("afs_auth");
     location.reload();
 }
 
-/* ===== AUTO LOGOUT (5 MIN) ===== */
-function resetTimer() {
-    clearTimeout(autoLogoutTimer);
-    autoLogoutTimer = setTimeout(logout, 5 * 60 * 1000);
+// AUTO LOGOUT (5 min)
+function resetTimer(){
+    clearTimeout(logoutTimer);
+    logoutTimer=setTimeout(logout,5*60*1000);
 }
-document.onmousemove = resetTimer;
-document.onkeydown = resetTimer;
+document.onmousemove=resetTimer;
+document.onkeydown=resetTimer;
 
-/* ===== LOAD INFO ===== */
-function showInfo() {
+// SHOW INFO
+function showInfo(){
     document.getElementById("loginBox").classList.add("hidden");
     document.getElementById("infoBox").classList.remove("hidden");
     resetTimer();
-    loadVisitorInfo();
+    loadInfo();
 }
 
-/* Auto-login */
-if (sessionStorage.getItem("afs_auth") === "true") {
+// AUTO LOGIN
+if(sessionStorage.getItem("afs_auth")==="true"){
     showInfo();
 }
 
-/* ===== VISITOR INFO ===== */
-let visitorData = {};
+// VISITOR INFO
+let visitorData={};
 
-function loadVisitorInfo() {
-    visitorData = {
-        Total_Visits: localStorage.getItem("afs_total_visits") || 0,
-        Browser: navigator.userAgent,
-        Platform: navigator.platform,
-        Language: navigator.language,
-        Cookies_Enabled: navigator.cookieEnabled,
-        Screen: `${screen.width}x${screen.height}`,
-        Viewport: `${innerWidth}x${innerHeight}`
+function loadInfo(){
+    visitorData={
+        Total_Visits:localStorage.getItem("afs_total_visits")||0,
+        Browser:navigator.userAgent,
+        Platform:navigator.platform,
+        Language:navigator.language,
+        Cookies:navigator.cookieEnabled,
+        Screen:`${screen.width}x${screen.height}`,
+        Viewport:`${innerWidth}x${innerHeight}`
     };
 
-    document.getElementById("info").innerHTML = `
+    document.getElementById("info").innerHTML=`
     <h3>Device & Session</h3>
-    <ul>
-        ${Object.entries(visitorData).map(([k,v]) => `<li><b>${k}:</b> ${v}</li>`).join("")}
-    </ul>
+    <ul>${Object.entries(visitorData).map(([k,v])=>`<li><b>${k}:</b> ${v}</li>`).join("")}</ul>
     <h3>IP & Location</h3>
-    <p>Loading...</p>
-    `;
+    <p>Loading...</p>`;
 
     fetch("https://ipapi.co/json/")
-        .then(r => r.json())
-        .then(d => {
-            visitorData.IP = d.ip;
-            visitorData.City = d.city;
-            visitorData.Region = d.region;
-            visitorData.Country = d.country_name;
-            visitorData.ISP = d.org;
-
-            document.getElementById("info").innerHTML += `
-            <ul>
-                <li><b>IP:</b> ${d.ip}</li>
-                <li><b>City:</b> ${d.city}</li>
-                <li><b>Region:</b> ${d.region}</li>
-                <li><b>Country:</b> ${d.country_name}</li>
-                <li><b>ISP:</b> ${d.org}</li>
-            </ul>`;
+    .then(r=>r.json())
+    .then(d=>{
+        Object.assign(visitorData,{
+            IP:d.ip,City:d.city,Region:d.region,Country:d.country_name,ISP:d.org
         });
+        document.getElementById("info").innerHTML+=`
+        <ul>
+            <li><b>IP:</b> ${d.ip}</li>
+            <li><b>City:</b> ${d.city}</li>
+            <li><b>Region:</b> ${d.region}</li>
+            <li><b>Country:</b> ${d.country_name}</li>
+            <li><b>ISP:</b> ${d.org}</li>
+        </ul>`;
+    });
 }
 
-/* ===== EXPORT CSV ===== */
-function exportCSV() {
-    let csv = Object.keys(visitorData).join(",") + "\n" +
-              Object.values(visitorData).join(",");
-
-    const blob = new Blob([csv], { type: "text/csv" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "visitor_info.csv";
+// EXPORT CSV
+function exportCSV(){
+    const csv=Object.keys(visitorData).join(",")+"\n"+Object.values(visitorData).join(",");
+    const blob=new Blob([csv],{type:"text/csv"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="visitor_info.csv";
     a.click();
 }
 </script>
