@@ -3,24 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Visitor Information</title>
+<title>Secure Visitor Dashboard</title>
 
 <style>
 body{
     margin:0;
     font-family:Segoe UI, sans-serif;
     min-height:100vh;
-    background:linear-gradient(135deg,#667eea,#764ba2);
+    background:linear-gradient(135deg,#1d2671,#c33764);
     display:flex;
     align-items:center;
     justify-content:center;
 }
 .container{
-    width:420px;
+    width:95%;
+    max-width:900px;
     background:#fff;
     padding:25px;
-    border-radius:12px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    border-radius:14px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
 }
 .hidden{display:none;}
 h2,h3{text-align:center;}
@@ -30,93 +31,107 @@ input{
     margin-top:10px;
 }
 button{
-    width:100%;
     padding:10px;
     margin-top:15px;
-    background:#667eea;
+    background:#1d2671;
     color:#fff;
     border:none;
     border-radius:6px;
     cursor:pointer;
 }
 .secondary{background:#444;}
-.export{background:#2ecc71;}
-.toggle{
-    font-size:13px;
-    cursor:pointer;
-    color:#667eea;
+.success{background:#2ecc71;}
+.toggle{cursor:pointer;color:#1d2671;font-size:13px;}
+.error{color:red;text-align:center;}
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
 }
-.error{
-    color:red;
-    text-align:center;
+.card{
+    background:#f4f6fb;
+    padding:15px;
+    border-radius:10px;
 }
-ul{list-style:none;padding:0;}
-li{font-size:14px;padding:4px 0;}
+iframe{width:100%;height:300px;border-radius:10px;border:none;}
+ul{padding-left:18px;}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
 <div class="container" id="loginBox">
     <h2>🔐 Secure Login</h2>
     <input id="user" placeholder="User ID">
     <input id="pass" type="password" placeholder="Password">
-    <span class="toggle" onclick="togglePassword()">Show / Hide Password</span>
+    <span class="toggle" onclick="togglePass()">Show / Hide Password</span>
     <button onclick="login()">Login</button>
     <div class="error" id="error"></div>
 </div>
 
-<!-- INFO -->
-<div class="container hidden" id="infoBox">
-    <h2>Visitor Information</h2>
-    <div id="info"></div>
-    <button class="export" onclick="exportCSV()">Export CSV</button>
+<!-- ================= OTP ================= -->
+<div class="container hidden" id="otpBox">
+    <h2>📲 OTP Verification</h2>
+    <p><b>Your OTP:</b> <span id="otpShow"></span></p>
+    <input id="otpInput" placeholder="Enter OTP">
+    <button onclick="verifyOTP()">Verify OTP</button>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div class="container hidden" id="dashboard">
+    <h2>📊 Visitor Dashboard</h2>
+
+    <div class="cards" id="stats"></div>
+
+    <h3>🌍 Location Map</h3>
+    <iframe id="map"></iframe>
+
+    <h3>📅 Daily Visit Logs</h3>
+    <ul id="logs"></ul>
+
+    <button class="success" onclick="exportCSV()">Export CSV</button>
     <button class="secondary" onclick="logout()">Logout</button>
     <button class="secondary" onclick="location.href='index.html'">Back</button>
 </div>
 
 <script>
-const VALID_USER = "New";
-const VALID_PASS = "Admin"; // hashed dynamically
-
+/* ===== AUTH ===== */
+const VALID_USER="New";
+const VALID_PASS="Admin";
+let generatedOTP="";
 let logoutTimer;
 
-// SHA-256
-async function sha256(text){
-    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+/* SHA-256 */
+async function sha256(t){
+    const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));
+    return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
 }
 
-// LOGIN
+/* LOGIN */
 async function login(){
-    const u = document.getElementById("user").value.trim();
-    const p = document.getElementById("pass").value;
+    const u=user.value.trim();
+    const p=pass.value;
+    if(u===VALID_USER && await sha256(p)===await sha256(VALID_PASS)){
+        generatedOTP=Math.floor(100000+Math.random()*900000);
+        otpShow.innerText=generatedOTP;
+        loginBox.classList.add("hidden");
+        otpBox.classList.remove("hidden");
+    } else error.innerText="Invalid credentials";
+}
 
-    const inputHash = await sha256(p);
-    const validHash = await sha256(VALID_PASS);
-
-    if(u === VALID_USER && inputHash === validHash){
+/* OTP */
+function verifyOTP(){
+    if(otpInput.value==generatedOTP){
         sessionStorage.setItem("afs_auth","true");
-        showInfo();
-    } else {
-        document.getElementById("error").innerText = "Invalid credentials";
+        otpBox.classList.add("hidden");
+        dashboard.classList.remove("hidden");
+        resetTimer();
+        loadDashboard();
     }
 }
 
-// SHOW/HIDE PASSWORD
-function togglePassword(){
-    const p=document.getElementById("pass");
-    p.type = p.type==="password"?"text":"password";
-}
-
-// LOGOUT
-function logout(){
-    sessionStorage.removeItem("afs_auth");
-    location.reload();
-}
-
-// AUTO LOGOUT (5 min)
+/* AUTO LOGOUT */
 function resetTimer(){
     clearTimeout(logoutTimer);
     logoutTimer=setTimeout(logout,5*60*1000);
@@ -124,63 +139,65 @@ function resetTimer(){
 document.onmousemove=resetTimer;
 document.onkeydown=resetTimer;
 
-// SHOW INFO
-function showInfo(){
-    document.getElementById("loginBox").classList.add("hidden");
-    document.getElementById("infoBox").classList.remove("hidden");
-    resetTimer();
-    loadInfo();
+function logout(){
+    sessionStorage.clear();
+    location.reload();
 }
 
-// AUTO LOGIN
+/* SHOW PASSWORD */
+function togglePass(){
+    pass.type=pass.type==="password"?"text":"password";
+}
+
+/* AUTO LOGIN */
 if(sessionStorage.getItem("afs_auth")==="true"){
-    showInfo();
+    loginBox.classList.add("hidden");
+    dashboard.classList.remove("hidden");
+    loadDashboard();
 }
 
-// VISITOR INFO
+/* DASHBOARD */
 let visitorData={};
 
-function loadInfo(){
+function loadDashboard(){
+    let visits=localStorage.getItem("afs_total_visits")||0;
+    const today=new Date().toLocaleDateString();
+    let logs=JSON.parse(localStorage.getItem("afs_logs")||"[]");
+    if(!logs.includes(today)){
+        logs.push(today);
+        localStorage.setItem("afs_logs",JSON.stringify(logs));
+    }
+
     visitorData={
-        Total_Visits:localStorage.getItem("afs_total_visits")||0,
+        Visits:visits,
         Browser:navigator.userAgent,
         Platform:navigator.platform,
         Language:navigator.language,
-        Cookies:navigator.cookieEnabled,
         Screen:`${screen.width}x${screen.height}`,
         Viewport:`${innerWidth}x${innerHeight}`
     };
 
-    document.getElementById("info").innerHTML=`
-    <h3>Device & Session</h3>
-    <ul>${Object.entries(visitorData).map(([k,v])=>`<li><b>${k}:</b> ${v}</li>`).join("")}</ul>
-    <h3>IP & Location</h3>
-    <p>Loading...</p>`;
+    stats.innerHTML=Object.entries(visitorData)
+        .map(([k,v])=>`<div class="card"><b>${k}</b><br>${v}</div>`).join("");
+
+    logsEl.innerHTML=logs.map(d=>`<li>${d}</li>`).join("");
 
     fetch("https://ipapi.co/json/")
     .then(r=>r.json())
     .then(d=>{
-        Object.assign(visitorData,{
-            IP:d.ip,City:d.city,Region:d.region,Country:d.country_name,ISP:d.org
-        });
-        document.getElementById("info").innerHTML+=`
-        <ul>
-            <li><b>IP:</b> ${d.ip}</li>
-            <li><b>City:</b> ${d.city}</li>
-            <li><b>Region:</b> ${d.region}</li>
-            <li><b>Country:</b> ${d.country_name}</li>
-            <li><b>ISP:</b> ${d.org}</li>
-        </ul>`;
+        visitorData.IP=d.ip;
+        visitorData.City=d.city;
+        visitorData.Country=d.country_name;
+        map.src=`https://maps.google.com/maps?q=${d.latitude},${d.longitude}&z=10&output=embed`;
     });
 }
 
-// EXPORT CSV
+/* EXPORT CSV */
 function exportCSV(){
     const csv=Object.keys(visitorData).join(",")+"\n"+Object.values(visitorData).join(",");
-    const blob=new Blob([csv],{type:"text/csv"});
     const a=document.createElement("a");
-    a.href=URL.createObjectURL(blob);
-    a.download="visitor_info.csv";
+    a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+    a.download="visitor_dashboard.csv";
     a.click();
 }
 </script>
