@@ -1236,7 +1236,22 @@
 
                         <!--==================== END OF Total Page Visits ====================-->
 
+                            <li class="footer__item">
 
+                         <!--==================== Button to show visitor info ======================== -->
+                                    <button id="show-info-btn" style="padding:10px 20px; font-size:16px; cursor:pointer;">
+                                        Show My Visitor Information
+                                    </button>
+                                    
+                                    <script>
+                                    // Button click redirects to visitor info page
+                                    document.getElementById("show-info-btn").addEventListener("click", () => {
+                                        window.location.href = "visitor-info.html";
+                                    });
+                                    </script>
+
+                            </li>
+                    
                        <!--==================== END OF  Total Page Visits ====================-->
                     
                     
@@ -1273,6 +1288,7 @@
 
     </body>
 </html>
+
 
 
 
