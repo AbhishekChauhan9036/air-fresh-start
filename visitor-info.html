@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Information</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; }
+h2 { margin-bottom: 10px; }
+ul { list-style-type: none; padding-left: 0; }
+li { margin-bottom: 5px; }
+button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Visitor Information</h1>
+
+<div id="info"></div>
+
+<!-- Back button -->
+<button onclick="window.location.href='index.html'">Back to Home</button>
+
+<script>
+// --- Get Session Counter ---
+let totalVisits = localStorage.getItem("afs_total_visits") || 0;
+
+// --- Get Client Info ---
+const clientInfo = {
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language,
+    cookiesEnabled: navigator.cookieEnabled,
+    screenSize: `${screen.width}x${screen.height}`,
+    viewport: `${window.innerWidth}x${window.innerHeight}`,
+};
+
+// --- Display Basic Info ---
+let infoDiv = document.getElementById("info");
+infoDiv.innerHTML = `<h2>Session & Device Info</h2>
+<ul>
+<li>Total Visits (all sessions): ${totalVisits}</li>
+<li>Browser/OS: ${clientInfo.userAgent}</li>
+<li>Platform: ${clientInfo.platform}</li>
+<li>Language: ${clientInfo.language}</li>
+<li>Cookies Enabled: ${clientInfo.cookiesEnabled}</li>
+<li>Screen Size: ${clientInfo.screenSize}</li>
+<li>Viewport: ${clientInfo.viewport}</li>
+</ul>`;
+
+// --- Fetch IP & Location ---
+fetch("https://ipapi.co/json/")
+  .then(res => res.json())
+  .then(data => {
+      infoDiv.innerHTML += `<h2>IP & Location Info</h2>
+      <ul>
+      <li>IP Address: ${data.ip}</li>
+      <li>City: ${data.city}</li>
+      <li>Region: ${data.region}</li>
+      <li>Country: ${data.country_name}</li>
+      </ul>`;
+  })
+  .catch(err => {
+      infoDiv.innerHTML += `<p>IP/Location info unavailable</p>`;
+      console.error(err);
+  });
+</script>
+
+</body>
+</html>
