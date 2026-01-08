@@ -1205,28 +1205,32 @@
                         <!--==================== Total Page Visits ====================-->
        
            <!--==================== Total Page Visits ====================-->
-                        <div class="footer__data">
-                            <h3 class="footer__subtitle">Total Page Visits</h3>
-                            <ul>
-                                <li class="footer__item">
-                                    <span id="visitor-count">0</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <!--==================== END ====================-->
-                        
-                        <script>
-                        let visits = localStorage.getItem("air_fresh_start_visits");
-                        
-                        if (!visits) {
-                            visits = 1;
-                        } else {
-                            visits = parseInt(visits) + 1;
-                        }
-                        
-                        localStorage.setItem("air_fresh_start_visits", visits);
-                        document.getElementById("visitor-count").innerText = visits;
-                        </script>
+            <!--==================== Total Page Visits ====================-->
+                    <div class="footer__data">
+                        <h3 class="footer__subtitle">Total Page Visits</h3>
+                        <ul>
+                            <li class="footer__item">
+                                <span id="visitor-count">0</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--==================== END ====================-->
+                    
+                    <script>
+                    // Initialize total visits
+                    let totalVisits = localStorage.getItem("afs_total_visits");
+                    if (!totalVisits) totalVisits = 0;
+                    
+                    // Check session
+                    if (!sessionStorage.getItem("afs_session_active")) {
+                        totalVisits++;
+                        localStorage.setItem("afs_total_visits", totalVisits);
+                        sessionStorage.setItem("afs_session_active", "true");
+                    }
+                    
+                    // Display count
+                    document.getElementById("visitor-count").innerText = totalVisits;
+                    </script>
 
 
 
@@ -1269,4 +1273,5 @@
 
     </body>
 </html>
+
 
