@@ -1253,9 +1253,10 @@
                             </li>
                     
                        <!--==================== END OF  Total Page Visits ====================-->
-                             <li class="footer__item">
+                            
                                 
                         <!-- ========================Air Pollution Awareness Button ==================-->
+                     <li class="footer__item">
                                 <button id="air-awareness-btn"
                                 style="padding:12px 24px; font-size:16px; font-weight:bold; cursor:pointer;
                                 background:#00ffcc; border:none; border-radius:8px;">
@@ -1270,6 +1271,26 @@
 
                       </li>
           <!-- ========================   END OF Air Pollution Awareness Button ==================-->
+
+
+                                <!-- ========================Live AQI Button============================== -->
+
+                             <li class="footer__item">
+                                <button id="live-aqi-btn"
+                                style="padding:12px 24px; font-size:16px; font-weight:bold;
+                                background:#ffcc00; border:none; border-radius:8px; cursor:pointer;">
+                                Live AQI (City-wise)
+                                </button>
+                                
+                                <script>
+                                document.getElementById("live-aqi-btn").onclick = () => {
+                                    window.location.href = "live-aqi.html";
+                                };
+                                </script>
+
+                        </li>
+
+                <!-- ========================   END OF Live AQI Button============================== -->
 
                     
                 </div>
@@ -1305,6 +1326,7 @@
 
     </body>
 </html>
+
 
 
 
