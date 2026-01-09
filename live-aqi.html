@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live AQI - City Wise</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color: #fff;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+}
+
+.card {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+h1 {
+    text-align: center;
+    color: #ffeb3b;
+}
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+}
+
+input {
+    background: #fff;
+}
+
+button {
+    background: #ffeb3b;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ffd600;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.aqi {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.good { color: #00e676; }
+.moderate { color: #ffee58; }
+.poor { color: #ff7043; }
+.very-poor { color: #ff1744; }
+.severe { color: #b71c1c; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="card">
+
+<h1>Live Air Quality Index</h1>
+
+<input type="text" id="city" placeholder="Enter City Name (e.g., Delhi)">
+<button onclick="getAQI()">Get AQI</button>
+
+<div class="result" id="result"></div>
+
+<button onclick="window.location.href='index.html'">Back to Home</button>
+
+</div>
+</div>
+
+<script>
+const API_KEY = "demo"; 
+// Replace "demo" with your free API key from https://aqicn.org/data-platform/token/
+
+function getAQI() {
+    const city = document.getElementById("city").value.trim();
+    if (!city) return;
+
+    fetch(`https://api.waqi.info/feed/${city}/?token=${API_KEY}`)
+    .then(res => res.json())
+    .then(data => {
+        if (data.status !== "ok") {
+            document.getElementById("result").innerHTML = "City not found!";
+            return;
+        }
+
+        const aqi = data.data.aqi;
+        let cls = "good";
+        let label = "Good";
+
+        if (aqi > 50 && aqi <= 100) { cls = "moderate"; label = "Moderate"; }
+        else if (aqi > 100 && aqi <= 200) { cls = "poor"; label = "Poor"; }
+        else if (aqi > 200 && aqi <= 300) { cls = "very-poor"; label = "Very Poor"; }
+        else if (aqi > 300) { cls = "severe"; label = "Severe"; }
+
+        document.getElementById("result").innerHTML = `
+        <p class="aqi ${cls}">AQI: ${aqi} (${label})</p>
+        <ul>
+            <li>PM2.5: ${data.data.iaqi.pm25?.v ?? "N/A"}</li>
+            <li>PM10: ${data.data.iaqi.pm10?.v ?? "N/A"}</li>
+            <li>NO₂: ${data.data.iaqi.no2?.v ?? "N/A"}</li>
+            <li>O₃: ${data.data.iaqi.o3?.v ?? "N/A"}</li>
+            <li>CO: ${data.data.iaqi.co?.v ?? "N/A"}</li>
+        </ul>
+        `;
+    })
+    .catch(() => {
+        document.getElementById("result").innerHTML = "Unable to fetch AQI data.";
+    });
+}
+</script>
+
+</body>
+</html>
