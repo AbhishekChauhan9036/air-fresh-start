@@ -2,202 +2,206 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Secure Visitor Information</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Secure Visitor Dashboard</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Segoe UI, sans-serif;
-    min-height:100vh;
-    background:linear-gradient(135deg,#1d2671,#c33764);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    min-height: 100vh;
 }
-.container{
-    width:95%;
-    max-width:900px;
-    background:#fff;
-    padding:25px;
-    border-radius:14px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
 }
-.hidden{display:none;}
-h2,h3{text-align:center;}
-input{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
+
+.card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
-button{
-    padding:10px;
-    margin-top:15px;
-    background:#1d2671;
-    color:#fff;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+
+h1, h2 {
+    text-align: center;
 }
-.secondary{background:#444;}
-.success{background:#2ecc71;}
-.toggle{cursor:pointer;color:#1d2671;font-size:13px;}
-.error{color:red;text-align:center;}
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
+
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
 }
-.card{
-    background:#f4f6fb;
-    padding:15px;
-    border-radius:10px;
+
+input {
+    background: #fff;
 }
-iframe{width:100%;height:300px;border-radius:10px;border:none;}
-ul{padding-left:18px;}
+
+button {
+    background: #00c6ff;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00aaff;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.success {
+    color: #00ffcc;
+    text-align: center;
+}
+
+.error {
+    color: #ff6b6b;
+    text-align: center;
+}
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
-<div class="container" id="loginBox">
-    <h2>🔐 Secure Login</h2>
-    <input id="user" placeholder="User ID">
-    <input id="pass" type="password" placeholder="Password">
-    <span class="toggle" onclick="togglePass()">Show / Hide Password</span>
+<div class="container">
+
+<!-- 🔐 LOGIN CARD -->
+<div id="loginCard" class="card">
+    <h1>Secure Access</h1>
+    <input type="text" id="userid" placeholder="User ID">
+    <input type="password" id="password" placeholder="Password">
     <button onclick="login()">Login</button>
-    <div class="error" id="error"></div>
+    <p id="loginMsg" class="error"></p>
 </div>
 
-<!-- ================= OTP ================= -->
-<div class="container hidden" id="otpBox">
-    <h2>📲 OTP Verification</h2>
-    <p><b>Your OTP:</b> <span id="otpShow"></span></p>
-    <input id="otpInput" placeholder="Enter OTP">
-    <button onclick="verifyOTP()">Verify OTP</button>
+<!-- 📊 VISITOR INFO -->
+<div id="infoCard" class="card hidden">
+    <h1>Visitor Information</h1>
+    <div id="info"></div>
+
+    <button onclick="downloadCSV()">Download CSV</button>
+    <button onclick="window.location.href='index.html'">Back to Home</button>
 </div>
 
-<!-- ================= DASHBOARD ================= -->
-<div class="container hidden" id="dashboard">
-    <h2>📊 Visitor Dashboard</h2>
-
-    <div class="cards" id="stats"></div>
-
-    <h3>🌍 Location Map</h3>
-    <iframe id="map"></iframe>
-
-    <h3>📅 Daily Visit Logs</h3>
-    <ul id="logs"></ul>
-
-    <button class="success" onclick="exportCSV()">Export CSV</button>
-    <button class="secondary" onclick="logout()">Logout</button>
-    <button class="secondary" onclick="location.href='index.html'">Back</button>
 </div>
 
 <script>
-/* ===== AUTH ===== */
-const VALID_USER="New";
-const VALID_PASS="Admin";
-let generatedOTP="";
-let logoutTimer;
+/* ================= LOGIN ================= */
+function login() {
+    const user = document.getElementById("userid").value.trim();
+    const pass = document.getElementById("password").value.trim();
 
-/* SHA-256 */
-async function sha256(t){
-    const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));
-    return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("");
-}
-
-/* LOGIN */
-async function login(){
-    const u=user.value.trim();
-    const p=pass.value;
-    if(u===VALID_USER && await sha256(p)===await sha256(VALID_PASS)){
-        generatedOTP=Math.floor(100000+Math.random()*900000);
-        otpShow.innerText=generatedOTP;
-        loginBox.classList.add("hidden");
-        otpBox.classList.remove("hidden");
-    } else error.innerText="Invalid credentials";
-}
-
-/* OTP */
-function verifyOTP(){
-    if(otpInput.value==generatedOTP){
-        sessionStorage.setItem("afs_auth","true");
-        otpBox.classList.add("hidden");
-        dashboard.classList.remove("hidden");
-        resetTimer();
-        loadDashboard();
+    if (user === "New" && pass === "Admin") {
+        document.getElementById("loginCard").classList.add("hidden");
+        document.getElementById("infoCard").classList.remove("hidden");
+        loadInfo();
+    } else {
+        document.getElementById("loginMsg").innerText = "Invalid credentials";
     }
 }
 
-/* AUTO LOGOUT */
-function resetTimer(){
-    clearTimeout(logoutTimer);
-    logoutTimer=setTimeout(logout,5*60*1000);
+/* ================= VISIT COUNTER ================= */
+let totalVisits = parseInt(localStorage.getItem("afs_total_visits") || "0");
+totalVisits++;
+localStorage.setItem("afs_total_visits", totalVisits);
+
+/* ================= DATA COLLECTION ================= */
+let visitorData = {
+    date: new Date().toLocaleString(),
+    totalVisits: totalVisits,
+    sessionID: sessionStorage.length + 1,
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    language: navigator.language,
+    cookies: navigator.cookieEnabled,
+    screen: `${screen.width}x${screen.height}`,
+    viewport: `${window.innerWidth}x${window.innerHeight}`,
+    referrer: document.referrer || "Direct",
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    online: navigator.onLine
+};
+
+/* ================= DISPLAY INFO ================= */
+function loadInfo() {
+    let html = `
+    <h2>Local & Session Data</h2>
+    <ul>
+        <li>Date & Time: ${visitorData.date}</li>
+        <li>Total Visits: ${visitorData.totalVisits}</li>
+        <li>Session ID: ${visitorData.sessionID}</li>
+        <li>Browser / OS: ${visitorData.userAgent}</li>
+        <li>Platform: ${visitorData.platform}</li>
+        <li>Language: ${visitorData.language}</li>
+        <li>Cookies Enabled: ${visitorData.cookies}</li>
+        <li>Screen Size: ${visitorData.screen}</li>
+        <li>Viewport: ${visitorData.viewport}</li>
+        <li>Referrer: ${visitorData.referrer}</li>
+        <li>Timezone: ${visitorData.timezone}</li>
+        <li>Online Status: ${visitorData.online}</li>
+    </ul>
+    `;
+    document.getElementById("info").innerHTML = html;
+
+    fetchIP();
 }
-document.onmousemove=resetTimer;
-document.onkeydown=resetTimer;
 
-function logout(){
-    sessionStorage.clear();
-    location.reload();
-}
-
-/* SHOW PASSWORD */
-function togglePass(){
-    pass.type=pass.type==="password"?"text":"password";
-}
-
-/* AUTO LOGIN */
-if(sessionStorage.getItem("afs_auth")==="true"){
-    loginBox.classList.add("hidden");
-    dashboard.classList.remove("hidden");
-    loadDashboard();
-}
-
-/* DASHBOARD */
-let visitorData={};
-
-function loadDashboard(){
-    let visits=localStorage.getItem("afs_total_visits")||0;
-    const today=new Date().toLocaleDateString();
-    let logs=JSON.parse(localStorage.getItem("afs_logs")||"[]");
-    if(!logs.includes(today)){
-        logs.push(today);
-        localStorage.setItem("afs_logs",JSON.stringify(logs));
-    }
-
-    visitorData={
-        Visits:visits,
-        Browser:navigator.userAgent,
-        Platform:navigator.platform,
-        Language:navigator.language,
-        Screen:`${screen.width}x${screen.height}`,
-        Viewport:`${innerWidth}x${innerHeight}`
-    };
-
-    stats.innerHTML=Object.entries(visitorData)
-        .map(([k,v])=>`<div class="card"><b>${k}</b><br>${v}</div>`).join("");
-
-    logsEl.innerHTML=logs.map(d=>`<li>${d}</li>`).join("");
-
+/* ================= IP + LOCATION ================= */
+function fetchIP() {
     fetch("https://ipapi.co/json/")
-    .then(r=>r.json())
-    .then(d=>{
-        visitorData.IP=d.ip;
-        visitorData.City=d.city;
-        visitorData.Country=d.country_name;
-        map.src=`https://maps.google.com/maps?q=${d.latitude},${d.longitude}&z=10&output=embed`;
+    .then(res => res.json())
+    .then(data => {
+        visitorData.ip = data.ip;
+        visitorData.city = data.city;
+        visitorData.region = data.region;
+        visitorData.country = data.country_name;
+        visitorData.org = data.org;
+
+        document.getElementById("info").innerHTML += `
+        <h2>Network & Location</h2>
+        <ul>
+            <li>IP Address: ${data.ip}</li>
+            <li>City: ${data.city}</li>
+            <li>Region: ${data.region}</li>
+            <li>Country: ${data.country_name}</li>
+            <li>ISP / Org: ${data.org}</li>
+        </ul>`;
     });
 }
 
-/* EXPORT CSV */
-function exportCSV(){
-    const csv=Object.keys(visitorData).join(",")+"\n"+Object.values(visitorData).join(",");
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-    a.download="visitor_dashboard.csv";
+/* ================= CSV EXPORT ================= */
+function downloadCSV() {
+    let headers = Object.keys(visitorData).join(",");
+    let values = Object.values(visitorData).join(",");
+
+    let csv = headers + "\n" + values;
+    let blob = new Blob([csv], { type: "text/csv" });
+    let url = URL.createObjectURL(blob);
+
+    let a = document.createElement("a");
+    a.href = url;
+    a.download = "visitor-data.csv";
     a.click();
 }
 </script>
