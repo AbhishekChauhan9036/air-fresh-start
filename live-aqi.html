@@ -91,18 +91,19 @@ button:hover {
 </div>
 
 <script>
-const API_KEY = "demo"; 
-// Replace "demo" with your free API key from https://aqicn.org/data-platform/token/
+const API_KEY = "c0ea07d81c69c61e5bf944b8cec940c58eb4422b";
 
 function getAQI() {
     const city = document.getElementById("city").value.trim();
     if (!city) return;
 
+    document.getElementById("result").innerHTML = "Fetching data...";
+
     fetch(`https://api.waqi.info/feed/${city}/?token=${API_KEY}`)
     .then(res => res.json())
     .then(data => {
         if (data.status !== "ok") {
-            document.getElementById("result").innerHTML = "City not found!";
+            document.getElementById("result").innerHTML = "City not found or data unavailable.";
             return;
         }
 
@@ -127,7 +128,7 @@ function getAQI() {
         `;
     })
     .catch(() => {
-        document.getElementById("result").innerHTML = "Unable to fetch AQI data.";
+        document.getElementById("result").innerHTML = "Error fetching AQI data.";
     });
 }
 </script>
