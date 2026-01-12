@@ -8,7 +8,7 @@
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(to right, #d4fc79, #96e6a1);
+    background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
     text-align: center;
 }
 
@@ -30,16 +30,11 @@ button:hover {
 /* FORM */
 #formBox {
     background: white;
-    width: 350px;
+    width: 360px;
     margin: 30px auto;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
 }
 
 /* CERTIFICATE */
@@ -47,11 +42,19 @@ input {
     display: none;
     width: 900px;
     height: 600px;
-    background: #fff;
-    border: 12px solid #2e7d32;
     margin: 30px auto;
     padding: 30px;
+    background: linear-gradient(135deg, #e8f5e9, #ffffff);
+    border: 8px solid #2e7d32;
     position: relative;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+#certificate::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 3px dashed #81c784;
 }
 
 #certificate img {
@@ -60,6 +63,15 @@ input {
 
 h1 {
     color: #2e7d32;
+}
+
+.cert-no {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 14px;
+    color: #1b5e20;
+    font-weight: bold;
 }
 </style>
 </head>
@@ -71,19 +83,20 @@ h1 {
 <!-- VOLUNTEER REGISTRATION -->
 <div id="formBox">
     <h2>Volunteer Registration</h2>
-    <input type="text" id="name" placeholder="Full Name" required>
-    <input type="email" id="email" placeholder="Email ID" required>
-    <input type="text" id="city" placeholder="City" required>
+    <input type="text" id="name" placeholder="Full Name" required><br>
+    <input type="email" id="email" placeholder="Email ID" required><br>
+    <input type="text" id="city" placeholder="City" required><br>
     <button onclick="generateCertificate()">Generate Certificate</button>
 </div>
 
 <!-- CERTIFICATE -->
 <div id="certificate">
-    <img src="logo.png" id="logo">
+    <div class="cert-no" id="certNo"></div>
+    <img src="logo.png">
     <h1>Certificate of Volunteering</h1>
     <p>This certifies that</p>
     <h2 id="certName"></h2>
-    <p>has actively participated in</p>
+    <p>has successfully participated in</p>
     <h3>Air Pollution Awareness Program</h3>
     <p>organized by <b>Air Fresh Start</b></p>
     <p id="certCity"></p>
@@ -92,10 +105,15 @@ h1 {
 
 <button onclick="downloadCertificate()">⬇ Download Certificate</button>
 
-<!-- CANVAS (hidden) -->
 <canvas id="canvas" width="900" height="600" style="display:none;"></canvas>
 
 <script>
+function generateCertNumber() {
+    const year = new Date().getFullYear();
+    const random = Math.floor(10000 + Math.random() * 90000);
+    return `AFS-${year}-${random}`;
+}
+
 function generateCertificate() {
     const name = document.getElementById("name").value;
     const city = document.getElementById("city").value;
@@ -108,36 +126,50 @@ function generateCertificate() {
     document.getElementById("certName").innerText = name;
     document.getElementById("certCity").innerText = "City: " + city;
     document.getElementById("certDate").innerText = new Date().toDateString();
+    document.getElementById("certNo").innerText = "Certificate No: " + generateCertNumber();
 
     document.getElementById("certificate").style.display = "block";
 }
 
 function downloadCertificate() {
-    const cert = document.getElementById("certificate");
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
 
-    const img = new Image();
-    img.src = "logo.png";
+    const bg = ctx.createLinearGradient(0,0,900,600);
+    bg.addColorStop(0,"#e8f5e9");
+    bg.addColorStop(1,"#ffffff");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0,0,900,600);
 
-    img.onload = function() {
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "#2e7d32";
+    ctx.lineWidth = 8;
+    ctx.strokeRect(10,10,880,580);
 
-        ctx.drawImage(img, 390, 30, 120, 120);
+    ctx.setLineDash([10,6]);
+    ctx.strokeStyle = "#81c784";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(25,25,850,550);
+    ctx.setLineDash([]);
+
+    const logo = new Image();
+    logo.src = "logo.png";
+
+    logo.onload = () => {
+        ctx.drawImage(logo, 390, 40, 120, 120);
 
         ctx.fillStyle = "#2e7d32";
         ctx.font = "36px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("Certificate of Volunteering", 450, 200);
+        ctx.fillText("Certificate of Volunteering", 450, 210);
 
-        ctx.font = "28px Arial";
-        ctx.fillText(document.getElementById("certName").innerText, 450, 260);
-
-        ctx.font = "20px Arial";
+        ctx.font = "22px Arial";
+        ctx.fillText(document.getElementById("certName").innerText, 450, 270);
         ctx.fillText("Air Pollution Awareness Program", 450, 320);
         ctx.fillText(document.getElementById("certCity").innerText, 450, 360);
         ctx.fillText("Date: " + document.getElementById("certDate").innerText, 450, 400);
+
+        ctx.font = "16px Arial";
+        ctx.fillText(document.getElementById("certNo").innerText, 450, 440);
 
         const link = document.createElement("a");
         link.download = "Air_Fresh_Start_Certificate.png";
