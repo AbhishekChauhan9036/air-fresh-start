@@ -2,23 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Volunteer Registration - Air Fresh Start</title>
+<title>Volunteer Registration | Air Fresh Start</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 body{
-margin:0;
-font-family:'Segoe UI',sans-serif;
+margin:0;font-family:'Segoe UI',sans-serif;
 background:linear-gradient(135deg,#1b5e20,#4caf50);
 color:#fff;
 }
-
-.container{
-max-width:900px;
-margin:auto;
-padding:30px;
-}
-
+.container{max-width:1000px;margin:auto;padding:30px}
 .card{
 background:rgba(255,255,255,0.12);
 backdrop-filter:blur(10px);
@@ -27,130 +23,156 @@ padding:25px;
 margin-bottom:25px;
 box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
-
-h1,h2{text-align:center;color:#e8f5e9}
-
+h1,h2{text-align:center}
 input,select,button{
-width:100%;
-padding:12px;
-margin-top:10px;
-border-radius:8px;
-border:none;
-font-size:16px;
+width:100%;padding:12px;margin-top:10px;
+border-radius:8px;border:none;font-size:16px
 }
-
 input,select{background:#fff}
 button{background:#e8f5e9;color:#1b5e20;font-weight:bold;cursor:pointer}
 button:hover{background:#c8e6c9}
-
-canvas{
-background:#fff;
-border-radius:10px;
-margin-top:20px;
-}
+canvas{background:#fff;border-radius:10px;margin-top:20px}
+#qrcode{margin:auto;width:130px}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <!-- REGISTRATION -->
 <div class="card">
 <h1>Volunteer Registration</h1>
-
-<input id="name" placeholder="Full Name" required>
-<input id="email" placeholder="Email Address" required>
-<input id="city" placeholder="City" required>
-
+<input id="name" placeholder="Full Name">
+<input id="email" placeholder="Email">
+<input id="city" placeholder="City">
 <select id="role">
-<option value="">Select Volunteer Role</option>
+<option value="">Select Role</option>
 <option>Air Quality Awareness</option>
 <option>Data Collection</option>
 <option>Community Outreach</option>
 <option>Environmental Campaign</option>
 </select>
-
-<button onclick="generateCertificate()">Register & Generate Certificate</button>
+<button onclick="registerVolunteer()">Register & Generate Certificate</button>
 </div>
 
 <!-- CERTIFICATE -->
 <div class="card">
-<h2>Your Volunteer Certificate</h2>
+<h2>Volunteer Certificate</h2>
 <canvas id="certificate" width="800" height="550"></canvas>
-<button onclick="downloadCertificate()">Download Certificate</button>
-<button onclick="window.location.href='index.html'">Back to Home</button>
+<div id="qrcode"></div>
+<button onclick="downloadPNG()">Download PNG</button>
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="emailCertificate()">Email Certificate</button>
 </div>
+
+<!-- ADMIN -->
+<div class="card">
+<h2>Volunteer Records (Local)</h2>
+<button onclick="downloadCSV()">Download CSV</button>
+<ul id="records"></ul>
+</div>
+
+<button onclick="window.location.href='index.html'">Back to Home</button>
 
 </div>
 
 <script>
-function generateCertificate(){
-const name=document.getElementById("name").value.trim();
+const logo=new Image();
+logo.src="logo.png";
+let certID="";
+
+function registerVolunteer(){
+const name=nameEl.value=nameEl=document.getElementById("name").value.trim();
 const email=document.getElementById("email").value.trim();
 const city=document.getElementById("city").value.trim();
 const role=document.getElementById("role").value;
 
-if(!name||!email||!city||!role){
-alert("Please fill all fields");
-return;
+if(!name||!email||!city||!role){alert("Fill all fields");return;}
+
+certID="AFS-"+Date.now();
+
+const data={name,email,city,role,certID,date:new Date().toLocaleString()};
+let volunteers=JSON.parse(localStorage.getItem("afs_volunteers")||"[]");
+volunteers.push(data);
+localStorage.setItem("afs_volunteers",JSON.stringify(volunteers));
+
+drawCertificate(data);
+generateQR(certID);
+renderRecords();
 }
 
-const canvas=document.getElementById("certificate");
-const ctx=canvas.getContext("2d");
+function drawCertificate(d){
+const c=document.getElementById("certificate");
+const ctx=c.getContext("2d");
+ctx.clearRect(0,0,800,550);
+ctx.fillStyle="#e8f5e9";ctx.fillRect(0,0,800,550);
+ctx.strokeStyle="#2e7d32";ctx.lineWidth=8;ctx.strokeRect(10,10,780,530);
 
-/* Background */
-ctx.fillStyle="#e8f5e9";
-ctx.fillRect(0,0,800,550);
-
-/* Border */
-ctx.strokeStyle="#2e7d32";
-ctx.lineWidth=8;
-ctx.strokeRect(10,10,780,530);
-
-/* Title */
-ctx.fillStyle="#1b5e20";
-ctx.font="bold 38px Arial";
-ctx.textAlign="center";
-ctx.fillText("Certificate of Volunteering",400,90);
-
-/* Content */
+logo.onload=()=>{
+ctx.drawImage(logo,330,25,140,80);
+ctx.fillStyle="#1b5e20";ctx.textAlign="center";
+ctx.font="bold 36px Arial";
+ctx.fillText("Certificate of Volunteering",400,150);
 ctx.font="20px Arial";
-ctx.fillText("This is to certify that",400,150);
-
+ctx.fillText("This is to certify that",400,200);
 ctx.font="bold 32px Arial";
-ctx.fillText(name,400,200);
-
+ctx.fillText(d.name,400,250);
 ctx.font="20px Arial";
-ctx.fillText(`from ${city}`,400,240);
-ctx.fillText(`has successfully registered as a volunteer`,400,280);
-ctx.fillText(`Role: ${role}`,400,320);
-
-/* Organization */
+ctx.fillText(`from ${d.city}`,400,290);
+ctx.fillText(`Role: ${d.role}`,400,330);
+ctx.fillText(`Certificate ID: ${d.certID}`,400,370);
 ctx.font="bold 24px Arial";
-ctx.fillText("Air Fresh Start Initiative",400,380);
-
-/* Date */
+ctx.fillText("Air Fresh Start Initiative",400,420);
 ctx.font="18px Arial";
-ctx.fillText(`Date: ${new Date().toLocaleDateString()}`,400,430);
-
-/* Signature */
-ctx.font="italic 18px Arial";
-ctx.fillText("Authorized Signature",600,470);
-ctx.beginPath();
-ctx.moveTo(520,480);
-ctx.lineTo(720,480);
-ctx.strokeStyle="#1b5e20";
-ctx.stroke();
+ctx.fillText(`Date: ${new Date().toLocaleDateString()}`,400,460);
+};
 }
 
-function downloadCertificate(){
-const canvas=document.getElementById("certificate");
+function generateQR(id){
+document.getElementById("qrcode").innerHTML="";
+new QRCode("qrcode",{text:id,width:130,height:130});
+}
+
+function downloadPNG(){
 const link=document.createElement("a");
-link.download="AirFreshStart_Volunteer_Certificate.png";
-link.href=canvas.toDataURL();
+link.download="AirFreshStart_Certificate.png";
+link.href=document.getElementById("certificate").toDataURL();
 link.click();
 }
+
+function downloadPDF(){
+const {jsPDF}=window.jspdf;
+const pdf=new jsPDF("landscape");
+pdf.addImage(document.getElementById("certificate").toDataURL(),"PNG",10,10,270,180);
+pdf.save("AirFreshStart_Certificate.pdf");
+}
+
+function emailCertificate(){
+window.location.href=`mailto:?subject=Air Fresh Start Volunteer Certificate&body=Your Certificate ID: ${certID}`;
+}
+
+function downloadCSV(){
+let data=JSON.parse(localStorage.getItem("afs_volunteers")||"[]");
+let csv="Name,Email,City,Role,CertificateID,Date\n";
+data.forEach(v=>{
+csv+=`${v.name},${v.email},${v.city},${v.role},${v.certID},${v.date}\n`;
+});
+let blob=new Blob([csv],{type:"text/csv"});
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="volunteers.csv";
+a.click();
+}
+
+function renderRecords(){
+let list=document.getElementById("records");
+list.innerHTML="";
+(JSON.parse(localStorage.getItem("afs_volunteers")||"[]"))
+.forEach(v=>{
+list.innerHTML+=`<li>${v.name} – ${v.city} (${v.certID})</li>`;
+});
+}
+renderRecords();
 </script>
 
 </body>
