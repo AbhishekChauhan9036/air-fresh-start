@@ -2,77 +2,73 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Air Fresh Start – Volunteer Certificate</title>
+<title>Air Fresh Start – Certificates</title>
 
 <style>
-body {
-    margin: 0;
+body{
     font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);
-    text-align: center;
+    background: linear-gradient(to right,#a8e063,#56ab2f);
+    text-align:center;
+    margin:0;
+}
+button{
+    padding:12px 25px;
+    margin:10px;
+    background:#1b5e20;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+button:hover{background:#0d3d14;}
+
+#formBox{
+    background:white;
+    width:360px;
+    margin:30px auto;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-/* BUTTONS */
-button {
-    padding: 12px 25px;
-    margin: 10px;
-    background: #2e7d32;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-}
-button:hover {
-    background: #1b5e20;
-}
-
-/* FORM */
-#formBox {
-    background: white;
-    width: 360px;
-    margin: 30px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+input{
+    width:90%;
+    padding:10px;
+    margin:8px 0;
 }
 
 /* CERTIFICATE */
-#certificate {
-    display: none;
-    width: 900px;
-    height: 600px;
-    margin: 30px auto;
-    padding: 30px;
-    background: linear-gradient(135deg, #e8f5e9, #ffffff);
-    border: 8px solid #2e7d32;
-    position: relative;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+#certificate{
+    display:none;
+    width:900px;
+    height:600px;
+    margin:30px auto;
+    padding:30px;
+    background:linear-gradient(135deg,#e8f5e9,#ffffff);
+    border:8px solid #1b5e20;
+    position:relative;
 }
 
-#certificate::before {
-    content: "";
-    position: absolute;
-    inset: 12px;
-    border: 3px dashed #81c784;
+#certificate::before{
+    content:"";
+    position:absolute;
+    inset:15px;
+    border:3px dashed #66bb6a;
 }
 
-#certificate img {
-    width: 120px;
+#certificate img{width:120px;}
+
+.cert-no{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-weight:bold;
+    font-size:14px;
+    color:#1b5e20;
 }
 
-h1 {
-    color: #2e7d32;
-}
-
-.cert-no {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    font-size: 14px;
-    color: #1b5e20;
-    font-weight: bold;
-}
+h1{color:#1b5e20;}
 </style>
 </head>
 
@@ -80,12 +76,14 @@ h1 {
 
 <h1>🌿 Air Fresh Start 🌿</h1>
 
-<!-- VOLUNTEER REGISTRATION -->
-<div id="formBox">
-    <h2>Volunteer Registration</h2>
-    <input type="text" id="name" placeholder="Full Name" required><br>
-    <input type="email" id="email" placeholder="Email ID" required><br>
-    <input type="text" id="city" placeholder="City" required><br>
+<button onclick="showVolunteer()">🎓 Volunteer Certificate</button>
+<button onclick="showPledge()">✋ Take Pledge</button>
+
+<!-- FORM -->
+<div id="formBox" style="display:none;">
+    <h2 id="formTitle"></h2>
+    <input id="name" placeholder="Full Name">
+    <input id="city" placeholder="City">
     <button onclick="generateCertificate()">Generate Certificate</button>
 </div>
 
@@ -93,12 +91,10 @@ h1 {
 <div id="certificate">
     <div class="cert-no" id="certNo"></div>
     <img src="logo.png">
-    <h1>Certificate of Volunteering</h1>
+    <h1 id="certTitle"></h1>
     <p>This certifies that</p>
     <h2 id="certName"></h2>
-    <p>has successfully participated in</p>
-    <h3>Air Pollution Awareness Program</h3>
-    <p>organized by <b>Air Fresh Start</b></p>
+    <p id="certText"></p>
     <p id="certCity"></p>
     <p><b>Date:</b> <span id="certDate"></span></p>
 </div>
@@ -108,73 +104,89 @@ h1 {
 <canvas id="canvas" width="900" height="600" style="display:none;"></canvas>
 
 <script>
-function generateCertNumber() {
-    const year = new Date().getFullYear();
-    const random = Math.floor(10000 + Math.random() * 90000);
-    return `AFS-${year}-${random}`;
+let mode = "";
+
+function showVolunteer(){
+    mode="VOL";
+    document.getElementById("formTitle").innerText="Volunteer Registration";
+    document.getElementById("formBox").style.display="block";
 }
 
-function generateCertificate() {
-    const name = document.getElementById("name").value;
-    const city = document.getElementById("city").value;
+function showPledge(){
+    mode="PLG";
+    document.getElementById("formTitle").innerText="Pledge Registration";
+    document.getElementById("formBox").style.display="block";
+}
 
-    if (!name || !city) {
-        alert("Please fill all fields");
-        return;
+function certNumber(){
+    const y=new Date().getFullYear();
+    const r=Math.floor(10000+Math.random()*90000);
+    return `AFS-${mode}-${y}-${r}`;
+}
+
+function generateCertificate(){
+    const name=document.getElementById("name").value;
+    const city=document.getElementById("city").value;
+    if(!name||!city){alert("Fill all fields");return;}
+
+    document.getElementById("certName").innerText=name;
+    document.getElementById("certCity").innerText="City: "+city;
+    document.getElementById("certDate").innerText=new Date().toDateString();
+    document.getElementById("certNo").innerText="Certificate No: "+certNumber();
+
+    if(mode==="VOL"){
+        document.getElementById("certTitle").innerText="Certificate of Volunteering";
+        document.getElementById("certText").innerText=
+        "has actively participated in the Air Pollution Awareness Program organized by Air Fresh Start.";
+    }else{
+        document.getElementById("certTitle").innerText="Certificate of Pledge";
+        document.getElementById("certText").innerText=
+        "has taken a pledge to protect the environment and reduce air pollution.";
     }
 
-    document.getElementById("certName").innerText = name;
-    document.getElementById("certCity").innerText = "City: " + city;
-    document.getElementById("certDate").innerText = new Date().toDateString();
-    document.getElementById("certNo").innerText = "Certificate No: " + generateCertNumber();
-
-    document.getElementById("certificate").style.display = "block";
+    document.getElementById("certificate").style.display="block";
 }
 
-function downloadCertificate() {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+function downloadCertificate(){
+    const c=document.getElementById("canvas");
+    const x=c.getContext("2d");
 
-    const bg = ctx.createLinearGradient(0,0,900,600);
-    bg.addColorStop(0,"#e8f5e9");
-    bg.addColorStop(1,"#ffffff");
-    ctx.fillStyle = bg;
-    ctx.fillRect(0,0,900,600);
+    x.fillStyle="#ffffff";
+    x.fillRect(0,0,900,600);
 
-    ctx.strokeStyle = "#2e7d32";
-    ctx.lineWidth = 8;
-    ctx.strokeRect(10,10,880,580);
+    x.strokeStyle="#1b5e20";
+    x.lineWidth=8;
+    x.strokeRect(10,10,880,580);
 
-    ctx.setLineDash([10,6]);
-    ctx.strokeStyle = "#81c784";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(25,25,850,550);
-    ctx.setLineDash([]);
+    x.setLineDash([10,6]);
+    x.strokeStyle="#66bb6a";
+    x.lineWidth=3;
+    x.strokeRect(25,25,850,550);
+    x.setLineDash([]);
 
-    const logo = new Image();
-    logo.src = "logo.png";
+    const img=new Image();
+    img.src="logo.png";
+    img.onload=()=>{
+        x.drawImage(img,390,40,120,120);
 
-    logo.onload = () => {
-        ctx.drawImage(logo, 390, 40, 120, 120);
+        x.fillStyle="#1b5e20";
+        x.textAlign="center";
+        x.font="34px Arial";
+        x.fillText(document.getElementById("certTitle").innerText,450,210);
 
-        ctx.fillStyle = "#2e7d32";
-        ctx.font = "36px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("Certificate of Volunteering", 450, 210);
+        x.font="24px Arial";
+        x.fillText(document.getElementById("certName").innerText,450,270);
+        x.font="20px Arial";
+        x.fillText(document.getElementById("certText").innerText,450,320);
+        x.fillText(document.getElementById("certCity").innerText,450,360);
+        x.fillText("Date: "+document.getElementById("certDate").innerText,450,400);
+        x.font="16px Arial";
+        x.fillText(document.getElementById("certNo").innerText,450,440);
 
-        ctx.font = "22px Arial";
-        ctx.fillText(document.getElementById("certName").innerText, 450, 270);
-        ctx.fillText("Air Pollution Awareness Program", 450, 320);
-        ctx.fillText(document.getElementById("certCity").innerText, 450, 360);
-        ctx.fillText("Date: " + document.getElementById("certDate").innerText, 450, 400);
-
-        ctx.font = "16px Arial";
-        ctx.fillText(document.getElementById("certNo").innerText, 450, 440);
-
-        const link = document.createElement("a");
-        link.download = "Air_Fresh_Start_Certificate.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+        const a=document.createElement("a");
+        a.download="Air_Fresh_Start_Certificate.png";
+        a.href=c.toDataURL();
+        a.click();
     };
 }
 </script>
