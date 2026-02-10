@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Air Fresh Start</title>
   <meta name="description" content="Air Fresh Start – Projects, Internships, Training & Certifications" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --primary:#0ea5e9; /* sky */
-      --secondary:#22c55e; /* green */
-      --dark:#0f172a; /* slate */
+      --primary:#0ea5e9;
+      --secondary:#22c55e;
+      --dark:#0f172a;
       --light:#f8fafc;
       --muted:#64748b;
       --card:#ffffff;
@@ -20,207 +22,212 @@
       --shadow:0 10px 25px rgba(2,8,23,.08);
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:var(--light);color:#020617}
+    body{margin:0;font-family:Poppins;background:var(--light);color:#020617}
     a{text-decoration:none;color:inherit}
-    img{max-width:100%;display:block}
     .container{max-width:1200px;margin:auto;padding:24px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:999px;background:var(--primary);color:#fff;font-weight:600;border:none;cursor:pointer}
+    .btn{padding:12px 20px;border-radius:30px;background:var(--primary);color:#fff;font-weight:600;border:none;cursor:pointer}
     .btn.secondary{background:var(--secondary)}
     .btn.outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-weight:600;font-size:12px}
+    .badge{background:#e0f2fe;color:#0369a1;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:600}
     .grid{display:grid;gap:20px}
     .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
-    header{position:sticky;top:0;background:rgba(248,250,252,.8);backdrop-filter:blur(10px);z-index:10;border-bottom:1px solid #e5e7eb}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .logo{font-weight:800;letter-spacing:.3px}
+    .card{background:#fff;padding:20px;border-radius:16px;box-shadow:var(--shadow)}
+    header{position:sticky;top:0;background:#ffffffd9;backdrop-filter:blur(10px);z-index:99}
+    .nav{display:flex;justify-content:space-between;align-items:center}
+    .logo{font-size:22px;font-weight:800}
     .logo span{color:var(--primary)}
-    .nav a{font-weight:500;color:#020617}
-    .nav .actions{display:flex;gap:10px}
+    .actions a{margin-left:10px;font-weight:500}
     .hero{background:linear-gradient(135deg,#e0f2fe,#ecfeff)}
-    .hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
-    .hero h1{font-size:42px;line-height:1.1;margin:0}
-    .hero p{color:var(--muted)}
-    @media (max-width:900px){.hero-wrap{grid-template-columns:1fr}.hero h1{font-size:34px}}
-    section{padding:48px 0}
-    .section-title{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
-    .section-title h2{margin:0}
-    .kpi{display:flex;gap:16px;flex-wrap:wrap}
-    .kpi .card{flex:1;min-width:180px;text-align:center}
-    .kpi strong{font-size:28px}
-    footer{background:#020617;color:#e5e7eb}
-    footer a{color:#e5e7eb}
-    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px}
-    @media (max-width:800px){.footer-grid{grid-template-columns:1fr}}
-    /* forms */
-    input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e5e7eb;font-family:inherit}
+    .hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+    @media(max-width:900px){.hero-wrap{grid-template-columns:1fr}}
+    .kpi strong{font-size:30px}
+    section{padding:50px 0}
+    input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e5e7eb}
     label{font-weight:600;font-size:14px}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width:700px){.form-row{grid-template-columns:1fr}}
+    @media(max-width:700px){.form-row{grid-template-columns:1fr}}
+    footer{background:#020617;color:#e5e7eb}
     .hidden{display:none}
+    .success{color:green;font-weight:600}
+    .error{color:red;font-weight:600}
   </style>
 </head>
+
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container nav">
-      <div class="logo">Air <span>Fresh</span> Start</div>
-      <nav class="actions">
-        <a href="#projects">Projects</a>
-        <a href="#internships">Internships</a>
-        <a href="#training">Training</a>
-        <a href="#apply">Apply</a>
-        <a href="#contact" class="btn outline">Contact</a>
-      </nav>
-    </div>
-  </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero-wrap">
-      <div>
-        <span class="badge">MSME • Startup India</span>
-        <h1>Learn. Build. Get Certified.</h1>
-        <p>Air Fresh Start provides industry-ready <strong>projects</strong>, <strong>internships</strong>, hands-on <strong>training</strong>, and <strong>certifications</strong> for students and freshers.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a href="#apply" class="btn">Apply Now</a>
-          <a href="#projects" class="btn secondary">Explore Projects</a>
+<!-- HEADER -->
+<header>
+  <div class="container nav">
+    <div class="logo">Air <span>Fresh</span> Start</div>
+    <div class="actions">
+      <a href="#projects">Projects</a>
+      <a href="#internships">Internships</a>
+      <a href="#training">Training</a>
+      <a href="#apply" class="btn">Apply</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-wrap">
+    <div>
+      <span class="badge">MSME • Startup India</span>
+      <h1>Learn. Build. Get Certified.</h1>
+      <p>Industry-ready projects, internships & training with verified certification.</p>
+      <a href="#apply" class="btn secondary">Apply Now</a>
+    </div>
+
+    <div class="card kpi">
+      <div><strong data-count="500">0</strong><p>Students</p></div>
+      <div><strong data-count="120">0</strong><p>Projects</p></div>
+      <div><strong data-count="60">0</strong><p>Internships</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <h2>Projects</h2>
+    <div class="grid grid-3" id="projectList"></div>
+  </div>
+</section>
+
+<!-- INTERNSHIPS -->
+<section id="internships" style="background:#f1f5f9">
+  <div class="container">
+    <h2>Internships</h2>
+    <div class="grid grid-3" id="internshipList"></div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section id="training">
+  <div class="container">
+    <h2>Training Programs</h2>
+    <div class="grid grid-3">
+      <div class="card">Full Stack Web Development</div>
+      <div class="card">Python & AI</div>
+      <div class="card">Data Analytics</div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY FORM -->
+<section id="apply" style="background:#ecfeff">
+  <div class="container">
+    <h2>Apply Now</h2>
+
+    <form class="card" id="applyForm">
+      <div class="form-row">
+        <div>
+          <label>Name</label>
+          <input id="name" required>
+        </div>
+        <div>
+          <label>Email</label>
+          <input id="email" type="email" required>
         </div>
       </div>
-      <div class="card">
-        <div class="kpi">
-          <div class="card"><strong id="k1">500+</strong><div>Students</div></div>
-          <div class="card"><strong id="k2">120+</strong><div>Projects</div></div>
-          <div class="card"><strong id="k3">60+</strong><div>Internships</div></div>
+
+      <div class="form-row">
+        <div>
+          <label>Apply For</label>
+          <select id="applyFor" required>
+            <option value="">Select</option>
+            <option>Project</option>
+            <option>Internship</option>
+            <option>Training</option>
+          </select>
+        </div>
+        <div>
+          <label>Domain</label>
+          <input id="domain">
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Projects -->
-  <section id="projects">
-    <div class="container">
-      <div class="section-title">
-        <h2>Live & Academic Projects</h2>
-        <span class="badge">Web • AI • Data • Cloud</span>
-      </div>
-      <div class="grid grid-3" id="projectList"></div>
-    </div>
-  </section>
+      <label>Message</label>
+      <textarea id="message" rows="4"></textarea>
 
-  <!-- Internships -->
-  <section id="internships" style="background:#f1f5f9">
-    <div class="container">
-      <div class="section-title"><h2>Internships</h2></div>
-      <div class="grid grid-3" id="internshipList"></div>
-    </div>
-  </section>
+      <button class="btn" type="submit">Submit</button>
+      <p id="applyMsg" class="hidden"></p>
+    </form>
+  </div>
+</section>
 
-  <!-- Training -->
-  <section id="training">
-    <div class="container">
-      <div class="section-title"><h2>Training Programs</h2></div>
-      <div class="grid grid-3">
-        <div class="card"><h3>Full Stack Web</h3><p>HTML, CSS, JS, React, Node</p></div>
-        <div class="card"><h3>Python & AI</h3><p>Python, ML, DL basics</p></div>
-        <div class="card"><h3>Data Analytics</h3><p>Excel, SQL, Power BI</p></div>
-      </div>
-    </div>
-  </section>
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© 2026 Air Fresh Start | MSME: UDYAM-UP-55-0056819</p>
+  </div>
+</footer>
 
-  <!-- Apply -->
-  <section id="apply" style="background:#ecfeff">
-    <div class="container">
-      <div class="section-title"><h2>Apply for Project / Internship</h2></div>
-      <form class="card" onsubmit="handleApply(event)">
-        <div class="form-row">
-          <div><label>Name</label><input required placeholder="Your name"></div>
-          <div><label>Email</label><input type="email" required placeholder="you@email.com"></div>
-        </div>
-        <div class="form-row">
-          <div><label>Apply For</label>
-            <select required>
-              <option value="">Select</option>
-              <option>Project</option>
-              <option>Internship</option>
-              <option>Training</option>
-            </select>
-          </div>
-          <div><label>Domain</label><input placeholder="Web / AI / Data"></div>
-        </div>
-        <div><label>Message</label><textarea rows="4" placeholder="Tell us about your requirement"></textarea></div>
-        <button class="btn" type="submit">Submit Application</button>
-        <p id="applyMsg" class="hidden">Thanks! We will contact you soon.</p>
-      </form>
-    </div>
-  </section>
+<!-- JAVASCRIPT -->
+<script>
+/* Google Sheet URL */
+const scriptURL = "https://script.google.com/macros/s/AKfycbzKoNNRP8IP7Rfp050SHmnnFaEbYNNthqYXOAg2MVb3pNY3V97vaGyllxko-zYEwfoC/exec";
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <div class="section-title"><h2>Contact Us</h2></div>
-      <div class="grid grid-3">
-        <div class="card"><h3>Email</h3><p>airfreshstart@gmail.com</p></div>
-        <div class="card"><h3>Website</h3><p>https://air-fresh-start.netlify.app</p></div>
-        <div class="card"><h3>MSME (Udyam)</h3><p>UDYAM-UP-55-0056819</p></div>
-      </div>
-    </div>
-  </section>
+/* Form Submit */
+document.getElementById("applyForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const msg = document.getElementById("applyMsg");
+  msg.className = "";
+  msg.textContent = "Submitting...";
+  
+  const data = {
+    name: name.value,
+    email: email.value,
+    applyFor: applyFor.value,
+    domain: domain.value,
+    message: message.value
+  };
 
-  <!-- Footer -->
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <h3>Air Fresh Start</h3>
-        <p>Empowering students with real-world skills and verified certifications.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
-        <a href="#projects">Projects</a><br>
-        <a href="#internships">Internships</a><br>
-        <a href="#training">Training</a>
-      </div>
-      <div>
-        <h4>Legal</h4>
-        <p>© <span id="year"></span> Air Fresh Start</p>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    const projects = [
-      {title:'E‑Commerce Website', desc:'Full stack web project'},
-      {title:'Face Recognition', desc:'Python + OpenCV'},
-      {title:'Student Management', desc:'CRUD web app'},
-      {title:'Weather App', desc:'API based JS app'},
-      {title:'Chatbot', desc:'AI based assistant'},
-      {title:'Data Dashboard', desc:'Power BI project'}
-    ];
-    const internships = [
-      {title:'Web Development Intern', duration:'8 Weeks'},
-      {title:'Python Intern', duration:'6 Weeks'},
-      {title:'Data Analyst Intern', duration:'8 Weeks'}
-    ];
-    const projectList = document.getElementById('projectList');
-    projects.forEach(p=>{
-      const d=document.createElement('div');
-      d.className='card';
-      d.innerHTML=`<h3>${p.title}</h3><p>${p.desc}</p><span class='badge'>Certificate Included</span>`;
-      projectList.appendChild(d);
+  try {
+    const res = await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(data)
     });
-    const internshipList = document.getElementById('internshipList');
-    internships.forEach(i=>{
-      const d=document.createElement('div');
-      d.className='card';
-      d.innerHTML=`<h3>${i.title}</h3><p>Duration: ${i.duration}</p><span class='badge'>Offer Letter</span>`;
-      internshipList.appendChild(d);
-    });
-    function handleApply(e){
-      e.preventDefault();
-      document.getElementById('applyMsg').classList.remove('hidden');
+    const result = await res.json();
+    if(result.status === "success"){
+      msg.className = "success";
+      msg.textContent = "✅ Application submitted successfully!";
       e.target.reset();
+    } else {
+      throw new Error();
     }
-    document.getElementById('year').textContent=new Date().getFullYear();
-  </script>
+  } catch {
+    msg.className = "error";
+    msg.textContent = "❌ Submission failed. Try again!";
+  }
+});
+
+/* Animated Counters */
+document.querySelectorAll("[data-count]").forEach(el=>{
+  let target = +el.dataset.count;
+  let count = 0;
+  let inc = target / 60;
+  let timer = setInterval(()=>{
+    count += inc;
+    el.textContent = Math.floor(count) + "+";
+    if(count >= target){
+      el.textContent = target + "+";
+      clearInterval(timer);
+    }
+  },20);
+});
+
+/* Dynamic Cards */
+const projects = ["E-Commerce Website","Face Recognition","Chatbot","Weather App","Student Management","Data Dashboard"];
+const internships = ["Web Development (8 Weeks)","Python (6 Weeks)","Data Analyst (8 Weeks)"];
+
+projects.forEach(p=>{
+  projectList.innerHTML += `<div class="card">${p}<br><span class="badge">Certificate</span></div>`;
+});
+internships.forEach(i=>{
+  internshipList.innerHTML += `<div class="card">${i}<br><span class="badge">Offer Letter</span></div>`;
+});
+</script>
+
 </body>
 </html>
