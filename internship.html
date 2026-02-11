@@ -1,232 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Air Fresh Start</title>
-  <meta name="description" content="Air Fresh Start – Projects, Internships, Training & Certifications" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Air Fresh Start</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --primary:#0ea5e9;
-      --secondary:#22c55e;
-      --dark:#0f172a;
-      --light:#f8fafc;
-      --muted:#64748b;
-      --card:#ffffff;
-      --radius:16px;
-      --shadow:0 10px 25px rgba(2,8,23,.08);
-    }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Poppins;background:var(--light);color:#020617}
-    a{text-decoration:none;color:inherit}
-    .container{max-width:1200px;margin:auto;padding:24px}
-    .btn{padding:12px 20px;border-radius:30px;background:var(--primary);color:#fff;font-weight:600;border:none;cursor:pointer}
-    .btn.secondary{background:var(--secondary)}
-    .btn.outline{background:transparent;color:var(--primary);border:2px solid var(--primary)}
-    .badge{background:#e0f2fe;color:#0369a1;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:600}
-    .grid{display:grid;gap:20px}
-    .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{background:#fff;padding:20px;border-radius:16px;box-shadow:var(--shadow)}
-    header{position:sticky;top:0;background:#ffffffd9;backdrop-filter:blur(10px);z-index:99}
-    .nav{display:flex;justify-content:space-between;align-items:center}
-    .logo{font-size:22px;font-weight:800}
-    .logo span{color:var(--primary)}
-    .actions a{margin-left:10px;font-weight:500}
-    .hero{background:linear-gradient(135deg,#e0f2fe,#ecfeff)}
-    .hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
-    @media(max-width:900px){.hero-wrap{grid-template-columns:1fr}}
-    .kpi strong{font-size:30px}
-    section{padding:50px 0}
-    input,select,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e5e7eb}
-    label{font-weight:600;font-size:14px}
-    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:700px){.form-row{grid-template-columns:1fr}}
-    footer{background:#020617;color:#e5e7eb}
-    .hidden{display:none}
-    .success{color:green;font-weight:600}
-    .error{color:red;font-weight:600}
-  </style>
+<style>
+:root{
+  --primary:#0ea5e9;
+  --secondary:#22c55e;
+  --light:#f8fafc;
+  --card:#ffffff;
+  --shadow:0 10px 25px rgba(0,0,0,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins;background:var(--light);}
+.container{max-width:1200px;margin:auto;padding:24px}
+a{text-decoration:none;color:inherit}
+
+.btn{
+  padding:12px 20px;
+  border-radius:30px;
+  background:var(--primary);
+  color:#fff;
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+}
+.btn.secondary{background:var(--secondary)}
+
+.grid{display:grid;gap:20px}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 30px rgba(0,0,0,.15);
+}
+
+.project-link, .internship-link{
+  display:block;
+  color:#0f172a;
+}
+
+.badge{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 12px;
+  background:#e0f2fe;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+}
+
+header{
+  position:sticky;
+  top:0;
+  background:#ffffffdd;
+  backdrop-filter:blur(10px);
+  z-index:99;
+}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:22px}
+.logo span{color:var(--primary)}
+
+.hero{
+  background:linear-gradient(135deg,#e0f2fe,#ecfeff);
+  padding:60px 0;
+}
+
+section{padding:50px 0}
+footer{
+  background:#020617;
+  color:#fff;
+  text-align:center;
+  padding:20px;
+}
+.success{color:green;font-weight:600}
+.error{color:red;font-weight:600}
+</style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="container nav">
-    <div class="logo">Air <span>Fresh</span> Start</div>
-    <div class="actions">
-      <a href="#projects">Projects</a>
-      <a href="#internships">Internships</a>
-      <a href="#training">Training</a>
-      <a href="#apply" class="btn">Apply</a>
-    </div>
+<div class="container nav">
+  <div class="logo">Air <span>Fresh</span> Start</div>
+  <div>
+    <a href="#projects">Projects</a> |
+    <a href="#internships">Internships</a> |
+    <a href="#training">Training</a> |
+    <a href="#apply" class="btn">Apply</a>
   </div>
+</div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="container hero-wrap">
-    <div>
-      <span class="badge">MSME • Startup India</span>
-      <h1>Learn. Build. Get Certified.</h1>
-      <p>Industry-ready projects, internships & training with verified certification.</p>
-      <a href="#apply" class="btn secondary">Apply Now</a>
-    </div>
-
-    <div class="card kpi">
-      <div><strong data-count="500">0</strong><p>Students</p></div>
-      <div><strong data-count="120">0</strong><p>Projects</p></div>
-      <div><strong data-count="60">0</strong><p>Internships</p></div>
-    </div>
-  </div>
+<div class="container">
+  <h1>Learn. Build. Get Certified.</h1>
+  <p>Industry-ready projects, internships & training with verified certification.</p>
+  <a href="#apply" class="btn secondary">Apply Now</a>
+</div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="container">
-    <h2>Projects</h2>
-    <div class="grid grid-3" id="projectList"></div>
-  </div>
+<div class="container">
+<h2>Projects</h2>
+<div class="grid grid-3">
+
+<a href="ecommerce.html" class="project-link">
+<div class="card">
+<h3>E-Commerce Website</h3>
+<span class="badge">Certificate</span>
+</div>
+</a>
+
+<a href="facerecognition.html" class="project-link">
+<div class="card">
+<h3>Face Recognition</h3>
+<span class="badge">Certificate</span>
+</div>
+</a>
+
+<a href="chatbot.html" class="project-link">
+<div class="card">
+<h3>Chatbot</h3>
+<span class="badge">Certificate</span>
+</div>
+</a>
+
+<a href="weather.html" class="project-link">
+<div class="card">
+<h3>Weather App</h3>
+<span class="badge">Certificate</span>
+</div>
+</a>
+
+<a href="student-management.html" class="project-link">
+<div class="card">
+<h3>Student Management</h3>
+<span class="badge">Certificate</span>
+</div>
+</a>
+
+<a href="data-dashboard.html" class="project-link">
+<div class="card">
+<h3>Data Dashboard</h3>
+<span class="badge">Certificate</span>
+</div>
+</a>
+
+</div>
+</div>
 </section>
 
 <!-- INTERNSHIPS -->
 <section id="internships" style="background:#f1f5f9">
-  <div class="container">
-    <h2>Internships</h2>
-    <div class="grid grid-3" id="internshipList"></div>
-  </div>
+<div class="container">
+<h2>Internships</h2>
+<div class="grid grid-3">
+
+<a href="intern-web.html" class="internship-link">
+<div class="card">
+<h3>Web Development (8 Weeks)</h3>
+<span class="badge">Offer Letter</span>
+</div>
+</a>
+
+<a href="intern-python.html" class="internship-link">
+<div class="card">
+<h3>Python Internship (6 Weeks)</h3>
+<span class="badge">Offer Letter</span>
+</div>
+</a>
+
+<a href="intern-data.html" class="internship-link">
+<div class="card">
+<h3>Data Analyst (8 Weeks)</h3>
+<span class="badge">Offer Letter</span>
+</div>
+</a>
+
+</div>
+</div>
 </section>
 
 <!-- TRAINING -->
 <section id="training">
-  <div class="container">
-    <h2>Training Programs</h2>
-    <div class="grid grid-3">
-      <div class="card">Full Stack Web Development</div>
-      <div class="card">Python & AI</div>
-      <div class="card">Data Analytics</div>
-    </div>
-  </div>
+<div class="container">
+<h2>Training Programs</h2>
+<div class="grid grid-3">
+
+<a href="fullstack.html" class="project-link">
+<div class="card">Full Stack Web Development</div>
+</a>
+
+<a href="python-ai.html" class="project-link">
+<div class="card">Python & AI</div>
+</a>
+
+<a href="data-analytics.html" class="project-link">
+<div class="card">Data Analytics</div>
+</a>
+
+</div>
+</div>
 </section>
 
-<!-- APPLY FORM -->
+<!-- APPLY -->
 <section id="apply" style="background:#ecfeff">
-  <div class="container">
-    <h2>Apply Now</h2>
+<div class="container">
+<h2>Apply Now</h2>
 
-    <form class="card" id="applyForm">
-      <div class="form-row">
-        <div>
-          <label>Name</label>
-          <input id="fullName" required>
-        </div>
-        <div>
-          <label>Email</label>
-          <input id="email" type="email" required>
-        </div>
-      </div>
+<form id="applyForm" class="card">
+<input id="fullName" placeholder="Full Name" required><br><br>
+<input id="email" type="email" placeholder="Email" required><br><br>
+<select id="applyFor" required>
+<option value="">Apply For</option>
+<option>Project</option>
+<option>Internship</option>
+<option>Training</option>
+</select><br><br>
+<input id="domain" placeholder="Domain"><br><br>
+<textarea id="message" placeholder="Message"></textarea><br><br>
+<button class="btn">Submit</button>
+<p id="applyMsg"></p>
+</form>
 
-      <div class="form-row">
-        <div>
-          <label>Apply For</label>
-          <select id="applyFor" required>
-            <option value="">Select</option>
-            <option>Project</option>
-            <option>Internship</option>
-            <option>Training</option>
-          </select>
-        </div>
-        <div>
-          <label>Domain</label>
-          <input id="domain">
-        </div>
-      </div>
-
-      <label>Message</label>
-      <textarea id="message" rows="4"></textarea>
-
-      <button class="btn" type="submit">Submit</button>
-      <p id="applyMsg" class="hidden"></p>
-    </form>
-  </div>
+</div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="container">
-    <p>© 2026 Air Fresh Start | MSME: UDYAM-UP-55-0056819</p>
-  </div>
+© 2026 Air Fresh Start | MSME: UDYAM-UP-55-0056819
 </footer>
 
-<!-- JAVASCRIPT -->
 <script>
-/* Google Sheet URL */
-const scriptURL = "https://script.google.com/macros/s/AKfycbzKoNNRP8IP7Rfp050SHmnnFaEbYNNthqYXOAg2MVb3pNY3V97vaGyllxko-zYEwfoC/exec";
+const scriptURL="https://script.google.com/macros/s/AKfycbzKoNNRP8IP7Rfp050SHmnnFaEbYNNthqYXOAg2MVb3pNY3V97vaGyllxko-zYEwfoC/exec";
 
-/* Form Submit */
-document.getElementById("applyForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const msg = document.getElementById("applyMsg");
-  msg.className = "";
-  msg.textContent = "Submitting...";
-  
-const data = {
-  name: document.getElementById("fullName").value,
-  email: document.getElementById("email").value,
-  applyFor: document.getElementById("applyFor").value,
-  domain: document.getElementById("domain").value,
-  message: document.getElementById("message").value
+document.getElementById("applyForm").addEventListener("submit",async(e)=>{
+e.preventDefault();
+const msg=document.getElementById("applyMsg");
+msg.textContent="Submitting...";
+
+const data={
+name:document.getElementById("fullName").value,
+email:document.getElementById("email").value,
+applyFor:document.getElementById("applyFor").value,
+domain:document.getElementById("domain").value,
+message:document.getElementById("message").value
 };
 
-
-  try {
-    const res = await fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(data)
-    });
-    const result = await res.json();
-    if(result.status === "success"){
-      msg.className = "success";
-      msg.textContent = "✅ Application submitted successfully!";
-      e.target.reset();
-    } else {
-      throw new Error();
-    }
-  } catch {
-    msg.className = "error";
-    msg.textContent = "❌ Submission failed. Try again!";
-  }
-});
-
-/* Animated Counters */
-document.querySelectorAll("[data-count]").forEach(el=>{
-  let target = +el.dataset.count;
-  let count = 0;
-  let inc = target / 60;
-  let timer = setInterval(()=>{
-    count += inc;
-    el.textContent = Math.floor(count) + "+";
-    if(count >= target){
-      el.textContent = target + "+";
-      clearInterval(timer);
-    }
-  },20);
-});
-
-/* Dynamic Cards */
-const projects = ["E-Commerce Website","Face Recognition","Chatbot","Weather App","Student Management","Data Dashboard"];
-const internships = ["Web Development (8 Weeks)","Python (6 Weeks)","Data Analyst (8 Weeks)"];
-
-projects.forEach(p=>{
-  projectList.innerHTML += `<div class="card">${p}<br><span class="badge">Certificate</span></div>`;
-});
-internships.forEach(i=>{
-  internshipList.innerHTML += `<div class="card">${i}<br><span class="badge">Offer Letter</span></div>`;
+try{
+const res=await fetch(scriptURL,{method:"POST",body:JSON.stringify(data)});
+const result=await res.json();
+if(result.status==="success"){
+msg.className="success";
+msg.textContent="✅ Submitted Successfully!";
+e.target.reset();
+}else{throw new Error();}
+}catch{
+msg.className="error";
+msg.textContent="❌ Submission Failed!";
+}
 });
 </script>
 
