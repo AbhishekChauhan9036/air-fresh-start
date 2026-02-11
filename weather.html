@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Weather App Development Course</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  background:#f1f5f9;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+h1,h2{color:#0f172a}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+button{
+  padding:10px 20px;
+  border:none;
+  background:#0ea5e9;
+  color:#fff;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{background:#0284c7}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:10px;
+  background:#e2e8f0;
+  border-radius:8px;
+  cursor:pointer;
+}
+.option:hover{
+  background:#cbd5e1;
+}
+.hidden{display:none}
+.result{
+  font-size:20px;
+  font-weight:bold;
+}
+.pass{color:green}
+.fail{color:red}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌦 Weather App Development Course</h1>
+
+<div class="card">
+<h2>Course Overview</h2>
+<p>
+This course teaches students how to build a real-time Weather Application using
+HTML, CSS, JavaScript and Weather APIs. Students will learn how to fetch live
+weather data, display temperature, humidity, wind speed, and forecast data.
+</p>
+</div>
+
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand API Integration</li>
+<li>Fetch Live Weather Data</li>
+<li>Parse JSON Data</li>
+<li>Create Responsive UI</li>
+<li>Handle Errors Properly</li>
+<li>Deploy Live Weather App</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Course Modules</h2>
+
+<h3>Module 1 – Frontend Basics</h3>
+<p>Learn HTML structure, CSS styling, responsive layouts, and UI components.</p>
+
+<h3>Module 2 – JavaScript Fundamentals</h3>
+<p>Learn variables, functions, DOM manipulation and event handling.</p>
+
+<h3>Module 3 – API Integration</h3>
+<p>Understand REST APIs, fetch method, async/await and handling JSON data.</p>
+
+<h3>Module 4 – Weather Data Handling</h3>
+<p>Display temperature, humidity, wind speed, weather icons and forecast.</p>
+
+<h3>Module 5 – Error Handling</h3>
+<p>Handle invalid city names, API errors and network failures.</p>
+
+<h3>Module 6 – Deployment</h3>
+<p>Deploy the weather app using Netlify or GitHub Pages.</p>
+
+</div>
+
+<div class="card">
+<h2>🎯 Objective Type Assessment</h2>
+<button onclick="startTest()">Start Assessment</button>
+
+<div id="quizBox" class="hidden">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<div id="resultBox" class="hidden">
+  <p class="result" id="resultText"></p>
+  <p id="certMsg"></p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ===== 100 MCQ Question Bank ===== */
+
+const questionBank = [];
+
+for(let i=1;i<=100;i++){
+  questionBank.push({
+    question: "Q"+i+": Which method is used to fetch API data in JavaScript?",
+    options:["getData()","fetch()","requestAPI()","apiCall()"],
+    answer:1
+  });
+}
+
+/* ===== Select 10 Random Questions ===== */
+
+function getRandomQuestions(){
+  return questionBank.sort(()=>0.5 - Math.random()).slice(0,10);
+}
+
+let selectedQuestions=[];
+let current=0;
+let score=0;
+
+function startTest(){
+  selectedQuestions = getRandomQuestions();
+  current=0;
+  score=0;
+  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById("resultBox").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  if(current >= selectedQuestions.length){
+    finishTest();
+    return;
+  }
+
+  const q = selectedQuestions[current];
+  document.getElementById("question").innerText = q.question;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML="";
+
+  q.options.forEach((opt,index)=>{
+    const btn = document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+
+    btn.onclick=()=>{
+      if(index === q.answer) score++;
+      current++;
+      showQuestion();
+    };
+
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function finishTest(){
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  document.getElementById("resultText").innerText =
+    "Your Score: " + score + " / 10";
+
+  if(score >= 7){
+    document.getElementById("resultText").className="result pass";
+    document.getElementById("certMsg").innerHTML =
+      "🎓 Congratulations! You are eligible for Certification.";
+  }else{
+    document.getElementById("resultText").className="result fail";
+    document.getElementById("certMsg").innerHTML =
+      "❌ Minimum 7 marks required for Certification.";
+  }
+}
+
+</script>
+
+</body>
+</html>
