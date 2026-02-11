@@ -2,25 +2,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Data Dashboard Assessment</title>
+<title>Data Dashboard Course – Air Fresh Start</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   font-family: Arial;
-  background:#eef2f7;
   margin:0;
+  background:#eef2f7;
 }
 .container{
-  max-width:900px;
+  max-width:1000px;
   margin:auto;
   padding:20px;
+}
+h1,h2{
+  color:#0f172a;
 }
 .card{
   background:#fff;
   padding:20px;
   border-radius:12px;
+  margin-bottom:20px;
   box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+ul{
+  padding-left:20px;
 }
 button{
   padding:8px 18px;
@@ -54,17 +61,88 @@ button{
 <body>
 
 <div class="container">
-<h1>📊 Data Dashboard – Objective Assessment</h1>
 
+<h1>📊 Data Dashboard Development Course</h1>
+
+<!-- COURSE OVERVIEW -->
+<div class="card">
+<h2>Course Overview</h2>
+<p>
+This course teaches students how to design and develop professional Data Dashboards
+using modern visualization tools and real-world datasets. Students will learn how to
+analyze, visualize, and present data effectively using charts, graphs, APIs, and BI tools.
+</p>
+</div>
+
+<!-- OBJECTIVES -->
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand data visualization principles</li>
+<li>Create interactive dashboards</li>
+<li>Fetch and integrate API data</li>
+<li>Use Chart.js / Power BI tools</li>
+<li>Build responsive dashboard UI</li>
+<li>Deploy dashboard projects online</li>
+</ul>
+</div>
+
+<!-- MODULES -->
+<div class="card">
+<h2>Course Modules</h2>
+
+<h3>Module 1 – Introduction to Data Visualization</h3>
+<p>Understanding charts, KPIs, dashboard design principles and business intelligence basics.</p>
+
+<h3>Module 2 – Frontend Dashboard Design</h3>
+<p>Creating responsive layouts using HTML, CSS, Flexbox, Grid and Bootstrap.</p>
+
+<h3>Module 3 – JavaScript & Chart Libraries</h3>
+<p>Using Chart.js to create line, bar, pie and doughnut charts dynamically.</p>
+
+<h3>Module 4 – API & JSON Integration</h3>
+<p>Fetching real-time data using fetch() and displaying it in dashboard format.</p>
+
+<h3>Module 5 – Data Filtering & Interactivity</h3>
+<p>Adding filters, dropdowns, dynamic updates and user interactions.</p>
+
+<h3>Module 6 – Deployment & Optimization</h3>
+<p>Hosting dashboard on Netlify / GitHub Pages and performance optimization.</p>
+</div>
+
+<!-- TOOLS -->
+<div class="card">
+<h2>Tools & Technologies Used</h2>
+<ul>
+<li>HTML5, CSS3</li>
+<li>JavaScript ES6</li>
+<li>Chart.js</li>
+<li>REST APIs</li>
+<li>Power BI (Basic Concepts)</li>
+</ul>
+</div>
+
+<!-- CAREER -->
+<div class="card">
+<h2>Career Opportunities</h2>
+<ul>
+<li>Data Analyst</li>
+<li>Business Intelligence Developer</li>
+<li>Frontend Developer</li>
+<li>Dashboard Engineer</li>
+</ul>
+</div>
+
+<!-- ASSESSMENT -->
 <div class="card">
 
+<h2>🎯 Objective Assessment</h2>
 <button class="primary" onclick="startTest()">Start Assessment</button>
 
 <div id="quizArea" class="hidden">
   <div class="progress" id="progressText"></div>
   <h3 id="questionText"></h3>
   <div id="optionsBox"></div>
-
   <br>
   <button class="secondary" onclick="prevQuestion()">Previous</button>
   <button class="primary" onclick="nextQuestion()">Next</button>
@@ -77,11 +155,12 @@ button{
 </div>
 
 </div>
+
 </div>
 
 <script>
 
-/* ===== 100 UNIQUE QUESTIONS ===== */
+/* QUESTION BANK */
 
 const questionBank = [];
 
@@ -90,12 +169,12 @@ const baseQuestions = [
 ["Which library is used for charts?","Chart.js","MySQL","Node","Linux",0],
 ["Dashboard data is fetched using?","API","RAM","BIOS","ROM",0],
 ["JSON stands for?","JavaScript Object Notation","Java Source","Joint Script","None",0],
-["Which is best for category comparison?","Bar Chart","Line Chart","Pie Chart","Scatter",0],
-["Which method fetches API data?","fetch()","getData()","open()","connect()",0],
-["Pie chart shows?","Trend","Distribution","Speed","Security",1],
-["Filtering improves?","UX","CPU","RAM","BIOS",0],
+["Which chart compares categories?","Bar","Line","Area","Table",0],
+["fetch() is used for?","API Call","Styling","Database","Hardware",0],
+["Pie chart shows?","Distribution","Trend","Speed","Security",0],
 ["Responsive layout uses?","Flexbox/Grid","SQL","FTP","None",0],
-["Real-time dashboards use?","Live API","Manual Entry","Static File","BIOS",0]
+["KPI stands for?","Key Performance Indicator","Known Program Input","Key Page Info","None",0],
+["Real-time dashboard needs?","Live API","Static HTML","Manual Update","None",0]
 ];
 
 /* Generate 100 */
@@ -109,19 +188,15 @@ for(let i=0;i<10;i++){
   });
 }
 
-/* ===== VARIABLES ===== */
-
 let selectedQuestions=[];
 let current=0;
 let answers=[];
 let score=0;
 
-/* ===== START TEST ===== */
-
 function startTest(){
   selectedQuestions = questionBank.sort(()=>0.5-Math.random()).slice(0,10);
   current=0;
-  answers = new Array(10).fill(null);
+  answers=new Array(10).fill(null);
   score=0;
 
   document.getElementById("quizArea").classList.remove("hidden");
@@ -130,18 +205,16 @@ function startTest(){
   showQuestion();
 }
 
-/* ===== SHOW QUESTION ===== */
-
 function showQuestion(){
 
-  const q = selectedQuestions[current];
+  const q=selectedQuestions[current];
 
   document.getElementById("progressText").innerText =
-    "Question " + (current+1) + " of 10";
+    "Question "+(current+1)+" of 10";
 
-  document.getElementById("questionText").innerText = q.question;
+  document.getElementById("questionText").innerText=q.question;
 
-  const box = document.getElementById("optionsBox");
+  const box=document.getElementById("optionsBox");
   box.innerHTML="";
 
   q.options.forEach((opt,index)=>{
@@ -166,8 +239,6 @@ function showQuestion(){
   });
 }
 
-/* ===== NEXT ===== */
-
 function nextQuestion(){
   if(current<9){
     current++;
@@ -177,16 +248,12 @@ function nextQuestion(){
   }
 }
 
-/* ===== PREVIOUS ===== */
-
 function prevQuestion(){
   if(current>0){
     current--;
     showQuestion();
   }
 }
-
-/* ===== FINISH ===== */
 
 function finishTest(){
 
@@ -198,14 +265,14 @@ function finishTest(){
   document.getElementById("quizArea").classList.add("hidden");
   document.getElementById("resultArea").classList.remove("hidden");
 
-  document.getElementById("scoreText").innerText =
+  document.getElementById("scoreText").innerText=
     "Your Score: "+score+" / 10";
 
   if(score>=7){
-    document.getElementById("certText").innerHTML =
+    document.getElementById("certText").innerHTML=
       "<span class='pass'>🎓 Congratulations! Eligible for Certification.</span>";
   }else{
-    document.getElementById("certText").innerHTML =
+    document.getElementById("certText").innerHTML=
       "<span class='fail'>❌ Minimum 7 marks required.</span>";
   }
 }
