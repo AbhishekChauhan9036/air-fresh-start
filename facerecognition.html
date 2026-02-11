@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Face Recognition Course</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  background:#f4f7fb;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+h1,h2{color:#0f172a}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+button{
+  padding:10px 20px;
+  border:none;
+  background:#6366f1;
+  color:#fff;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{background:#4f46e5}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:10px;
+  background:#e2e8f0;
+  border-radius:5px;
+  cursor:pointer;
+}
+.option:hover{background:#cbd5e1}
+.hidden{display:none}
+.result{
+  font-size:20px;
+  font-weight:bold;
+}
+.pass{color:green}
+.fail{color:red}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 Face Recognition Development Course</h1>
+
+<div class="card">
+<h2>Course Overview</h2>
+<p>
+This course provides complete knowledge of Face Recognition Technology using Artificial Intelligence,
+Machine Learning and Deep Learning techniques. Students will learn how to detect faces,
+extract facial features, train models and deploy real-time face recognition systems.
+</p>
+</div>
+
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand fundamentals of Artificial Intelligence and Machine Learning</li>
+<li>Learn Image Processing basics</li>
+<li>Understand Face Detection vs Face Recognition</li>
+<li>Work with OpenCV and Python</li>
+<li>Train Deep Learning models</li>
+<li>Build real-time Face Recognition system</li>
+<li>Deploy Face Recognition projects</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Course Modules</h2>
+
+<h3>Module 1 – Introduction to AI & Computer Vision</h3>
+<p>
+Basics of Artificial Intelligence, Machine Learning and Deep Learning.
+Introduction to Computer Vision and how machines interpret images.
+Understanding pixels, grayscale images and image formats.
+</p>
+
+<h3>Module 2 – Image Processing Fundamentals</h3>
+<p>
+Working with OpenCV library. Image resizing, color conversion,
+thresholding, filtering and edge detection techniques.
+</p>
+
+<h3>Module 3 – Face Detection</h3>
+<p>
+Haar Cascade Classifier, HOG detector, CNN-based detection.
+Detecting faces in images and real-time video using webcam.
+</p>
+
+<h3>Module 4 – Face Recognition Algorithms</h3>
+<p>
+Eigenfaces, Fisherfaces, LBPH algorithm.
+Understanding feature extraction and face embeddings.
+</p>
+
+<h3>Module 5 – Deep Learning for Face Recognition</h3>
+<p>
+Using Convolutional Neural Networks (CNN).
+Transfer learning using pre-trained models like FaceNet and VGGFace.
+</p>
+
+<h3>Module 6 – Real-Time Project & Deployment</h3>
+<p>
+Building attendance system using Face Recognition.
+Database integration, model saving and deployment on web/server.
+</p>
+
+</div>
+
+<div class="card">
+<h2>🎯 Objective Assessment</h2>
+<button onclick="startTest()">Start Test</button>
+
+<div id="quizBox" class="hidden">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<div id="resultBox" class="hidden">
+  <p class="result" id="resultText"></p>
+  <p id="certMsg"></p>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// 100 MCQ Question Bank
+const questionBank = [
+
+{question:"1. What is Face Recognition?",options:["Image editing","Identifying person from image","Video streaming","Database backup"],answer:1},
+{question:"2. Which library is used for computer vision?",options:["NumPy","OpenCV","Pandas","Matplotlib"],answer:1},
+{question:"3. Haar Cascade is used for?",options:["Face detection","Face painting","Data mining","Audio recognition"],answer:0},
+{question:"4. CNN stands for?",options:["Computer Neural Network","Convolutional Neural Network","Central Neural Node","None"],answer:1},
+{question:"5. FaceNet is used for?",options:["Face detection","Face recognition","Database","UI design"],answer:1},
+
+];
+
+// Auto-generate remaining questions to make 100
+for(let i=6;i<=100;i++){
+  questionBank.push({
+    question:i+". Face Recognition uses which technology?",
+    options:["AI","Machine Learning","Deep Learning","All of the above"],
+    answer:3
+  });
+}
+
+// Shuffle and select 10 random
+function getRandomQuestions(){
+  return questionBank.sort(()=>0.5-Math.random()).slice(0,10);
+}
+
+let selectedQuestions=[];
+let current=0;
+let score=0;
+
+function startTest(){
+  selectedQuestions = getRandomQuestions();
+  current=0;
+  score=0;
+  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById("resultBox").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  if(current>=selectedQuestions.length){
+    finishTest();
+    return;
+  }
+
+  const q = selectedQuestions[current];
+  document.getElementById("question").innerText = q.question;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML="";
+
+  q.options.forEach((opt,index)=>{
+    const btn = document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+    btn.onclick=()=>{
+      if(index===q.answer) score++;
+      current++;
+      showQuestion();
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function finishTest(){
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  document.getElementById("resultText").innerText =
+    "Your Score: "+score+" / 10";
+
+  if(score>=7){
+    document.getElementById("resultText").className="result pass";
+    document.getElementById("certMsg").innerHTML =
+      "🎓 Congratulations! You are eligible for Certification.";
+  }else{
+    document.getElementById("resultText").className="result fail";
+    document.getElementById("certMsg").innerHTML =
+      "❌ You need minimum 7 marks for certification.";
+  }
+}
+
+</script>
+
+</body>
+</html>
