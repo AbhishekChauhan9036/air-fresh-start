@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student Management System Course</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  background:#f1f5f9;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+h1,h2{color:#0f172a}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+button{
+  padding:10px 20px;
+  border:none;
+  background:#0ea5e9;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+button:hover{background:#0284c7}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:10px;
+  background:#e2e8f0;
+  border-radius:8px;
+  cursor:pointer;
+}
+.option:hover{
+  background:#cbd5e1;
+}
+.hidden{display:none}
+.result{
+  font-size:20px;
+  font-weight:bold;
+}
+.pass{color:green}
+.fail{color:red}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎓 Student Management System Development Course</h1>
+
+<div class="card">
+<h2>Course Overview</h2>
+<p>
+This course teaches students how to build a complete Student Management System
+to manage student records, attendance, marks, and reports using frontend and backend technologies.
+Students will learn CRUD operations, database connectivity, and authentication.
+</p>
+</div>
+
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand Database Concepts</li>
+<li>Perform CRUD Operations</li>
+<li>Develop Admin Dashboard</li>
+<li>Manage Student Records</li>
+<li>Implement Authentication System</li>
+<li>Generate Reports</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Course Modules</h2>
+
+<h3>Module 1 – HTML & CSS Design</h3>
+<p>Create forms for student registration and responsive dashboard layouts.</p>
+
+<h3>Module 2 – JavaScript & Validation</h3>
+<p>Implement form validation, DOM manipulation, and interactive UI features.</p>
+
+<h3>Module 3 – Backend Development</h3>
+<p>Use Node.js / PHP to handle student data and server-side operations.</p>
+
+<h3>Module 4 – Database Integration</h3>
+<p>Connect MySQL or MongoDB to store and retrieve student records.</p>
+
+<h3>Module 5 – Authentication & Security</h3>
+<p>Implement login system, session management and data protection.</p>
+
+<h3>Module 6 – Reports & Deployment</h3>
+<p>Generate student performance reports and deploy system online.</p>
+
+</div>
+
+<div class="card">
+<h2>🎯 Objective Type Assessment</h2>
+<button onclick="startTest()">Start Assessment</button>
+
+<div id="quizBox" class="hidden">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<div id="resultBox" class="hidden">
+  <p class="result" id="resultText"></p>
+  <p id="certMsg"></p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ===== 100 MCQ Question Bank ===== */
+
+const questionBank = [];
+
+for(let i=1;i<=100;i++){
+  questionBank.push({
+    question: "Q"+i+": Which operation is used to insert data into database?",
+    options:["SELECT","UPDATE","INSERT","DELETE"],
+    answer:2
+  });
+}
+
+/* ===== Select 10 Random Questions ===== */
+
+function getRandomQuestions(){
+  return questionBank.sort(()=>0.5 - Math.random()).slice(0,10);
+}
+
+let selectedQuestions=[];
+let current=0;
+let score=0;
+
+function startTest(){
+  selectedQuestions = getRandomQuestions();
+  current=0;
+  score=0;
+  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById("resultBox").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  if(current >= selectedQuestions.length){
+    finishTest();
+    return;
+  }
+
+  const q = selectedQuestions[current];
+  document.getElementById("question").innerText = q.question;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML="";
+
+  q.options.forEach((opt,index)=>{
+    const btn = document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+
+    btn.onclick=()=>{
+      if(index === q.answer) score++;
+      current++;
+      showQuestion();
+    };
+
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function finishTest(){
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  document.getElementById("resultText").innerText =
+    "Your Score: " + score + " / 10";
+
+  if(score >= 7){
+    document.getElementById("resultText").className="result pass";
+    document.getElementById("certMsg").innerHTML =
+      "🎓 Congratulations! You are eligible for Certification.";
+  }else{
+    document.getElementById("resultText").className="result fail";
+    document.getElementById("certMsg").innerHTML =
+      "❌ Minimum 7 marks required for Certification.";
+  }
+}
+
+</script>
+
+</body>
+</html>
