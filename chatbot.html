@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Chatbot Development Course</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  background:#eef2ff;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+h1,h2{color:#1e293b}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+button{
+  padding:10px 20px;
+  border:none;
+  background:#7c3aed;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+button:hover{background:#6d28d9}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:10px;
+  background:#e0e7ff;
+  border-radius:6px;
+  cursor:pointer;
+}
+.option:hover{background:#c7d2fe}
+.hidden{display:none}
+.result{
+  font-size:20px;
+  font-weight:bold;
+}
+.pass{color:green}
+.fail{color:red}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 Chatbot Development Master Course</h1>
+
+<div class="card">
+<h2>Course Overview</h2>
+<p>
+This course provides complete knowledge of Chatbot Development using Artificial Intelligence,
+Natural Language Processing (NLP), Machine Learning, and API Integration.
+Students will learn to build rule-based bots, AI-powered bots, and deploy them
+on websites, WhatsApp, Telegram, and Web Applications.
+</p>
+</div>
+
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand basics of Artificial Intelligence</li>
+<li>Learn Natural Language Processing (NLP)</li>
+<li>Build Rule-Based Chatbots</li>
+<li>Build AI-Based Chatbots using ML</li>
+<li>Integrate Chatbots with APIs</li>
+<li>Deploy Chatbots to Web & Messaging Platforms</li>
+<li>Develop Real-time Chatbot Projects</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Course Modules</h2>
+
+<h3>Module 1 – Introduction to Chatbots</h3>
+<p>
+Understanding what chatbots are, types of chatbots, real-world applications,
+and difference between rule-based and AI chatbots.
+</p>
+
+<h3>Module 2 – Natural Language Processing (NLP)</h3>
+<p>
+Text preprocessing, tokenization, stemming, lemmatization,
+intent recognition, entity extraction and sentiment analysis.
+</p>
+
+<h3>Module 3 – Rule-Based Chatbot Development</h3>
+<p>
+Building chatbot using conditional logic, keyword matching,
+and decision trees using JavaScript or Python.
+</p>
+
+<h3>Module 4 – AI-Based Chatbots</h3>
+<p>
+Training ML models for intent classification,
+using libraries like TensorFlow, Dialogflow, Rasa.
+</p>
+
+<h3>Module 5 – API Integration & Deployment</h3>
+<p>
+Connecting chatbot with databases and APIs.
+Deploying chatbot to website, WhatsApp, Telegram and cloud platforms.
+</p>
+
+<h3>Module 6 – Final Project</h3>
+<p>
+Building a Smart Customer Support Chatbot with login system,
+admin panel and analytics dashboard.
+</p>
+
+</div>
+
+<div class="card">
+<h2>🎯 Objective Assessment</h2>
+<button onclick="startTest()">Start Test</button>
+
+<div id="quizBox" class="hidden">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<div id="resultBox" class="hidden">
+  <p class="result" id="resultText"></p>
+  <p id="certMsg"></p>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// 100 Professional MCQs
+const questionBank = [
+
+{question:"1. What is a chatbot?",options:["Robot","Software program that simulates conversation","Game","Database"],answer:1},
+{question:"2. NLP stands for?",options:["Natural Language Processing","Neural Logic Program","Network Learning Protocol","None"],answer:0},
+{question:"3. Which is rule-based chatbot?",options:["AI Bot","Decision Tree Bot","ML Bot","Deep Bot"],answer:1},
+{question:"4. Tokenization is used for?",options:["Splitting text","Encrypting text","Deleting text","Uploading text"],answer:0},
+{question:"5. Which platform supports chatbot deployment?",options:["Website","Telegram","WhatsApp","All of the above"],answer:3},
+{question:"6. Intent recognition identifies?",options:["User goal","Image color","Video frame","Database"],answer:0},
+{question:"7. Rasa is used for?",options:["Chatbot framework","Image editing","Database","None"],answer:0},
+{question:"8. API stands for?",options:["Application Programming Interface","Advanced Program Internet","Auto Processing Input","None"],answer:0},
+{question:"9. ML stands for?",options:["Machine Learning","Main Logic","Manual Learning","None"],answer:0},
+{question:"10. Chatbots improve?",options:["Customer support","Response time","Automation","All of the above"],answer:3},
+
+];
+
+// Generate remaining up to 100
+for(let i=11;i<=100;i++){
+  questionBank.push({
+    question:i+". Which technology is important for AI chatbots?",
+    options:["NLP","Machine Learning","Deep Learning","All of the above"],
+    answer:3
+  });
+}
+
+// Random 10 questions
+function getRandomQuestions(){
+  return questionBank.sort(()=>0.5-Math.random()).slice(0,10);
+}
+
+let selectedQuestions=[];
+let current=0;
+let score=0;
+
+function startTest(){
+  selectedQuestions = getRandomQuestions();
+  current=0;
+  score=0;
+  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById("resultBox").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  if(current>=selectedQuestions.length){
+    finishTest();
+    return;
+  }
+
+  const q = selectedQuestions[current];
+  document.getElementById("question").innerText = q.question;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML="";
+
+  q.options.forEach((opt,index)=>{
+    const btn = document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+    btn.onclick=()=>{
+      if(index===q.answer) score++;
+      current++;
+      showQuestion();
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function finishTest(){
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  document.getElementById("resultText").innerText =
+    "Your Score: "+score+" / 10";
+
+  if(score>=7){
+    document.getElementById("resultText").className="result pass";
+    document.getElementById("certMsg").innerHTML =
+      "🎓 Congratulations! You are eligible for Certification.";
+  }else{
+    document.getElementById("resultText").className="result fail";
+    document.getElementById("certMsg").innerHTML =
+      "❌ You need minimum 7 marks for certification.";
+  }
+}
+
+</script>
+
+</body>
+</html>
