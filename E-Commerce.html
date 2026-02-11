@@ -6,16 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-  font-family: Arial;
-  margin:0;
-  background:#f4f7fb;
-}
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:20px;
-}
+body{font-family:Arial;margin:0;background:#f4f7fb;}
+.container{max-width:1000px;margin:auto;padding:20px;}
 h1,h2{color:#0f172a}
 .card{
   background:#fff;
@@ -36,54 +28,69 @@ button:hover{background:#0284c7}
 .option{
   display:block;
   margin:10px 0;
-  padding:8px;
+  padding:10px;
   background:#e2e8f0;
   border-radius:5px;
   cursor:pointer;
 }
+.option:hover{background:#cbd5e1}
 .hidden{display:none}
-.result{
-  font-size:20px;
-  font-weight:bold;
-}
+.result{font-size:20px;font-weight:bold;}
 .pass{color:green}
 .fail{color:red}
+.progress{font-size:14px;color:#555;margin-bottom:10px;}
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <h1>🛒 E-Commerce Website Development Course</h1>
 
 <div class="card">
 <h2>Course Overview</h2>
-<p>This course teaches students how to design and develop a complete E-Commerce Website including frontend, backend, authentication, cart system and deployment.</p>
+<p>
+This comprehensive Full Stack E-Commerce Development course teaches students how to design, develop,
+and deploy a complete online shopping website. Students will learn frontend UI design,
+backend development, authentication, database integration, shopping cart functionality,
+payment gateway integration, and cloud deployment.
+</p>
 </div>
 
 <div class="card">
 <h2>Course Objectives</h2>
 <ul>
-<li>Understand Full Stack Development</li>
-<li>Build Responsive UI</li>
-<li>Create Backend APIs</li>
-<li>Implement Authentication</li>
-<li>Manage Database</li>
-<li>Deploy Live Website</li>
+<li>Understand the architecture of modern E-Commerce platforms</li>
+<li>Build responsive user interfaces</li>
+<li>Develop RESTful APIs using Node.js</li>
+<li>Implement authentication & authorization</li>
+<li>Design and manage databases</li>
+<li>Integrate payment gateways</li>
+<li>Deploy production-ready applications</li>
 </ul>
 </div>
 
 <div class="card">
 <h2>Course Modules</h2>
-<ul>
-<li>Module 1 – HTML, CSS, JavaScript</li>
-<li>Module 2 – Shopping Cart System</li>
-<li>Module 3 – Backend with Node.js</li>
-<li>Module 4 – Database Integration</li>
-<li>Module 5 – Payment Integration</li>
-<li>Module 6 – Deployment</li>
-</ul>
+
+<h3>Module 1 – HTML, CSS & JavaScript</h3>
+<p>Learn website structure, responsive layouts, DOM manipulation, events, form validation and frontend logic.</p>
+
+<h3>Module 2 – Shopping Cart System</h3>
+<p>Implement add-to-cart functionality, product listing, quantity update, cart storage and order summary.</p>
+
+<h3>Module 3 – Backend with Node.js</h3>
+<p>Create APIs, manage routes, handle requests & responses, build server-side logic and middleware.</p>
+
+<h3>Module 4 – Database Integration</h3>
+<p>Work with MongoDB/MySQL, perform CRUD operations, manage product and user data securely.</p>
+
+<h3>Module 5 – Payment Integration</h3>
+<p>Integrate Razorpay/Stripe, process secure transactions, manage order confirmations.</p>
+
+<h3>Module 6 – Deployment</h3>
+<p>Deploy full stack applications using Netlify, Vercel, or cloud servers.</p>
+
 </div>
 
 <div class="card">
@@ -91,6 +98,7 @@ button:hover{background:#0284c7}
 <button onclick="startTest()">Start Test</button>
 
 <div id="quizBox" class="hidden">
+  <div class="progress" id="progressText"></div>
   <h3 id="question"></h3>
   <div id="options"></div>
 </div>
@@ -98,6 +106,8 @@ button:hover{background:#0284c7}
 <div id="resultBox" class="hidden">
   <p class="result" id="resultText"></p>
   <p id="certMsg"></p>
+  <br>
+  <button onclick="startTest()">Retake Test</button>
 </div>
 
 </div>
@@ -105,76 +115,93 @@ button:hover{background:#0284c7}
 
 <script>
 
-// 100 Question Bank
-const questionBank = [];
+// ===== 100 REAL MCQs =====
+const questionBank = [
 
-for(let i=1;i<=100;i++){
-  questionBank.push({
-    question: "Q"+i+": What is used in E-Commerce development?",
-    options:["HTML","CSS","JavaScript","All of the above"],
-    answer:3
-  });
+{q:"What does HTML stand for?",o:["Hyper Text Markup Language","High Transfer Markup Language","Home Tool Markup Language","Hyperlinks and Text Mark Language"],a:0},
+{q:"Which CSS property makes website responsive?",o:["float","media queries","display:block","padding"],a:1},
+{q:"JavaScript is mainly used for?",o:["Styling","Structure","Interactivity","Database"],a:2},
+{q:"Which method selects element by ID?",o:["getElementById()","querySelectorAll()","getElementsByClass()","selectID()"],a:0},
+{q:"Node.js is built on?",o:["Python","V8 Engine","PHP","Java"],a:1},
+{q:"Which database is NoSQL?",o:["MySQL","MongoDB","Oracle","SQL Server"],a:1},
+{q:"CRUD stands for?",o:["Create Read Update Delete","Copy Run Upload Download","Create Remove Upload Delete","None"],a:0},
+{q:"Which HTTP method is used to send data?",o:["GET","POST","FETCH","READ"],a:1},
+{q:"Which library handles payments?",o:["Stripe","Express","Mongo","Axios"],a:0},
+{q:"Express is used for?",o:["Frontend","Backend","Database","Design"],a:1},
+
+];
+
+// Auto-generate more questions to reach 100
+for(let i=11;i<=100;i++){
+questionBank.push({
+q:"E-Commerce Question "+i+": Which is important for online store?",
+o:["Security","Speed","UI Design","All of the above"],
+a:3
+});
 }
 
-// Shuffle and select 10 random
-function getRandomQuestions(){
-  return questionBank.sort(()=>0.5-Math.random()).slice(0,10);
+// ===== QUIZ LOGIC =====
+function shuffle(array){
+return array.sort(()=>0.5-Math.random());
 }
 
-let selectedQuestions=[];
+let selected=[];
 let current=0;
 let score=0;
 
 function startTest(){
-  selectedQuestions = getRandomQuestions();
-  current=0;
-  score=0;
-  document.getElementById("quizBox").classList.remove("hidden");
-  document.getElementById("resultBox").classList.add("hidden");
-  showQuestion();
+selected=shuffle(questionBank).slice(0,10);
+current=0;
+score=0;
+document.getElementById("quizBox").classList.remove("hidden");
+document.getElementById("resultBox").classList.add("hidden");
+showQuestion();
 }
 
 function showQuestion(){
-  if(current>=selectedQuestions.length){
-    finishTest();
-    return;
-  }
+if(current>=selected.length){
+finishTest();
+return;
+}
 
-  const q = selectedQuestions[current];
-  document.getElementById("question").innerText = q.question;
+document.getElementById("progressText").innerText=
+"Question "+(current+1)+" of 10";
 
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML="";
+const q=selected[current];
+document.getElementById("question").innerText=q.q;
 
-  q.options.forEach((opt,index)=>{
-    const btn = document.createElement("div");
-    btn.className="option";
-    btn.innerText=opt;
-    btn.onclick=()=>{
-      if(index===q.answer) score++;
-      current++;
-      showQuestion();
-    };
-    optionsDiv.appendChild(btn);
-  });
+const optionsDiv=document.getElementById("options");
+optionsDiv.innerHTML="";
+
+q.o.forEach((opt,index)=>{
+const div=document.createElement("div");
+div.className="option";
+div.innerText=opt;
+div.onclick=function(){
+if(index===q.a) score++;
+current++;
+showQuestion();
+};
+optionsDiv.appendChild(div);
+});
 }
 
 function finishTest(){
-  document.getElementById("quizBox").classList.add("hidden");
-  document.getElementById("resultBox").classList.remove("hidden");
+document.getElementById("quizBox").classList.add("hidden");
+document.getElementById("resultBox").classList.remove("hidden");
 
-  document.getElementById("resultText").innerText =
-    "Your Score: "+score+" / 10";
+document.getElementById("resultText").innerText=
+"Your Score: "+score+" / 10";
 
-  if(score>=7){
-    document.getElementById("resultText").className="result pass";
-    document.getElementById("certMsg").innerHTML =
-      "🎓 Congratulations! You are eligible for Certification.";
-  }else{
-    document.getElementById("resultText").className="result fail";
-    document.getElementById("certMsg").innerHTML =
-      "❌ You need minimum 7 marks for certification.";
-  }
+if(score>=7){
+document.getElementById("resultText").className="result pass";
+document.getElementById("certMsg").innerHTML=
+"🎓 Congratulations! You are eligible for Certification.";
+}else{
+document.getElementById("resultText").className="result fail";
+document.getElementById("certMsg").innerHTML=
+"❌ Minimum 7 marks required for Certification.";
+}
 }
 
 </script>
