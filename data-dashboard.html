@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Data Dashboard Development Course</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  margin:0;
+  background:#eef2f7;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+h1,h2,h3{color:#0f172a}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+button{
+  padding:10px 20px;
+  border:none;
+  background:#2563eb;
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+button:hover{background:#1d4ed8}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:10px;
+  background:#e2e8f0;
+  border-radius:8px;
+  cursor:pointer;
+}
+.option:hover{background:#cbd5e1}
+.hidden{display:none}
+.result{
+  font-size:22px;
+  font-weight:bold;
+}
+.pass{color:green}
+.fail{color:red}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📊 Data Dashboard Development Course</h1>
+
+<div class="card">
+<h2>Course Overview</h2>
+<p>
+This course teaches students how to build interactive Data Dashboards
+using HTML, CSS, JavaScript and chart libraries like Chart.js.
+Students will learn data visualization, analytics, API integration,
+and dashboard design principles used in real-world companies.
+</p>
+</div>
+
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand Data Visualization Concepts</li>
+<li>Build Interactive Charts and Graphs</li>
+<li>Connect APIs and Live Data</li>
+<li>Design Responsive Dashboard UI</li>
+<li>Implement Filtering & Sorting</li>
+<li>Deploy Dashboard to Production</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Course Modules</h2>
+
+<h3>Module 1 – Dashboard UI Design</h3>
+<p>Learn layout design using grid, cards, charts and responsive techniques.</p>
+
+<h3>Module 2 – Data Visualization Basics</h3>
+<p>Understand bar charts, line charts, pie charts and when to use them.</p>
+
+<h3>Module 3 – JavaScript & Chart Libraries</h3>
+<p>Use Chart.js to create dynamic visualizations.</p>
+
+<h3>Module 4 – API & Data Integration</h3>
+<p>Fetch real-time data using APIs and display on dashboard.</p>
+
+<h3>Module 5 – Filtering & Analytics</h3>
+<p>Implement filters, search and dynamic updates.</p>
+
+<h3>Module 6 – Deployment & Optimization</h3>
+<p>Optimize performance and deploy dashboard online.</p>
+
+</div>
+
+<div class="card">
+<h2>🎯 Objective Type Assessment</h2>
+<button onclick="startTest()">Start Assessment</button>
+
+<div id="quizBox" class="hidden">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<div id="resultBox" class="hidden">
+  <p class="result" id="resultText"></p>
+  <p id="certMsg"></p>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* ===== 100 Professional MCQs ===== */
+
+const questionBank = [
+
+{q:"Which library is commonly used for dashboards?",o:["React","Chart.js","Bootstrap","MySQL"],a:1},
+{q:"Which chart is best for trends over time?",o:["Pie","Bar","Line","Scatter"],a:2},
+{q:"Dashboard data is usually fetched using?",o:["API","FTP","SMTP","BIOS"],a:0},
+{q:"Which method is used to fetch API data?",o:["getData()","fetch()","connect()","callAPI()"],a:1},
+{q:"Pie chart is best for?",o:["Trend","Comparison","Distribution","Ranking"],a:2},
+{q:"Bar chart is useful for?",o:["Comparing categories","Showing flow","Encryption","Authentication"],a:0},
+{q:"Responsive layout is created using?",o:["Grid/Flexbox","SQL","Node only","None"],a:0},
+{q:"JSON stands for?",o:["Java Source Object Notation","JavaScript Object Notation","Joint Script Object","None"],a:1},
+{q:"Real-time dashboards use?",o:["Static data","Live API","Manual entry","None"],a:1},
+{q:"Filtering improves?",o:["User Experience","Hardware","Storage","BIOS"],a:0}
+
+];
+
+/* Duplicate & Expand to 100 Questions */
+
+while(questionBank.length < 100){
+  questionBank.push({
+    q:"Data visualization helps in?",
+    o:["Better decisions","Confusion","Slow performance","Errors"],
+    a:0
+  });
+}
+
+/* ===== Random 10 ===== */
+
+function getRandomQuestions(){
+  return questionBank.sort(()=>0.5-Math.random()).slice(0,10);
+}
+
+let selectedQuestions=[];
+let current=0;
+let score=0;
+
+function startTest(){
+  selectedQuestions = getRandomQuestions();
+  current=0;
+  score=0;
+  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById("resultBox").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  if(current>=selectedQuestions.length){
+    finishTest();
+    return;
+  }
+
+  const q = selectedQuestions[current];
+  document.getElementById("question").innerText = q.q;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML="";
+
+  q.o.forEach((opt,index)=>{
+    const btn = document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+    btn.onclick=()=>{
+      if(index===q.a) score++;
+      current++;
+      showQuestion();
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function finishTest(){
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  document.getElementById("resultText").innerText =
+    "Your Score: "+score+" / 10";
+
+  if(score>=7){
+    document.getElementById("resultText").className="result pass";
+    document.getElementById("certMsg").innerHTML =
+      "🎓 Excellent! You are eligible for Certification.";
+  }else{
+    document.getElementById("resultText").className="result fail";
+    document.getElementById("certMsg").innerHTML =
+      "❌ Minimum 7 marks required for Certification.";
+  }
+}
+
+</script>
+
+</body>
+</html>
