@@ -2,213 +2,211 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Data Dashboard Development Course</title>
+<title>Data Dashboard Assessment</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
-  font-family: Arial, sans-serif;
-  margin:0;
+  font-family: Arial;
   background:#eef2f7;
+  margin:0;
 }
 .container{
-  max-width:1000px;
+  max-width:900px;
   margin:auto;
   padding:20px;
 }
-h1,h2,h3{color:#0f172a}
 .card{
   background:#fff;
   padding:20px;
   border-radius:12px;
-  margin-bottom:20px;
   box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
 button{
-  padding:10px 20px;
+  padding:8px 18px;
   border:none;
-  background:#2563eb;
-  color:#fff;
   border-radius:6px;
   cursor:pointer;
 }
-button:hover{background:#1d4ed8}
+.primary{background:#2563eb;color:white;}
+.primary:hover{background:#1d4ed8;}
+.secondary{background:#64748b;color:white;}
 .option{
-  display:block;
-  margin:10px 0;
   padding:10px;
+  margin:8px 0;
   background:#e2e8f0;
   border-radius:8px;
   cursor:pointer;
 }
-.option:hover{background:#cbd5e1}
-.hidden{display:none}
-.result{
-  font-size:22px;
+.option:hover{background:#cbd5e1;}
+.correct{background:#22c55e;color:white;}
+.wrong{background:#ef4444;color:white;}
+.hidden{display:none;}
+.progress{
   font-weight:bold;
+  margin-bottom:10px;
 }
-.pass{color:green}
-.fail{color:red}
+.pass{color:green;font-weight:bold;}
+.fail{color:red;font-weight:bold;}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-
-<h1>📊 Data Dashboard Development Course</h1>
-
-<div class="card">
-<h2>Course Overview</h2>
-<p>
-This course teaches students how to build interactive Data Dashboards
-using HTML, CSS, JavaScript and chart libraries like Chart.js.
-Students will learn data visualization, analytics, API integration,
-and dashboard design principles used in real-world companies.
-</p>
-</div>
+<h1>📊 Data Dashboard – Objective Assessment</h1>
 
 <div class="card">
-<h2>Course Objectives</h2>
-<ul>
-<li>Understand Data Visualization Concepts</li>
-<li>Build Interactive Charts and Graphs</li>
-<li>Connect APIs and Live Data</li>
-<li>Design Responsive Dashboard UI</li>
-<li>Implement Filtering & Sorting</li>
-<li>Deploy Dashboard to Production</li>
-</ul>
+
+<button class="primary" onclick="startTest()">Start Assessment</button>
+
+<div id="quizArea" class="hidden">
+  <div class="progress" id="progressText"></div>
+  <h3 id="questionText"></h3>
+  <div id="optionsBox"></div>
+
+  <br>
+  <button class="secondary" onclick="prevQuestion()">Previous</button>
+  <button class="primary" onclick="nextQuestion()">Next</button>
 </div>
 
-<div class="card">
-<h2>Course Modules</h2>
-
-<h3>Module 1 – Dashboard UI Design</h3>
-<p>Learn layout design using grid, cards, charts and responsive techniques.</p>
-
-<h3>Module 2 – Data Visualization Basics</h3>
-<p>Understand bar charts, line charts, pie charts and when to use them.</p>
-
-<h3>Module 3 – JavaScript & Chart Libraries</h3>
-<p>Use Chart.js to create dynamic visualizations.</p>
-
-<h3>Module 4 – API & Data Integration</h3>
-<p>Fetch real-time data using APIs and display on dashboard.</p>
-
-<h3>Module 5 – Filtering & Analytics</h3>
-<p>Implement filters, search and dynamic updates.</p>
-
-<h3>Module 6 – Deployment & Optimization</h3>
-<p>Optimize performance and deploy dashboard online.</p>
-
-</div>
-
-<div class="card">
-<h2>🎯 Objective Type Assessment</h2>
-<button onclick="startTest()">Start Assessment</button>
-
-<div id="quizBox" class="hidden">
-  <h3 id="question"></h3>
-  <div id="options"></div>
-</div>
-
-<div id="resultBox" class="hidden">
-  <p class="result" id="resultText"></p>
-  <p id="certMsg"></p>
+<div id="resultArea" class="hidden">
+  <h2 id="scoreText"></h2>
+  <p id="certText"></p>
+  <button class="primary" onclick="startTest()">Restart</button>
 </div>
 
 </div>
-
 </div>
 
 <script>
 
-/* ===== 100 Professional MCQs ===== */
+/* ===== 100 UNIQUE QUESTIONS ===== */
 
-const questionBank = [
+const questionBank = [];
 
-{q:"Which library is commonly used for dashboards?",o:["React","Chart.js","Bootstrap","MySQL"],a:1},
-{q:"Which chart is best for trends over time?",o:["Pie","Bar","Line","Scatter"],a:2},
-{q:"Dashboard data is usually fetched using?",o:["API","FTP","SMTP","BIOS"],a:0},
-{q:"Which method is used to fetch API data?",o:["getData()","fetch()","connect()","callAPI()"],a:1},
-{q:"Pie chart is best for?",o:["Trend","Comparison","Distribution","Ranking"],a:2},
-{q:"Bar chart is useful for?",o:["Comparing categories","Showing flow","Encryption","Authentication"],a:0},
-{q:"Responsive layout is created using?",o:["Grid/Flexbox","SQL","Node only","None"],a:0},
-{q:"JSON stands for?",o:["Java Source Object Notation","JavaScript Object Notation","Joint Script Object","None"],a:1},
-{q:"Real-time dashboards use?",o:["Static data","Live API","Manual entry","None"],a:1},
-{q:"Filtering improves?",o:["User Experience","Hardware","Storage","BIOS"],a:0}
-
+const baseQuestions = [
+["Which chart shows trends over time?","Bar","Pie","Line","Table",2],
+["Which library is used for charts?","Chart.js","MySQL","Node","Linux",0],
+["Dashboard data is fetched using?","API","RAM","BIOS","ROM",0],
+["JSON stands for?","JavaScript Object Notation","Java Source","Joint Script","None",0],
+["Which is best for category comparison?","Bar Chart","Line Chart","Pie Chart","Scatter",0],
+["Which method fetches API data?","fetch()","getData()","open()","connect()",0],
+["Pie chart shows?","Trend","Distribution","Speed","Security",1],
+["Filtering improves?","UX","CPU","RAM","BIOS",0],
+["Responsive layout uses?","Flexbox/Grid","SQL","FTP","None",0],
+["Real-time dashboards use?","Live API","Manual Entry","Static File","BIOS",0]
 ];
 
-/* Duplicate & Expand to 100 Questions */
-
-while(questionBank.length < 100){
-  questionBank.push({
-    q:"Data visualization helps in?",
-    o:["Better decisions","Confusion","Slow performance","Errors"],
-    a:0
+/* Generate 100 */
+for(let i=0;i<10;i++){
+  baseQuestions.forEach(q=>{
+    questionBank.push({
+      question:q[0],
+      options:[q[1],q[2],q[3],q[4]],
+      answer:q[5]
+    });
   });
 }
 
-/* ===== Random 10 ===== */
-
-function getRandomQuestions(){
-  return questionBank.sort(()=>0.5-Math.random()).slice(0,10);
-}
+/* ===== VARIABLES ===== */
 
 let selectedQuestions=[];
 let current=0;
+let answers=[];
 let score=0;
 
+/* ===== START TEST ===== */
+
 function startTest(){
-  selectedQuestions = getRandomQuestions();
+  selectedQuestions = questionBank.sort(()=>0.5-Math.random()).slice(0,10);
   current=0;
+  answers = new Array(10).fill(null);
   score=0;
-  document.getElementById("quizBox").classList.remove("hidden");
-  document.getElementById("resultBox").classList.add("hidden");
+
+  document.getElementById("quizArea").classList.remove("hidden");
+  document.getElementById("resultArea").classList.add("hidden");
+
   showQuestion();
 }
 
+/* ===== SHOW QUESTION ===== */
+
 function showQuestion(){
-  if(current>=selectedQuestions.length){
-    finishTest();
-    return;
-  }
 
   const q = selectedQuestions[current];
-  document.getElementById("question").innerText = q.q;
 
-  const optionsDiv = document.getElementById("options");
-  optionsDiv.innerHTML="";
+  document.getElementById("progressText").innerText =
+    "Question " + (current+1) + " of 10";
 
-  q.o.forEach((opt,index)=>{
-    const btn = document.createElement("div");
-    btn.className="option";
-    btn.innerText=opt;
-    btn.onclick=()=>{
-      if(index===q.a) score++;
-      current++;
-      showQuestion();
+  document.getElementById("questionText").innerText = q.question;
+
+  const box = document.getElementById("optionsBox");
+  box.innerHTML="";
+
+  q.options.forEach((opt,index)=>{
+    const div=document.createElement("div");
+    div.className="option";
+    div.innerText=opt;
+
+    if(answers[current]!==null){
+      if(index===q.answer) div.classList.add("correct");
+      if(index===answers[current] && answers[current]!==q.answer)
+        div.classList.add("wrong");
+    }
+
+    div.onclick=()=>{
+      if(answers[current]===null){
+        answers[current]=index;
+        showQuestion();
+      }
     };
-    optionsDiv.appendChild(btn);
+
+    box.appendChild(div);
   });
 }
 
-function finishTest(){
-  document.getElementById("quizBox").classList.add("hidden");
-  document.getElementById("resultBox").classList.remove("hidden");
+/* ===== NEXT ===== */
 
-  document.getElementById("resultText").innerText =
+function nextQuestion(){
+  if(current<9){
+    current++;
+    showQuestion();
+  }else{
+    finishTest();
+  }
+}
+
+/* ===== PREVIOUS ===== */
+
+function prevQuestion(){
+  if(current>0){
+    current--;
+    showQuestion();
+  }
+}
+
+/* ===== FINISH ===== */
+
+function finishTest(){
+
+  score=0;
+  selectedQuestions.forEach((q,i)=>{
+    if(answers[i]===q.answer) score++;
+  });
+
+  document.getElementById("quizArea").classList.add("hidden");
+  document.getElementById("resultArea").classList.remove("hidden");
+
+  document.getElementById("scoreText").innerText =
     "Your Score: "+score+" / 10";
 
   if(score>=7){
-    document.getElementById("resultText").className="result pass";
-    document.getElementById("certMsg").innerHTML =
-      "🎓 Excellent! You are eligible for Certification.";
+    document.getElementById("certText").innerHTML =
+      "<span class='pass'>🎓 Congratulations! Eligible for Certification.</span>";
   }else{
-    document.getElementById("resultText").className="result fail";
-    document.getElementById("certMsg").innerHTML =
-      "❌ Minimum 7 marks required for Certification.";
+    document.getElementById("certText").innerHTML =
+      "<span class='fail'>❌ Minimum 7 marks required.</span>";
   }
 }
 
