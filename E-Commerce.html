@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>E-Commerce Website Course</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial;
+  margin:0;
+  background:#f4f7fb;
+}
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
+h1,h2{color:#0f172a}
+.card{
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+button{
+  padding:10px 20px;
+  border:none;
+  background:#0ea5e9;
+  color:#fff;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{background:#0284c7}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:8px;
+  background:#e2e8f0;
+  border-radius:5px;
+  cursor:pointer;
+}
+.hidden{display:none}
+.result{
+  font-size:20px;
+  font-weight:bold;
+}
+.pass{color:green}
+.fail{color:red}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🛒 E-Commerce Website Development Course</h1>
+
+<div class="card">
+<h2>Course Overview</h2>
+<p>This course teaches students how to design and develop a complete E-Commerce Website including frontend, backend, authentication, cart system and deployment.</p>
+</div>
+
+<div class="card">
+<h2>Course Objectives</h2>
+<ul>
+<li>Understand Full Stack Development</li>
+<li>Build Responsive UI</li>
+<li>Create Backend APIs</li>
+<li>Implement Authentication</li>
+<li>Manage Database</li>
+<li>Deploy Live Website</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>Course Modules</h2>
+<ul>
+<li>Module 1 – HTML, CSS, JavaScript</li>
+<li>Module 2 – Shopping Cart System</li>
+<li>Module 3 – Backend with Node.js</li>
+<li>Module 4 – Database Integration</li>
+<li>Module 5 – Payment Integration</li>
+<li>Module 6 – Deployment</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>🎯 Objective Assessment</h2>
+<button onclick="startTest()">Start Test</button>
+
+<div id="quizBox" class="hidden">
+  <h3 id="question"></h3>
+  <div id="options"></div>
+</div>
+
+<div id="resultBox" class="hidden">
+  <p class="result" id="resultText"></p>
+  <p id="certMsg"></p>
+</div>
+
+</div>
+</div>
+
+<script>
+
+// 100 Question Bank
+const questionBank = [];
+
+for(let i=1;i<=100;i++){
+  questionBank.push({
+    question: "Q"+i+": What is used in E-Commerce development?",
+    options:["HTML","CSS","JavaScript","All of the above"],
+    answer:3
+  });
+}
+
+// Shuffle and select 10 random
+function getRandomQuestions(){
+  return questionBank.sort(()=>0.5-Math.random()).slice(0,10);
+}
+
+let selectedQuestions=[];
+let current=0;
+let score=0;
+
+function startTest(){
+  selectedQuestions = getRandomQuestions();
+  current=0;
+  score=0;
+  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById("resultBox").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  if(current>=selectedQuestions.length){
+    finishTest();
+    return;
+  }
+
+  const q = selectedQuestions[current];
+  document.getElementById("question").innerText = q.question;
+
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML="";
+
+  q.options.forEach((opt,index)=>{
+    const btn = document.createElement("div");
+    btn.className="option";
+    btn.innerText=opt;
+    btn.onclick=()=>{
+      if(index===q.answer) score++;
+      current++;
+      showQuestion();
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
+
+function finishTest(){
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  document.getElementById("resultText").innerText =
+    "Your Score: "+score+" / 10";
+
+  if(score>=7){
+    document.getElementById("resultText").className="result pass";
+    document.getElementById("certMsg").innerHTML =
+      "🎓 Congratulations! You are eligible for Certification.";
+  }else{
+    document.getElementById("resultText").className="result fail";
+    document.getElementById("certMsg").innerHTML =
+      "❌ You need minimum 7 marks for certification.";
+  }
+}
+
+</script>
+
+</body>
+</html>
